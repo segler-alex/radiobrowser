@@ -1,0 +1,36 @@
+<!doctype html>
+<html ng-app="RadioBrowserApp">
+
+<head>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+
+  <script src="app.js"></script>
+  <script src="main.js"></script>
+</head>
+
+<body ng-controller="MainController">
+  <input ng-model="searchterm">
+  <button class="btn-default" ng-click="doSearch(searchterm)">Search</button>
+  <table class="table">
+    <thead>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Country</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="station in resultList">
+        <td>{{station.id}}</td>
+        <td>{{station.name}}</td>
+        <td>{{station.country}}</td>
+        <td><a href="{{station.url}}">Play</a></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+
+</html>
