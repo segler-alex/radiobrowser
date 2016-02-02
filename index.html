@@ -14,20 +14,20 @@
 </head>
 
 <body ng-controller="MainController">
+  <H1>Community Radio Browser</H1>
   <input ng-model="searchterm">
   <button class="btn-default" ng-click="doSearch(searchterm)">Search</button>
-  <table class="table">
+  <table class="table table-condensed table-hover">
     <thead>
-      <th>ID</th>
       <th>Name</th>
       <th>Country</th>
+      <th></th>
     </thead>
     <tbody>
       <tr ng-repeat="station in resultList">
-        <td>{{station.id}}</td>
-        <td>{{station.name}}</td>
-        <td>{{station.country}}</td>
-        <td><a href="{{station.url}}">Play</a></td>
+        <td><img src="{{station.favicon}}" height="20px"/> {{station.name}}</td>
+        <td>{{station.country}} / {{station.subcountry }}</td>
+        <td><a href="{{station.url}}"><span class="glyphicon glyphicon-play"/></a></td>
       </tr>
     </tbody>
   </table>
