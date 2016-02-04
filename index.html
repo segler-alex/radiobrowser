@@ -8,15 +8,25 @@
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 
   <script src="app.js"></script>
   <script src="main.js"></script>
 </head>
 
+<script type="text/ng-template" id="customTemplate.html">
+  <a>
+      <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span> ({{match.model.country}})
+  </a>
+</script>
+
 <body ng-controller="MainController">
   <H1>Community Radio Browser</H1>
-  <input ng-model="searchterm">
-  <button class="btn-default" ng-click="doSearch(searchterm)">Search</button>
+  <form>
+    <input ng-model="searchterm">
+    <button class="btn btn-default" ng-click="doSearch(searchterm)">Search</button>
+  </form>
+
   <table class="table table-condensed table-hover">
     <thead>
       <th>Name</th>
@@ -25,12 +35,34 @@
     </thead>
     <tbody>
       <tr ng-repeat="station in resultList">
-        <td><img src="{{station.favicon}}" height="20px"/> {{station.name}}</td>
+        <td><img src="{{station.favicon}}" height="20px" /> {{station.name}}</td>
         <td>{{station.country}} / {{station.subcountry }}</td>
-        <td><a href="{{station.url}}"><span class="glyphicon glyphicon-play"/></a></td>
+        <td>
+          <a href="{{station.url}}"><span class="glyphicon glyphicon-play" /></a>
+        </td>
       </tr>
     </tbody>
   </table>
+  <uib-pagination ng-show="bigTotalItems > 0" total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="5" class="pagination-sm" boundary-links="true" num-pages="numPages" items-per-page="itemsPerPage" force-ellipses="true" ng-change="updateList()"></uib-pagination>
+  <H2>New</H2>
+  <form>
+    <div class="form-group">
+      <label for="StationName">Name</label>
+      <input type="text" class="form-control" id="StationName" placeholder="Name..">
+    </div>
+    <div class="form-group">
+      <label for="StationCountry">Country</label>
+      <input type="text" class="form-control" id="StationCountry" placeholder="Country.." ng-model="StationCountry" uib-typeahead="country for country in getCountries($viewValue)">
+    </div>
+    <div class="form-group">
+      <label for="StationState">State</label>
+      <input type="text" class="form-control" id="StationState" placeholder="State.." ng-model="StationState" uib-typeahead="state.value for state in getStates($viewValue)" typeahead-template-url="customTemplate.html">
+    </div>
+    <div class="form-group">
+      <label for="StationLanguage">Language</label>
+      <input type="text" class="form-control" id="StationLanguage" placeholder="Language.." ng-model="StationLanguage" uib-typeahead="language for language in getLanguages($viewValue)">
+    </div>
+  </form>
 </body>
 
 </html>

@@ -1,1 +1,1 @@
-angular.module('RadioBrowserApp', []);
+angular.module('RadioBrowserApp', ["ui.bootstrap"]);

@@ -1,10 +1,45 @@
 var app = angular.module('RadioBrowserApp');
 app.controller('MainController', function($scope, $http) {
-  $scope.doSearch = function(term){
-    $http.get('http://www.radio-browser.info/webservice/json/stations/'+term).then(function(data){
-      $scope.resultList = data.data;
-    },function(err){
-      console.log("error:"+err);
+  $scope.bigTotalItems = 0;
+  $scope.bigCurrentPage = 1;
+  $scope.itemsPerPage = 10;
+
+  $scope.doSearch = function(term) {
+    $http.get('http://www.radio-browser.info/webservice/json/stations/' + term).then(function(data) {
+      $scope.resultListFull = data.data;
+      $scope.bigCurrentPage = 1;
+      $scope.bigTotalItems = data.data.length;
+      $scope.updateList();
+    }, function(err) {
+      console.log("error:" + err);
     });
+  };
+
+  $scope.updateList = function(){
+    $scope.resultList = $scope.resultListFull.slice(($scope.bigCurrentPage-1) * $scope.itemsPerPage, ($scope.bigCurrentPage) * $scope.itemsPerPage);
   }
+
+  $scope.getCountries = function(term) {
+    return $http.get('http://www.radio-browser.info/webservice/json/countries/' + term, {}).then(function(response) {
+      var items = response.data.map(function(item) {
+        return item.value;
+      });
+      return items.slice(0, 5);
+    });
+  };
+
+  $scope.getStates = function(term) {
+    return $http.get('http://www.radio-browser.info/webservice/json/states/' + term, {}).then(function(response) {
+      return response.data.slice(0, 5);
+    });
+  };
+
+  $scope.getLanguages = function(term) {
+    return $http.get('http://www.radio-browser.info/webservice/json/languages/' + term, {}).then(function(response) {
+      var items = response.data.map(function(item) {
+        return item.value;
+      });
+      return items.slice(0, 5);
+    });
+  };
 });
