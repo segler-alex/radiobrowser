@@ -1,8 +1,33 @@
 var app = angular.module('RadioBrowserApp');
-app.controller('MainController', function($scope, $http) {
+app.controller('MainController', function($scope, $http, $sce) {
   $scope.bigTotalItems = 0;
   $scope.bigCurrentPage = 1;
   $scope.itemsPerPage = 10;
+  var audio = null;
+
+  $scope.play = function(id) {
+    // decode playlist
+    var decodeUrl = "http://www.radio-browser.info/webservice/json/url/" + id;
+    $http.get(decodeUrl).then(function(data) {
+      if (data.data.length > 0){
+        PlayAudioStream(data.data[0].url);
+      }
+    }, function(err) {
+      console.log("error:" + err);
+      alert("could not find station");
+    });
+  }
+
+  function PlayAudioStream(url) {
+    // do play audio
+    if (audio !== null) {
+      audio.src = url;
+      audio.play();
+    } else {
+      audio = new Audio(url);
+      audio.play();
+    }
+  }
 
   $scope.doSearch = function(term) {
     $http.get('http://www.radio-browser.info/webservice/json/stations/' + term).then(function(data) {
@@ -15,8 +40,8 @@ app.controller('MainController', function($scope, $http) {
     });
   };
 
-  $scope.updateList = function(){
-    $scope.resultList = $scope.resultListFull.slice(($scope.bigCurrentPage-1) * $scope.itemsPerPage, ($scope.bigCurrentPage) * $scope.itemsPerPage);
+  $scope.updateList = function() {
+    $scope.resultList = $scope.resultListFull.slice(($scope.bigCurrentPage - 1) * $scope.itemsPerPage, ($scope.bigCurrentPage) * $scope.itemsPerPage);
   }
 
   $scope.getCountries = function(term) {

@@ -9,6 +9,7 @@
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="https://raw.github.com/nickdesaulniers/javascript-playlist-parser/master/lib/parser.min.js"></script>
 
   <script src="app.js"></script>
   <script src="main.js"></script>
@@ -16,12 +17,14 @@
 
 <script type="text/ng-template" id="customTemplate.html">
   <a>
-      <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span> ({{match.model.country}})
+    <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span> ({{match.model.country}})
   </a>
 </script>
 
 <body ng-controller="MainController">
-  <H1>Community Radio Browser</H1>
+  <div class="page-header">
+    <H1>Community Radio Browser</H1>
+  </div>
   <form>
     <input ng-model="searchterm">
     <button class="btn btn-default" ng-click="doSearch(searchterm)">Search</button>
@@ -39,11 +42,13 @@
         <td>{{station.country}} / {{station.subcountry }}</td>
         <td>
           <a href="{{station.url}}"><span class="glyphicon glyphicon-play" /></a>
+          <button ng-click="play(station.id)">abc</button>
         </td>
       </tr>
     </tbody>
   </table>
   <uib-pagination ng-show="bigTotalItems > 0" total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="5" class="pagination-sm" boundary-links="true" num-pages="numPages" items-per-page="itemsPerPage" force-ellipses="true" ng-change="updateList()"></uib-pagination>
+
   <H2>New</H2>
   <form>
     <div class="form-group">

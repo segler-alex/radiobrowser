@@ -16,6 +16,6 @@
   "dependencies": {
     "angular": "~1.4.8",
     "bootstrap": "~3.3.6",
-    "angular-bootstrap": "~1.1.2"
+    "angular-bootstrap": "~1.1.2",
   }
 }
