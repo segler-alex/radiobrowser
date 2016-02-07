@@ -5,6 +5,28 @@ app.controller('MainController', function($scope, $http, $sce) {
   $scope.itemsPerPage = 10;
   var audio = null;
 
+  $scope.displayTopClick = function(){
+    $http.get('http://www.radio-browser.info/webservice/json/stations/topclick/100').then(function(data) {
+      $scope.resultListFull = data.data;
+      $scope.bigCurrentPage = 1;
+      $scope.bigTotalItems = data.data.length;
+      $scope.updateList();
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
+
+  $scope.displayTopVote = function(){
+    $http.get('http://www.radio-browser.info/webservice/json/stations/topvote/100').then(function(data) {
+      $scope.resultListFull = data.data;
+      $scope.bigCurrentPage = 1;
+      $scope.bigTotalItems = data.data.length;
+      $scope.updateList();
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
+
   $scope.play = function(id) {
     // decode playlist
     var decodeUrl = "http://www.radio-browser.info/webservice/json/url/" + id;
