@@ -4,6 +4,7 @@
 <head>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="css/main.css">
 
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -37,6 +38,7 @@
       <li role="presentation"><a href="#topclick" aria-controls="topclick" role="tab" data-toggle="tab" ng-click="displayTopClick()">Topclick</a></li>
       <li role="presentation"><a href="#topvote" aria-controls="topvote" role="tab" data-toggle="tab" ng-click="displayTopVote()">Topvote</a></li>
       <li role="presentation"><a href="#newstation" aria-controls="newstation" role="tab" data-toggle="tab">New station</a></li>
+      <li role="presentation"><a href="#api" aria-controls="api" role="tab" data-toggle="tab">Developer API</a></li>
     </ul>
 
     <!-- Tab panes -->
@@ -99,21 +101,177 @@
           </div>
         </form>
       </div>
+      <div role="tabpanel" class="tab-pane" id="api">
+        <div style="width:800px">
+          <h2>General</h2> This webservice can be used freely but without guarantee to work. I am keeping it only since more than 2 years now. But downtimes are possible and i am not always home to fix it :) Please do not hesitate to send me ideas to improve the service!
+          <a href="segler_alex@web.de">segler_alex AT web DOT de</a>
+
+          <h2>List of countries</h2>
+          <div class="header_sub">Syntax:</div>
+          <div class="syntax"> http://www.radio-browser.info/webservice/json/countries
+            <br /> http://www.radio-browser.info/webservice/json/countries/&lt;filter&gt;
+            <br />
+          </div>
+          <div class="header_sub">Description:</div>
+          Will get a JSON encoded list of all countries in the database. If a filter is given, it will only only return the ones that contain the filter as substring.
+          <br />
+          <div class="header_sub">Example:</div>
+          <div> <a href="http://www.radio-browser.info/webservice/json/countries" target="_blank">http://www.radio-browser.info/webservice/json/countries</a></div>
+
+          <h2>List of states</h2>
+          <div class="header_sub">Syntax:</div>
+          <div class="syntax"> http://www.radio-browser.info/webservice/json/states
+            <br /> http://www.radio-browser.info/webservice/json/states/&lt;filter&gt;
+            <br /> http://www.radio-browser.info/webservice/json/states/&lt;country&gt;/&lt;filter&gt;
+            <br />
+          </div>
+          <div class="header_sub">Description:</div>
+          Will get a JSON encoded list of all states in the database. Countries are divided into states. If a filter is given, it will only only return the ones that contain the filter as substring. If a country is given, it will only display states in this country.
+          <br />
+          <div class="header_sub">Example:</div>
+          <div> <a href="http://www.radio-browser.info/webservice/json/states" target="_blank">http://www.radio-browser.info/webservice/json/states</a></div>
+          <div> <a href="http://www.radio-browser.info/webservice/json/states/ber" target="_blank">http://www.radio-browser.info/webservice/json/states/ber</a></div>
+          <div> <a href="http://www.radio-browser.info/webservice/json/states/Germany/ber" target="_blank">http://www.radio-browser.info/webservice/json/states/Germany/ber</a></div>
+
+          <h2>List of languages</h2>
+          <div class="header_sub">Syntax:</div>
+          <div class="syntax">
+            http://www.radio-browser.info/webservice/json/languages
+            <br /> http://www.radio-browser.info/webservice/json/languages/&lt;filter&gt;
+            <br />
+          </div>
+          <div class="header_sub">Description:</div>
+          Will get a JSON encoded list of all languages in the database. If a filter is given, it will only only return the ones that contain the filter as substring.
+          <br />
+          <div class="header_sub">Example:</div>
+          <div> <a href="http://www.radio-browser.info/webservice/json/languages" target="_blank">http://www.radio-browser.info/webservice/json/languages</a></div>
+
+          <h2>List of tags</h2>
+          <div class="header_sub">Syntax:</div>
+          <div class="syntax"> http://www.radio-browser.info/webservice/json/tags
+            <br /> http://www.radio-browser.info/webservice/json/tags/&lt;filter&gt;
+            <br />
+          </div>
+          <div class="header_sub">Description:</div>
+          Will get a JSON encoded list of all tags in the database. If a filter is given, it will only only return the ones that contain the filter as substring.
+          <br />
+          <div class="header_sub">Example:</div>
+          <div> <a href="http://www.radio-browser.info/webservice/json/tags" target="_blank">http://www.radio-browser.info/webservice/json/tags</a></div>
+
+          <h2>List of radio stations</h2>
+          <div class="header_sub">Syntax:</div>
+          http://www.radio-browser.info/webservice/xml/stations
+          <br /> http://www.radio-browser.info/webservice/xml/stations/searchterm
+          <br /> http://www.radio-browser.info/webservice/xml/stations/byid/searchterm
+          <br /> http://www.radio-browser.info/webservice/xml/stations/bycountry/searchterm
+          <br /> http://www.radio-browser.info/webservice/xml/stations/bylanguage/searchterm
+          <br /> http://www.radio-browser.info/webservice/xml/stations/bytag/searchterm
+          <br />
+          <br/> http://www.radio-browser.info/webservice/json/stations
+          <br /> http://www.radio-browser.info/webservice/json/stations/searchterm
+          <br /> http://www.radio-browser.info/webservice/json/stations/byid/searchterm
+          <br /> http://www.radio-browser.info/webservice/json/stations/bycountry/searchterm
+          <br /> http://www.radio-browser.info/webservice/json/stations/bylanguage/searchterm
+          <br /> http://www.radio-browser.info/webservice/json/stations/bytag/searchterm
+          <br />
+          <div class="header_sub">Description:</div>
+          Will get a list of all radio stations. It is possible to add a search term to only get stations that have the term in their names.
+          <br /> It is also possible to select stations based on their country, language, tags or id.
+          <br/> Supported output formats: json,xml
+          <br/>
+          <div class="header_sub">Example:</div>
+          <div><a href="http://www.radio-browser.info/webservice/xml/stations" target="_blank">http://www.radio-browser.info/webservice/xml/stations</a></div>
+          <div><a href="http://www.radio-browser.info/webservice/json/stations/jazz" target="_blank">http://www.radio-browser.info/webservice/json/stations/jazz</a></div>
+          <div><a href="http://www.radio-browser.info/webservice/xml/stations/bycountry/austria" target="_blank">http://www.radio-browser.info/webservice/xml/stations/bycountry/austria</a></div>
+
+          <h2>Stations by clicks</h2>
+          <div class="header_sub">Syntax:</div>
+          http://www.radio-browser.info/webservice/xml/stations/topclick
+          <br /> http://www.radio-browser.info/webservice/xml/stations/topclick/rowcount
+          <br /> http://www.radio-browser.info/webservice/json/stations/topclick
+          <br /> http://www.radio-browser.info/webservice/json/stations/topclick/rowcount
+          <br />
+          <div class="header_sub">Description:</div>
+          Returns a list of the stations that are clicked the most. You can add a parameter with the number of wanted stations. Supported output formats: json,xml
+          <br/>
+          <div class="header_sub">Example:</div>
+          <div><a href="http://www.radio-browser.info/webservice/xml/stations/topclick" target="_blank">http://www.radio-browser.info/webservice/xml/stations/topclick</a></div>
+          <div><a href="http://www.radio-browser.info/webservice/json/stations/topclick/5" target="_blank">http://www.radio-browser.info/webservice/json/stations/topclick/5</a></div>
+
+          <h2>Stations by votes</h2>
+          <div class="header_sub">Syntax:</div>
+          http://www.radio-browser.info/webservice/xml/stations/topvote
+          <br /> http://www.radio-browser.info/webservice/xml/stations/topvote/rowcount
+          <br /> http://www.radio-browser.info/webservice/json/stations/topvote
+          <br /> http://www.radio-browser.info/webservice/json/stations/topvote/rowcount
+          <br />
+          <div class="header_sub">Description:</div>
+          Returns a list of the highest voted stations. You can add a parameter with the number of wanted stations. Supported output formats: json,xml
+          <br/>
+          <div class="header_sub">Example:</div>
+          <div><a href="http://www.radio-browser.info/webservice/xml/stations/topvote" target="_blank">http://www.radio-browser.info/webservice/xml/stations/topvote</a></div>
+          <div><a href="http://www.radio-browser.info/webservice/json/stations/topvote/5" target="_blank">http://www.radio-browser.info/webservice/json/stations/topvote/5</a></div>
+
+          <h2>Stations that got clicked recently</h2>
+          <div class="header_sub">Syntax:</div>
+          http://www.radio-browser.info/webservice/xml/stations/lastclick
+          <br /> http://www.radio-browser.info/webservice/xml/stations/lastclick/rowcount
+          <br /> http://www.radio-browser.info/webservice/json/stations/lastclick
+          <br /> http://www.radio-browser.info/webservice/json/stations/lastclick/rowcount
+          <br />
+          <div class="header_sub">Description:</div>
+          Returns a list of stations that got clicked recently. Supported output formats: json,xml
+          <br/>
+          <div class="header_sub">Example:</div>
+          <div><a href="http://www.radio-browser.info/webservice/xml/stations/lastclick" target="_blank">http://www.radio-browser.info/webservice/xml/stations/lastclick</a></div>
+          <div><a href="http://www.radio-browser.info/webservice/json/stations/lastclick/5" target="_blank">http://www.radio-browser.info/webservice/json/stations/lastclick/5</a></div>
+
+          <h2>Playable station url</h2>
+          <div class="header_sub">Syntax:</div>
+          http://www.radio-browser.info/webservice/xml/url/stationid
+          <br /> http://www.radio-browser.info/webservice/json/url/stationid
+          <br /> http://www.radio-browser.info/webservice/pls/url/stationid
+          <br />
+          <div class="header_sub">Description:</div>
+          Returns the playable url for the station. Does return 404 code if the playlist on the remote server could not be retrieved. In this case the station is not working any more and needs to get updated. Supported output formats: json,xml,pls (playlist)
+          <br/>
+          <div class="header_sub">Example:</div>
+          <div><a href="http://www.radio-browser.info/webservice/xml/url/123" target="_blank">http://www.radio-browser.info/webservice/xml/url/123</a></div>
+          <div><a href="http://www.radio-browser.info/webservice/json/url/123" target="_blank">http://www.radio-browser.info/webservice/json/url/123</a></div>
+          <div><a href="http://www.radio-browser.info/webservice/pls/url/123" target="_blank">http://www.radio-browser.info/webservice/pls/url/123</a></div>
+
+          <h2>Server stats</h2>
+          <div class="header_sub">Syntax:</div>
+          http://www.radio-browser.info/webservice/xml/stats
+          <br /> http://www.radio-browser.info/webservice/json/stats
+          <br />
+          <div class="header_sub">Description:</div>
+          Webservice stats. Supported output formats: json,xml
+          <br/>
+          <div class="header_sub">Example:</div>
+          <a href="http://www.radio-browser.info/webservice/xml/stats" target="_blank">http://www.radio-browser.info/webservice/xml/stats</a>
+          <br/>
+        </div>
+      </div>
     </div>
 
     <table class="table table-condensed table-hover" ng-show="bigTotalItems > 0">
       <thead>
+        <th width="10"></th>
+        <th width="10"><span class="glyphicon glyphicon-thumbs-up" /></th>
         <th>Name</th>
         <th>Country</th>
         <th></th>
       </thead>
       <tbody>
         <tr ng-repeat="station in resultList">
-          <td><img src="{{station.favicon}}" height="20px" /> {{station.name}}</td>
+          <td align="right"><img src="{{station.favicon}}" height="20px" /></td>
+          <td>{{station.votes}}</td>
+          <td>{{station.name}}</td>
           <td>{{station.country}} / {{station.subcountry }}</td>
           <td>
-            <a href="{{station.url}}"><span class="glyphicon glyphicon-play" /></a>
-            <button ng-click="play(station.id)">abc</button>
+            <button class="btn btn-link btn-xs" ng-click="play(station.id)"><span class="glyphicon glyphicon-play" /></button>
+            <a href="{{station.homepage}}" ng-show="station.homepage"><span class="btn btn-link btn-xs glyphicon glyphicon-home" /></a>
           </td>
         </tr>
       </tbody>
