@@ -5,7 +5,14 @@ app.controller('MainController', function($scope, $http, $sce) {
   $scope.itemsPerPage = 10;
   var audio = null;
 
-  $scope.displayTopClick = function(){
+  $scope.clearList = function() {
+    $scope.resultListFull = [];
+    $scope.bigCurrentPage = 1;
+    $scope.bigTotalItems = 0;
+    $scope.updateList();
+  }
+
+  $scope.displayTopClick = function() {
     $http.get('http://www.radio-browser.info/webservice/json/stations/topclick/100').then(function(data) {
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
@@ -16,7 +23,7 @@ app.controller('MainController', function($scope, $http, $sce) {
     });
   }
 
-  $scope.displayTopVote = function(){
+  $scope.displayTopVote = function() {
     $http.get('http://www.radio-browser.info/webservice/json/stations/topvote/100').then(function(data) {
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
@@ -31,7 +38,7 @@ app.controller('MainController', function($scope, $http, $sce) {
     // decode playlist
     var decodeUrl = "http://www.radio-browser.info/webservice/json/url/" + id;
     $http.get(decodeUrl).then(function(data) {
-      if (data.data.length > 0){
+      if (data.data.length > 0) {
         PlayAudioStream(data.data[0].url);
       }
     }, function(err) {
