@@ -83,7 +83,7 @@
       <div role="tabpanel" class="tab-pane" id="topvote"></div>
       <div role="tabpanel" class="tab-pane" id="countries">
         <div class="container-fluid">
-          <div ng-show="countryList" class="col-xs-3" ng-repeat="country in countryList">
+          <div ng-show="countryList" class="col-md-3" ng-repeat="country in countryList">
             <button class="btn btn-xs btn-link" ng-click="displayByCountry(country.value)">{{country.value}} ({{country.stationcount}})</button>
           </div>
         </div>
