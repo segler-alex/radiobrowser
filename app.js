@@ -1,1 +1,1 @@
-angular.module('RadioBrowserApp', ["ui.bootstrap"]);
+angular.module('RadioBrowserApp', ["ui.bootstrap","ui.bootstrap-slider"]);

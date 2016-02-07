@@ -5,6 +5,7 @@ app.controller('MainController', function($scope, $http, $sce) {
   $scope.itemsPerPage = 10;
   $scope.countryList = [];
   $scope.playerItem = null;
+  $scope.audioVolume = 1;
   var audio = null;
 
   $scope.clearList = function() {
@@ -62,7 +63,8 @@ app.controller('MainController', function($scope, $http, $sce) {
     var decodeUrl = "http://www.radio-browser.info/webservice/json/url/" + id;
     $http.get(decodeUrl).then(function(data) {
       if (data.data.length > 0) {
-        $scope.playerItem = data.data[0];
+        var station = data.data[0];
+        $scope.playerItem = station;
         PlayAudioStream(data.data[0].url);
       }
     }, function(err) {
@@ -78,7 +80,25 @@ app.controller('MainController', function($scope, $http, $sce) {
       audio.play();
     } else {
       audio = new Audio(url);
+      audio.volume = 1;
+      audio.onplay = function() {
+        console.log("play ok");
+      };
+      audio.onerror = function() {
+        console.log("error on play");
+        $scope.$apply(function() {
+          $scope.playerItem = null;
+          audio.pause();
+        });
+        alert("browser is not able to play station. please try with external player.");
+      };
       audio.play();
+    }
+  }
+
+  $scope.setVolume = function(volume) {
+    if (audio) {
+      audio.volume = volume;
     }
   }
 

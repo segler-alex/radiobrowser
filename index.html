@@ -4,6 +4,7 @@
 <head>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css">
   <link rel="stylesheet" href="css/main.css">
 
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -11,6 +12,8 @@
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
   <script src="https://raw.github.com/nickdesaulniers/javascript-playlist-parser/master/lib/parser.min.js"></script>
+  <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.js"></script>
+  <script src="bower_components/angular-bootstrap-slider/slider.js"></script>
 
   <script src="app.js"></script>
   <script src="main.js"></script>
@@ -301,8 +304,14 @@
     <uib-pagination ng-show="bigTotalItems > 0" total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="5" class="pagination-sm" boundary-links="true" num-pages="numPages" items-per-page="itemsPerPage" force-ellipses="true" ng-change="updateList()"></uib-pagination>
   </div>
 
-  <div class="player bg-success" ng-class="{'player-active':playerItem}">
-    {{playerItem.name}} <button class="btn btn-xs btn-link" ng-click="stopAudio()"><span class="glyphicon glyphicon-stop"/></button>
+  <div class="player bg-success container-fluid" ng-class="{'player-active':playerItem}">
+    <div class="col-md-12"><u>Player active</u></div>
+    <div class="col-md-8">{{playerItem.name}}</div>
+    <div class="col-md-1"></div>
+    <div class="col-md-1"><button class="btn btn-xs btn-link" ng-click="stopAudio()"><span class="glyphicon glyphicon-stop"/></button></div>
+    <div class="col-md-2 volumeslider">
+      <slider ng-model="audioVolume" min="0" step="0.02" max="1" value="audioVolume" on-stop-slide="setVolume(audioVolume)"></slider>
+    </div>
   </div>
 </body>
 

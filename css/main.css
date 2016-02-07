@@ -12,12 +12,16 @@ body {
   border-radius: 5px;
   border: black solid 1px;
   position:fixed;
-  bottom: -50px;
-  height: 50px;
-  width:400px;
+  bottom: -80px;
+  height: 80px;
+  width:80%;
+  max-width: 600px;
   transition: bottom 1s ease-in-out;
 }
 
 .player-active{
   bottom: -10px;
+}
+
+.volumeslider{
 }
