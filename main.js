@@ -4,6 +4,7 @@ app.controller('MainController', function($scope, $http, $sce) {
   $scope.bigCurrentPage = 1;
   $scope.itemsPerPage = 10;
   $scope.countryList = [];
+  $scope.playerItem = null;
   var audio = null;
 
   $scope.clearList = function() {
@@ -23,7 +24,7 @@ app.controller('MainController', function($scope, $http, $sce) {
   }
 
   $scope.displayByCountry = function(country) {
-    $http.get('http://www.radio-browser.info/webservice/json/stations/bycountry/'+country).then(function(data) {
+    $http.get('http://www.radio-browser.info/webservice/json/stations/bycountry/' + country).then(function(data) {
       $scope.countryList = [];
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
@@ -61,6 +62,7 @@ app.controller('MainController', function($scope, $http, $sce) {
     var decodeUrl = "http://www.radio-browser.info/webservice/json/url/" + id;
     $http.get(decodeUrl).then(function(data) {
       if (data.data.length > 0) {
+        $scope.playerItem = data.data[0];
         PlayAudioStream(data.data[0].url);
       }
     }, function(err) {
@@ -77,6 +79,13 @@ app.controller('MainController', function($scope, $http, $sce) {
     } else {
       audio = new Audio(url);
       audio.play();
+    }
+  }
+
+  $scope.stopAudio = function() {
+    if (audio) {
+      $scope.playerItem = null;
+      audio.pause();
     }
   }
 
