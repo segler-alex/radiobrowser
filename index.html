@@ -35,8 +35,9 @@
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" ng-click="clearList()">Home</a></li>
       <li role="presentation"><a href="#search" aria-controls="search" role="tab" data-toggle="tab" ng-click="clearList()">Search</a></li>
-      <li role="presentation"><a href="#topclick" aria-controls="topclick" role="tab" data-toggle="tab" ng-click="displayTopClick()">Topclick</a></li>
-      <li role="presentation"><a href="#topvote" aria-controls="topvote" role="tab" data-toggle="tab" ng-click="displayTopVote()">Topvote</a></li>
+      <li role="presentation"><a href="#topclick" aria-controls="topclick" role="tab" data-toggle="tab" ng-click="displayTopClick()">By clicks</a></li>
+      <li role="presentation"><a href="#topvote" aria-controls="topvote" role="tab" data-toggle="tab" ng-click="displayTopVote()">By vote</a></li>
+      <li role="presentation"><a href="#countries" aria-controls="countries" role="tab" data-toggle="tab" ng-click="displayCountries()">By country</a></li>
       <li role="presentation"><a href="#newstation" aria-controls="newstation" role="tab" data-toggle="tab" ng-click="clearList()">New station</a></li>
       <li role="presentation"><a href="#api" aria-controls="api" role="tab" data-toggle="tab" ng-click="clearList()">Developer API</a></li>
     </ul>
@@ -80,6 +81,13 @@
       </div>
       <div role="tabpanel" class="tab-pane" id="topclick"></div>
       <div role="tabpanel" class="tab-pane" id="topvote"></div>
+      <div role="tabpanel" class="tab-pane" id="countries">
+        <div class="container-fluid">
+          <div ng-show="countryList" class="col-xs-3" ng-repeat="country in countryList">
+            <button class="btn btn-xs btn-link" ng-click="displayByCountry(country.value)">{{country.value}} ({{country.stationcount}})</button>
+          </div>
+        </div>
+      </div>
       <div role="tabpanel" class="tab-pane" id="newstation">
         <div style="width:400px">
           <H2>New</H2>
