@@ -26,62 +26,66 @@
 </script>
 
 <body ng-controller="MainController">
-  <a href="https://github.com/segler-alex/radiobrowser"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"
-    alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
-
-  <div class="page-header">
+  <!-- <div class="page-header">
     <H1>Community Radio Browser</H1>
-  </div>
+  </div> -->
 
   <div>
     <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" ng-click="clearList()">Home</a></li>
-      <li role="presentation"><a href="#search" aria-controls="search" role="tab" data-toggle="tab" ng-click="clearList()">Search</a></li>
-      <li role="presentation"><a href="#topclick" aria-controls="topclick" role="tab" data-toggle="tab" ng-click="displayTopClick()">By clicks</a></li>
-      <li role="presentation"><a href="#topvote" aria-controls="topvote" role="tab" data-toggle="tab" ng-click="displayTopVote()">By vote</a></li>
-      <li role="presentation"><a href="#countries" aria-controls="countries" role="tab" data-toggle="tab" ng-click="displayCountries()">By country</a></li>
-      <li role="presentation"><a href="#newstation" aria-controls="newstation" role="tab" data-toggle="tab" ng-click="clearList()">New station</a></li>
-      <li role="presentation"><a href="#api" aria-controls="api" role="tab" data-toggle="tab" ng-click="clearList()">Developer API</a></li>
-    </ul>
+    <nav class="navbar navbar-default">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Community Radio Browser</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <!-- <ul class="nav nav-tabs" role="tablist"> -->
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" ng-click="clearList()">Home</a></li>
+        <li role="presentation"><a href="#topclick" aria-controls="topclick" role="tab" data-toggle="tab" ng-click="displayTopClick()">By clicks</a></li>
+        <li role="presentation"><a href="#topvote" aria-controls="topvote" role="tab" data-toggle="tab" ng-click="displayTopVote()">By vote</a></li>
+        <li role="presentation"><a href="#countries" aria-controls="countries" role="tab" data-toggle="tab" ng-click="displayCountries()">By country</a></li>
+        <li role="presentation"><a href="#newstation" aria-controls="newstation" role="tab" data-toggle="tab" ng-click="clearList()">New station</a></li>
+        <li role="presentation"><a href="#api" aria-controls="api" role="tab" data-toggle="tab" ng-click="clearList()">Developer API</a></li>
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" ng-model="searchterm">
+          </div>
+          <button type="submit" class="btn btn-default" ng-click="doSearch(searchterm)"><span class="glyphicon glyphicon-ok" /></button>
+        </form>
+      </ul>
+    </nav>
 
     <!-- Tab panes -->
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="home">
-        <p>This is a community approach to collect as many internet radio stations as possible. Any help is appreciated!</p>
-        <p>Station count at the moment: <b><?=$station_count?></b>
-          <br/> Station clicks last hour: <b><?=$station_clicks_hour?></b>
-        </p>
-        <p>Everyone can use this station board in their software freely. Just have a look at the API documentation.</p>
-        <p>To play the stations you need some media player software like:
-          <br/>
-          <ul>
-            <li><a href="http://www.winamp.com/">Winamp</a> (Windows)</li>
-            <li><a href="http://videolan.org">VLC</a> (Windows, Linux)</li>
-            <li>many many more....</li>
-            <li>yes maybe windows media player works too :)</li>
-          </ul>
-        </p>
-        <p>It is used by the following projects:
-          <ul>
-            <li><a href="http://www.programmierecke.net/programmed/rhythmbox-radio-browser.html">Rhythmbox-Radio-Browser</a> - A plugin for <a href="http://projects.gnome.org/rhythmbox/">rhythmbox</a></li>
-            <li><a href="https://github.com/fossfreedom/radio-browser">Rhythmbox-Radio-Browser Fork for GTK 3.0</a></li>
-            <li><a href="https://play.google.com/store/apps/details?id=net.programmierecke.radiodroid">RadioDroid for android systems</a> - <a href="https://github.com/segler-alex/RadioDroid">Source on GitHub</a></li>
-            <li><a href="http://www.dream-multimedia-tv.de/board/index.php?page=Thread&threadID=16645">DreamBox Plugin</a></li>
-          </ul>
-        </p>
-        <p><u>Legal:</u>
-          <br/> I'm not in any way responsible for the entries on this webpage because this is a community driven effort (like wikipedia for example). Nor am I responsible for the radio stations that can be found here themselves.
-        </p>
-        <p>Admin: <a href="mailto:segler_alex@web.de">Mail</a></p>
+        <div ng-show="bigTotalItems == 0">
+          <p>This is a community approach to collect as many internet radio stations as possible. Any help is appreciated!</p>
+          <p>Station count at the moment: <b><?=$station_count?></b>
+            <br/> Station clicks last hour: <b><?=$station_clicks_hour?></b>
+          </p>
+          <p>Everyone can use this station board in their software freely. Just have a look at the API documentation.</p>
+          <p>To play the stations you need some media player software like:
+            <br/>
+            <ul>
+              <li><a href="http://www.winamp.com/">Winamp</a> (Windows)</li>
+              <li><a href="http://videolan.org">VLC</a> (Windows, Linux)</li>
+              <li>many many more....</li>
+              <li>yes maybe windows media player works too :)</li>
+            </ul>
+          </p>
+          <p>It is used by the following projects:
+            <ul>
+              <li><a href="http://www.programmierecke.net/programmed/rhythmbox-radio-browser.html">Rhythmbox-Radio-Browser</a> - A plugin for <a href="http://projects.gnome.org/rhythmbox/">rhythmbox</a></li>
+              <li><a href="https://github.com/fossfreedom/radio-browser">Rhythmbox-Radio-Browser Fork for GTK 3.0</a></li>
+              <li><a href="https://play.google.com/store/apps/details?id=net.programmierecke.radiodroid">RadioDroid for android systems</a> - <a href="https://github.com/segler-alex/RadioDroid">Source on GitHub</a></li>
+              <li><a href="http://www.dream-multimedia-tv.de/board/index.php?page=Thread&threadID=16645">DreamBox Plugin</a></li>
+            </ul>
+          </p>
+          <p><u>Legal:</u>
+            <br/> I'm not in any way responsible for the entries on this webpage because this is a community driven effort (like wikipedia for example). Nor am I responsible for the radio stations that can be found here themselves.
+          </p>
+          <p>Admin: <a href="mailto:segler_alex@web.de">Mail</a></p>
+        </div>
       </div>
 
-      <div role="tabpanel" class="tab-pane" id="search">
-        <form>
-          <input ng-model="searchterm">
-          <button class="btn btn-default" ng-click="doSearch(searchterm)">Search</button>
-        </form>
-      </div>
       <div role="tabpanel" class="tab-pane" id="topclick"></div>
       <div role="tabpanel" class="tab-pane" id="topvote"></div>
       <div role="tabpanel" class="tab-pane" id="countries">
@@ -290,7 +294,7 @@
       </thead>
       <tbody>
         <tr ng-repeat="station in resultList">
-          <td align="right"><img src="{{station.favicon}}" height="20px" ng-show="station.favicon"/></td>
+          <td align="right"><img src="{{station.favicon}}" height="20px" ng-show="station.favicon" /></td>
           <td>{{station.votes}}</td>
           <td>{{station.name}}</td>
           <td>{{station.country}} <span ng-show="station.subcountry">/ {{station.subcountry }}</span></td>
@@ -301,18 +305,24 @@
         </tr>
       </tbody>
     </table>
+    <center>
     <uib-pagination ng-show="bigTotalItems > 0" total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="5" class="pagination-sm" boundary-links="true" num-pages="numPages" items-per-page="itemsPerPage" force-ellipses="true" ng-change="updateList()"></uib-pagination>
+  </center>
   </div>
 
   <div class="player bg-success container-fluid" ng-class="{'player-active':playerItem}">
     <div class="col-md-12"><u>Player active</u></div>
     <div class="col-md-8">{{playerItem.name}}</div>
     <div class="col-md-1"></div>
-    <div class="col-md-1"><button class="btn btn-xs btn-link" ng-click="stopAudio()"><span class="glyphicon glyphicon-stop"/></button></div>
+    <div class="col-md-1">
+      <button class="btn btn-xs btn-link" ng-click="stopAudio()"><span class="glyphicon glyphicon-stop" /></button>
+    </div>
     <div class="col-md-2 volumeslider">
       <slider ng-model="audioVolume" min="0" step="0.02" max="1" value="audioVolume" on-stop-slide="setVolume(audioVolume)"></slider>
     </div>
   </div>
+  <a href="https://github.com/segler-alex/radiobrowser"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"
+    alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
 </body>
 
 </html>
