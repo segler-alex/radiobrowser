@@ -271,12 +271,15 @@
 
           <h2>Vote for station</h2>
           <div class="header_sub">Syntax:</div>
-          http://www.radio-browser.info/webservice/vote/stationid
+          http://www.radio-browser.info/webservice/xml/vote/stationid
+          <br/> http://www.radio-browser.info/webservice/json/vote/stationid
           <br />
           <div class="header_sub">Description:</div>
-          Increase the vote count for the station by one. Can only be done by the same ip adress for one station every 10 minutes.
+          Increase the vote count for the station by one. Can only be done by the same ip adress for one station every 10 minutes. Returns the changed station as result if it worked.
+          <br/> Supported output formats: json,xml
+          <br/>
           <div class="header_sub">Example:</div>
-          <div><a href="http://www.radio-browser.info/webservice/vote/123" target="_blank">http://www.radio-browser.info/webservice/vote/123</a></div>
+          <div><a href="http://www.radio-browser.info/webservice/json/vote/123" target="_blank">http://www.radio-browser.info/webservice/json/vote/123</a></div>
 
           <h2>Server stats</h2>
           <div class="header_sub">Syntax:</div>

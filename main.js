@@ -9,13 +9,34 @@ app.controller('MainController', function($scope, $http, $sce) {
   var audio = null;
 
   function replaceStations(stationupdates) {
+    JSON.stringify(stationupdates);
     for (var i=0;i<stationupdates.length;i++){
-      
+      var stationNew = stationupdates[i];
+      replaceStation(stationNew);
     }
   }
 
+  function replaceStation(stationNew){
+    for (var i=0;i<$scope.resultListFull.length;i++){
+      var station = $scope.resultListFull[i];
+      if (station.id === stationNew.id){
+        $scope.resultListFull.splice(i,1,stationNew);
+      }
+    }
+  }
+
+  function getStationById(id){
+    for (var i=0;i<$scope.resultListFull.length;i++){
+      var station = $scope.resultListFull[i];
+      if (station.id === id){
+        return station;
+      }
+    }
+    return null;
+  }
+
   $scope.vote = function(stationid) {
-    $http.get('http://www.radio-browser.info/webservice/vote/' + stationid).then(function(data) {
+    $http.get('http://www.radio-browser.info/webservice/json/vote/' + stationid).then(function(data) {
       replaceStations(data.data);
       $scope.updateList();
     }, function(err) {
