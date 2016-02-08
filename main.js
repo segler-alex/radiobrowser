@@ -8,6 +8,21 @@ app.controller('MainController', function($scope, $http, $sce) {
   $scope.audioVolume = 1;
   var audio = null;
 
+  function replaceStations(stationupdates) {
+    for (var i=0;i<stationupdates.length;i++){
+      
+    }
+  }
+
+  $scope.vote = function(stationid) {
+    $http.get('http://www.radio-browser.info/webservice/vote/' + stationid).then(function(data) {
+      replaceStations(data.data);
+      $scope.updateList();
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
+
   $scope.clearList = function() {
     $scope.resultListFull = [];
     $scope.bigCurrentPage = 1;

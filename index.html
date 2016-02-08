@@ -269,6 +269,15 @@
           <div><a href="http://www.radio-browser.info/webservice/json/url/123" target="_blank">http://www.radio-browser.info/webservice/json/url/123</a></div>
           <div><a href="http://www.radio-browser.info/webservice/pls/url/123" target="_blank">http://www.radio-browser.info/webservice/pls/url/123</a></div>
 
+          <h2>Vote for station</h2>
+          <div class="header_sub">Syntax:</div>
+          http://www.radio-browser.info/webservice/vote/stationid
+          <br />
+          <div class="header_sub">Description:</div>
+          Increase the vote count for the station by one. Can only be done by the same ip adress for one station every 10 minutes.
+          <div class="header_sub">Example:</div>
+          <div><a href="http://www.radio-browser.info/webservice/vote/123" target="_blank">http://www.radio-browser.info/webservice/vote/123</a></div>
+
           <h2>Server stats</h2>
           <div class="header_sub">Syntax:</div>
           http://www.radio-browser.info/webservice/xml/stats
@@ -301,13 +310,14 @@
           <td>
             <button class="btn btn-link btn-xs" ng-click="play(station.id)"><span class="glyphicon glyphicon-play" /></button>
             <a href="{{station.homepage}}" ng-show="station.homepage"><span class="btn btn-link btn-xs glyphicon glyphicon-home" /></a>
+            <button class="btn btn-link btn-xs" ng-click="vote(station.id)"><span class="glyphicon glyphicon-thumbs-up" /></button>
           </td>
         </tr>
       </tbody>
     </table>
     <center>
-    <uib-pagination ng-show="bigTotalItems > 0" total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="5" class="pagination-sm" boundary-links="true" num-pages="numPages" items-per-page="itemsPerPage" force-ellipses="true" ng-change="updateList()"></uib-pagination>
-  </center>
+      <uib-pagination ng-show="bigTotalItems > 0" total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="5" class="pagination-sm" boundary-links="true" num-pages="numPages" items-per-page="itemsPerPage" force-ellipses="true" ng-change="updateList()"></uib-pagination>
+    </center>
   </div>
 
   <div class="player bg-success container-fluid" ng-class="{'player-active':playerItem}">
