@@ -6,29 +6,40 @@ app.controller('MainController', function($scope, $http, $sce) {
   $scope.countryList = [];
   $scope.playerItem = null;
   $scope.audioVolume = 1;
+  $scope.editStation = null;
   var audio = null;
 
+  $http.get('http://www.radio-browser.info/webservice/json/stats').then(function(data) {
+    $scope.stats = data.data;
+  }, function(err) {
+    console.log("error:" + err);
+  });
+
+  $scope.edit = function(station) {
+    console.log(JSON.stringify(station));
+    $scope.editStation = station;
+  }
+
   function replaceStations(stationupdates) {
-    JSON.stringify(stationupdates);
-    for (var i=0;i<stationupdates.length;i++){
+    for (var i = 0; i < stationupdates.length; i++) {
       var stationNew = stationupdates[i];
       replaceStation(stationNew);
     }
   }
 
-  function replaceStation(stationNew){
-    for (var i=0;i<$scope.resultListFull.length;i++){
+  function replaceStation(stationNew) {
+    for (var i = 0; i < $scope.resultListFull.length; i++) {
       var station = $scope.resultListFull[i];
-      if (station.id === stationNew.id){
-        $scope.resultListFull.splice(i,1,stationNew);
+      if (station.id === stationNew.id) {
+        $scope.resultListFull.splice(i, 1, stationNew);
       }
     }
   }
 
-  function getStationById(id){
-    for (var i=0;i<$scope.resultListFull.length;i++){
+  function getStationById(id) {
+    for (var i = 0; i < $scope.resultListFull.length; i++) {
       var station = $scope.resultListFull[i];
-      if (station.id === id){
+      if (station.id === id) {
         return station;
       }
     }

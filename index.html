@@ -58,8 +58,10 @@
       <div role="tabpanel" class="tab-pane active" id="home">
         <div ng-show="bigTotalItems == 0">
           <p>This is a community approach to collect as many internet radio stations as possible. Any help is appreciated!</p>
-          <p>Station count at the moment: <b><?=$station_count?></b>
-            <br/> Station clicks last hour: <b><?=$station_clicks_hour?></b>
+          <p>Station count at the moment: <b>{{stats.stations}}</b>
+            <br/> Used tags: <b>{{stats.tags}}</b>
+            <br/> Station clicks last hour: <b>{{stats.clicks_last_hour}}</b>
+            <br/> Station clicks last day: <b>{{stats.clicks_last_day}}</b>
           </p>
           <p>Everyone can use this station board in their software freely. Just have a look at the API documentation.</p>
           <p>To play the stations you need some media player software like:
@@ -75,8 +77,10 @@
             <ul>
               <li><a href="http://www.programmierecke.net/programmed/rhythmbox-radio-browser.html">Rhythmbox-Radio-Browser</a> - A plugin for <a href="http://projects.gnome.org/rhythmbox/">rhythmbox</a></li>
               <li><a href="https://github.com/fossfreedom/radio-browser">Rhythmbox-Radio-Browser Fork for GTK 3.0</a></li>
-              <li><a href="https://play.google.com/store/apps/details?id=net.programmierecke.radiodroid">RadioDroid for android systems</a> - <a href="https://github.com/segler-alex/RadioDroid">Source on GitHub</a></li>
+              <li><a href="https://play.google.com/store/apps/details?id=net.programmierecke.radiodroid">RadioDroid (Android)</a> - <a href="https://github.com/segler-alex/RadioDroid">Source on GitHub</a></li>
               <li><a href="http://www.dream-multimedia-tv.de/board/index.php?page=Thread&threadID=16645">DreamBox Plugin</a></li>
+              <li><a href="https://play.google.com/store/apps/details?id=com.humbergsoftware.musicbox.androidapp">Musicbox (Android)</a></li>
+              <li>.. and of course this little angular webpage too :) which can be forked on <a href="https://github.com/segler-alex/radiobrowser">github</a></li>
             </ul>
           </p>
           <p><u>Legal:</u>
@@ -314,6 +318,7 @@
             <button class="btn btn-link btn-xs" ng-click="play(station.id)"><span class="glyphicon glyphicon-play" /></button>
             <a href="{{station.homepage}}" ng-show="station.homepage"><span class="btn btn-link btn-xs glyphicon glyphicon-home" /></a>
             <button class="btn btn-link btn-xs" ng-click="vote(station.id)"><span class="glyphicon glyphicon-thumbs-up" /></button>
+            <button class="btn btn-link btn-xs" ng-click="edit(station)"><span class="glyphicon glyphicon glyphicon-pencil" /></button>
           </td>
         </tr>
       </tbody>
