@@ -29,21 +29,20 @@
   <!-- <div class="page-header">
     <H1>Community Radio Browser</H1>
   </div> -->
-
   <div>
     <!-- Nav tabs -->
     <nav class="navbar navbar-default">
       <div class="navbar-header">
         <a class="navbar-brand" href="#">Community Radio Browser</a>
       </div>
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav" id="mytabs">
         <!-- <ul class="nav nav-tabs" role="tablist"> -->
-        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" ng-click="clearList()">Home</a></li>
-        <li role="presentation"><a href="#topclick" aria-controls="topclick" role="tab" data-toggle="tab" ng-click="displayTopClick()">By clicks</a></li>
-        <li role="presentation"><a href="#topvote" aria-controls="topvote" role="tab" data-toggle="tab" ng-click="displayTopVote()">By vote</a></li>
-        <li role="presentation"><a href="#countries" aria-controls="countries" role="tab" data-toggle="tab" ng-click="displayCountries()">By country</a></li>
-        <li role="presentation"><a href="#newstation" aria-controls="newstation" role="tab" data-toggle="tab" ng-click="clearList()">New station</a></li>
-        <li role="presentation"><a href="#api" aria-controls="api" role="tab" data-toggle="tab" ng-click="clearList()">Developer API</a></li>
+        <li role="presentation" ng-class="{active: tab==='home'}"><a href="#home" aria-controls="home" role="tab" ng-click="setTab('home')">Home</a></li>
+        <li role="presentation" ng-class="{active: tab==='byclicks'}"><a href="#topclick" aria-controls="topclick" role="tab" ng-click="setTab('byclicks')">By clicks</a></li>
+        <li role="presentation" ng-class="{active: tab==='byvotes'}"><a href="#topvote" aria-controls="topvote" role="tab" ng-click="setTab('byvotes')">By vote</a></li>
+        <li role="presentation" ng-class="{active: tab==='bycountry'}"><a href="#countries" aria-controls="countries" role="tab" ng-click="setTab('bycountry')">By country</a></li>
+        <li role="presentation" ng-class="{active: tab==='editstation'}"><a href="#newstation" aria-controls="newstation" role="tab" ng-click="setTab('editstation')">New station</a></li>
+        <li role="presentation" ng-class="{active: tab==='api'}"><a href="#api" aria-controls="api" role="tab" ng-click="setTab('api')">Developer API</a></li>
         <form class="navbar-form navbar-left" role="search">
           <div class="form-group">
             <input type="text" class="form-control" placeholder="Search" ng-model="searchterm">
@@ -55,8 +54,8 @@
 
     <!-- Tab panes -->
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="home">
-        <div ng-show="bigTotalItems == 0">
+      <div role="tabpanel" id="home" ng-show="tab==='home'">
+        <div>
           <p>This is a community approach to collect as many internet radio stations as possible. Any help is appreciated!</p>
           <p>Station count at the moment: <b>{{stats.stations}}</b>
             <br/> Used tags: <b>{{stats.tags}}</b>
@@ -69,6 +68,7 @@
             <ul>
               <li><a href="http://www.winamp.com/">Winamp</a> (Windows)</li>
               <li><a href="http://videolan.org">VLC</a> (Windows, Linux)</li>
+              <li><a href="https://www.clementine-player.org/">Clementine</a> (Windows/Linux)</li>
               <li>many many more....</li>
               <li>yes maybe windows media player works too :)</li>
             </ul>
@@ -90,51 +90,85 @@
         </div>
       </div>
 
-      <div role="tabpanel" class="tab-pane" id="topclick"></div>
-      <div role="tabpanel" class="tab-pane" id="topvote"></div>
-      <div role="tabpanel" class="tab-pane" id="countries">
+      <div role="tabpanel" id="topclick"></div>
+      <div role="tabpanel" id="topvote"></div>
+      <div role="tabpanel" id="countries" ng-show="tab==='bycountry'">
         <div class="container-fluid">
           <div ng-show="countryList" class="col-md-3" ng-repeat="country in countryList">
             <button class="btn btn-xs btn-link" ng-click="displayByCountry(country.value)">{{country.value}} ({{country.stationcount}})</button>
           </div>
         </div>
       </div>
-      <div role="tabpanel" class="tab-pane" id="newstation">
-        <div style="width:400px">
-          <H2>New</H2>
-          <form>
+      <div role="tabpanel" id="newstation" ng-show="tab==='editstation'">
+        <div style="width:600px">
+          <H2 ng-hide="editStation.id">Add new station</H2>
+          <H2 ng-show="editStation.id">Edit station</H2>
+          <form class="form-horizontal">
             <div class="form-group">
-              <label for="StationName">Name</label>
-              <input type="text" class="form-control" id="StationName" placeholder="Name..">
+              <label for="StationName" class="col-sm-2 control-label">Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="StationName" placeholder="Name.." ng-model="editStation.name">
+              </div>
             </div>
             <div class="form-group">
-              <label for="StationName">URL</label>
-              <input type="text" class="form-control" id="StationUrl" placeholder="http://..">
+              <label for="StationName" class="col-sm-2 control-label">URL</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="StationUrl" placeholder="http://.." ng-model="editStation.url">
+              </div>
             </div>
             <div class="form-group">
-              <label for="StationName">Homepage</label>
-              <input type="text" class="form-control" id="StationHomepage" placeholder="http://..">
+              <label for="StationName" class="col-sm-2 control-label">Homepage</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="StationHomepage" placeholder="http://.." ng-model="editStation.homepage">
+              </div>
             </div>
             <div class="form-group">
-              <label for="StationName">Favicon</label>
-              <input type="text" class="form-control" id="StationIcon" placeholder="http://..">
+              <label for="StationName" class="col-sm-2 control-label">Favicon</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="StationIcon" placeholder="http://.." ng-model="editStation.favicon">
+                <img src="{{editStation.favicon}}" height="40" />
+              </div>
             </div>
             <div class="form-group">
-              <label for="StationCountry">Country</label>
-              <input type="text" class="form-control" id="StationCountry" placeholder="Country.." ng-model="StationCountry" uib-typeahead="country for country in getCountries($viewValue)">
+              <label for="StationCountry" class="col-sm-2 control-label">Country</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="StationCountry" placeholder="Country.." ng-model="editStation.country" uib-typeahead="country for country in getCountries($viewValue)">
+              </div>
             </div>
             <div class="form-group">
-              <label for="StationState">State</label>
-              <input type="text" class="form-control" id="StationState" placeholder="State.." ng-model="StationState" uib-typeahead="state.value for state in getStates($viewValue)" typeahead-template-url="customTemplate.html">
+              <label for="StationState" class="col-sm-2 control-label">State</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="StationState" placeholder="State.." ng-model="editStation.subcountry" uib-typeahead="state.value for state in getStates($viewValue)" typeahead-template-url="customTemplate.html" />
+              </div>
             </div>
             <div class="form-group">
-              <label for="StationLanguage">Language</label>
-              <input type="text" class="form-control" id="StationLanguage" placeholder="Language.." ng-model="StationLanguage" uib-typeahead="language for language in getLanguages($viewValue)">
+              <label for="StationLanguage" class="col-sm-2 control-label">Language</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="StationLanguage" placeholder="Language.." ng-model="editStation.language" uib-typeahead="language for language in getLanguages($viewValue)" />
+              </div>
             </div>
+            <div class="form-group">
+              <label for="StationTags" class="col-sm-2 control-label">Tags</label>
+              <div class="col-sm-10">
+                <span ng-repeat="value in editStation.tags_arr">
+                  <span class="btn-group btn-group-xs">
+                    <button class="btn btn-xs btn-default">{{value}}</button>
+                    <button class="btn btn-xs btn-danger" ng-click="removeTag(value)"><span class="glyphicon glyphicon-remove"/></button>
+                  </span>
+                </span>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="StationTags" placeholder="Tags.." ng-model="editStation.tag" />
+                  <span class="input-group-btn">
+                   <button class="btn btn-default" type="button" ng-click="addTag(editStation.tag)"><span class="glyphicon glyphicon-ok"/></button>
+                </span>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="sendStation()">Save</button>
           </form>
         </div>
       </div>
-      <div role="tabpanel" class="tab-pane" id="api">
+      <div role="tabpanel" id="api" ng-show="tab==='api'">
         <div style="width:800px">
           <h2>General</h2> This webservice can be used freely but without guarantee to work. I am keeping it only since more than 2 years now. But downtimes are possible and i am not always home to fix it :) Please do not hesitate to send me ideas to improve the service!
           <a href="segler_alex@web.de">segler_alex AT web DOT de</a>
@@ -340,7 +374,7 @@
     </div>
   </div>
   <a href="https://github.com/segler-alex/radiobrowser"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"
-    alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+      alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
 </body>
 
 </html>

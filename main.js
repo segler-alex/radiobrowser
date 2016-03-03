@@ -1,5 +1,5 @@
 var app = angular.module('RadioBrowserApp');
-app.controller('MainController', function($scope, $http, $sce) {
+app.controller('MainController', function($scope, $http, $sce, $httpParamSerializerJQLike) {
   $scope.bigTotalItems = 0;
   $scope.bigCurrentPage = 1;
   $scope.itemsPerPage = 10;
@@ -8,6 +8,7 @@ app.controller('MainController', function($scope, $http, $sce) {
   $scope.audioVolume = 1;
   $scope.editStation = null;
   var audio = null;
+  $scope.tab = "home";
 
   $http.get('http://www.radio-browser.info/webservice/json/stats').then(function(data) {
     $scope.stats = data.data;
@@ -15,9 +16,23 @@ app.controller('MainController', function($scope, $http, $sce) {
     console.log("error:" + err);
   });
 
+  $scope.addTag = function(tag) {
+    $scope.editStation.tags_arr.splice(0, 0, tag);
+    $scope.editStation.tag = "";
+  }
+
+  $scope.removeTag = function(tag) {
+    var index = $scope.editStation.tags_arr.indexOf(tag);
+    if (index !== -1) {
+      $scope.editStation.tags_arr.splice(index, 1);
+    }
+  }
+
   $scope.edit = function(station) {
     console.log(JSON.stringify(station));
+    $scope.setTab("editstation");
     $scope.editStation = station;
+    $scope.editStation.tags_arr = station.tags.split(',');
   }
 
   function replaceStations(stationupdates) {
@@ -44,6 +59,66 @@ app.controller('MainController', function($scope, $http, $sce) {
       }
     }
     return null;
+  }
+
+  $scope.setTab = function(tab) {
+    console.log("tab=" + tab);
+    $scope.tab = tab;
+
+    if (tab === "home") {
+      $scope.clearList();
+    }
+    if (tab === "byclicks") {
+      $scope.displayTopClick();
+    }
+    if (tab === "byvotes") {
+      $scope.displayTopVote();
+    }
+    if (tab === "bycountry") {
+      $scope.displayCountries();
+    }
+    if (tab === "editstation") {
+      $scope.clearList();
+      $scope.editStation = {};
+      $scope.editStation.homepage ="";
+      $scope.editStation.favicon ="";
+      $scope.editStation.country ="";
+      $scope.editStation.language ="";
+      $scope.editStation.tags ="";
+      $scope.editStation.subcountry ="";
+      $scope.editStation.tags_arr = [];
+    }
+    if (tab === "api") {
+      $scope.clearList();
+    }
+    if (tab !== 'editstation') {
+      $scope.editStation = null;
+    }
+  }
+
+  $scope.sendStation = function() {
+    if ($scope.editStation !== null) {
+      console.log("---"+$scope.editStation.id);
+      $scope.editStation.tags = $scope.editStation.tags_arr.join(',');
+      if (undefined === $scope.editStation.id) {
+        url = 'http://www.radio-browser.info/webservice/add';
+      } else {
+        url = 'http://www.radio-browser.info/webservice/edit';
+        $scope.editStation.stationid = $scope.editStation.id;
+      }
+      $http({
+        url: url,
+        method: 'POST',
+        data: $httpParamSerializerJQLike($scope.editStation),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).success(function(response) {
+        console.log("ok:" + response);
+        $scope.editStation = null;
+        $scope.clearList();
+      });
+    }
   }
 
   $scope.vote = function(stationid) {
@@ -162,6 +237,7 @@ app.controller('MainController', function($scope, $http, $sce) {
       $scope.bigCurrentPage = 1;
       $scope.bigTotalItems = data.data.length;
       $scope.updateList();
+      $scope.setTab('search');
     }, function(err) {
       console.log("error:" + err);
     });
