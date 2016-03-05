@@ -299,4 +299,11 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
       return items.slice(0, 5);
     });
   };
+
+  $scope.getTagsArray = function(tags_string) {
+    if (tags_string.trim() === ""){
+      return [];
+    }
+    return tags_string.split(',');
+  };
 });

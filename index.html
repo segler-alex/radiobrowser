@@ -159,7 +159,7 @@
                   </span>
                 </span>
                 <div class="input-group">
-                  <input type="text" class="form-control" id="StationTags" placeholder="Tags.." ng-model="editStation.tag" uib-typeahead="tag for tag in getTags($viewValue)" ng-enter="addTag(editStation.tag)"/>
+                  <input type="text" class="form-control" id="StationTags" placeholder="Tags.." ng-model="editStation.tag" uib-typeahead="tag for tag in getTags($viewValue)" ng-enter="addTag(editStation.tag)" />
                   <span class="input-group-btn">
                    <button class="btn btn-default" type="button" ng-click="addTag(editStation.tag)"><span class="glyphicon glyphicon-ok"/></button>
                 </span>
@@ -177,6 +177,7 @@
         <th width="10"></th>
         <th width="10"><span class="glyphicon glyphicon-thumbs-up" /></th>
         <th>Name</th>
+        <th>Tags</th>
         <th>Country</th>
         <th></th>
       </thead>
@@ -185,6 +186,9 @@
           <td align="right"><img src="{{station.favicon}}" height="20px" ng-show="station.favicon" /></td>
           <td>{{station.votes}}</td>
           <td>{{station.name}}</td>
+          <td>
+            <div class="btn btn-xs btn-info tagbutton" ng-repeat="value in getTagsArray(station.tags)">{{value}}</div>
+          </td>
           <td>{{station.country}} <span ng-show="station.subcountry">/ {{station.subcountry }}</span></td>
           <td>
             <button class="btn btn-link btn-xs" ng-click="play(station.id)"><span class="glyphicon glyphicon-play" /></button>
