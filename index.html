@@ -159,7 +159,7 @@
                   </span>
                 </span>
                 <div class="input-group">
-                  <input type="text" class="form-control" id="StationTags" placeholder="Tags.." ng-model="editStation.tag" uib-typeahead="tag for tag in getTags($viewValue)" ng-keyup="checkEnter($event)"/>
+                  <input type="text" class="form-control" id="StationTags" placeholder="Tags.." ng-model="editStation.tag" uib-typeahead="tag for tag in getTags($viewValue)" ng-enter="addTag(editStation.tag)"/>
                   <span class="input-group-btn">
                    <button class="btn btn-default" type="button" ng-click="addTag(editStation.tag)"><span class="glyphicon glyphicon-ok"/></button>
                 </span>

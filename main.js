@@ -1,4 +1,19 @@
 var app = angular.module('RadioBrowserApp');
+
+app.directive('ngEnter', function() {
+  return function(scope, element, attrs) {
+    element.bind("keydown keypress", function(event) {
+      if (event.which === 13) {
+        scope.$apply(function() {
+          scope.$eval(attrs.ngEnter);
+        });
+
+        event.preventDefault();
+      }
+    });
+  };
+});
+
 app.controller('MainController', function($scope, $http, $sce, $httpParamSerializerJQLike) {
   $scope.bigTotalItems = 0;
   $scope.bigCurrentPage = 1;
@@ -284,11 +299,4 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
       return items.slice(0, 5);
     });
   };
-
-  $scope.checkEnter = function(event) {
-    if (event.keyCode === 13){
-      event.preventDefault();
-      $scope.addTag($scope.editStation.tag);
-    }
-  }
 });
