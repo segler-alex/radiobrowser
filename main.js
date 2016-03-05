@@ -97,6 +97,12 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     if (tab === "bycountry") {
       $scope.displayCountries();
     }
+    if (tab === "latelychanged") {
+      $scope.displayLastChanged();
+    }
+    if (tab === "latelyplayed") {
+      $scope.displayLastPlayed();
+    }
     if (tab === "editstation") {
       $scope.clearList();
       $scope.editStation = {};
@@ -191,6 +197,28 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
 
   $scope.displayTopVote = function() {
     $http.get('http://www.radio-browser.info/webservice/json/stations/topvote/100').then(function(data) {
+      $scope.resultListFull = data.data;
+      $scope.bigCurrentPage = 1;
+      $scope.bigTotalItems = data.data.length;
+      $scope.updateList();
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
+
+  $scope.displayLastChanged = function() {
+    $http.get('http://www.radio-browser.info/webservice/json/stations/lastchange/100').then(function(data) {
+      $scope.resultListFull = data.data;
+      $scope.bigCurrentPage = 1;
+      $scope.bigTotalItems = data.data.length;
+      $scope.updateList();
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
+
+  $scope.displayLastPlayed = function() {
+    $http.get('http://www.radio-browser.info/webservice/json/stations/lastclick/100').then(function(data) {
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
       $scope.bigTotalItems = data.data.length;
