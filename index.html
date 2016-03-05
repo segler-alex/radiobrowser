@@ -159,14 +159,14 @@
                   </span>
                 </span>
                 <div class="input-group">
-                  <input type="text" class="form-control" id="StationTags" placeholder="Tags.." ng-model="editStation.tag" />
+                  <input type="text" class="form-control" id="StationTags" placeholder="Tags.." ng-model="editStation.tag" uib-typeahead="tag for tag in getTags($viewValue)" ng-keyup="checkEnter($event)"/>
                   <span class="input-group-btn">
                    <button class="btn btn-default" type="button" ng-click="addTag(editStation.tag)"><span class="glyphicon glyphicon-ok"/></button>
                 </span>
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-default" ng-click="sendStation()">Save</button>
+            <button class="btn btn-default" ng-click="sendStation()">Save</button>
           </form>
         </div>
       </div>
