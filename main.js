@@ -209,7 +209,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayByCountry = function(country) {
-    $http.get('http://www.radio-browser.info/webservice/json/stations/bycountryexact/' + country).then(function(data) {
+    $http.get('http://www.radio-browser.info/webservice/json/stations/bycountryexact/' + encodeURIComponent(country)).then(function(data) {
       $scope.countryList = [];
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
@@ -221,7 +221,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayByLanguage = function(language) {
-    $http.get('http://www.radio-browser.info/webservice/json/stations/bylanguageexact/' + language).then(function(data) {
+    $http.get('http://www.radio-browser.info/webservice/json/stations/bylanguageexact/' + encodeURIComponent(language)).then(function(data) {
       $scope.languageList = [];
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
@@ -233,7 +233,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayByTag = function(tag) {
-    $http.get('http://www.radio-browser.info/webservice/json/stations/bytagexact/' + tag).then(function(data) {
+    $http.get('http://www.radio-browser.info/webservice/json/stations/bytagexact/' + encodeURIComponent(tag)).then(function(data) {
       $scope.tagList = [];
       $scope.tagListPopular = [];
       $scope.tagListNotPopular = [];
