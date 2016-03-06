@@ -297,10 +297,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
 
   $scope.getCountries = function(term) {
     return $http.get('http://www.radio-browser.info/webservice/json/countries/' + term, {}).then(function(response) {
-      var items = response.data.map(function(item) {
-        return item.value;
-      });
-      return items.slice(0, 5);
+      return response.data.slice(0, 5);
     });
   };
 
@@ -312,19 +309,13 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
 
   $scope.getLanguages = function(term) {
     return $http.get('http://www.radio-browser.info/webservice/json/languages/' + term, {}).then(function(response) {
-      var items = response.data.map(function(item) {
-        return item.value;
-      });
-      return items.slice(0, 5);
+      return response.data.slice(0, 5);
     });
   };
 
   $scope.getTags = function(term) {
     return $http.get('http://www.radio-browser.info/webservice/json/tags/' + term, {}).then(function(response) {
-      var items = response.data.map(function(item) {
-        return item.name;
-      });
-      return items.slice(0, 5);
+      return response.data.slice(0, 5);
     });
   };
 
