@@ -235,6 +235,8 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   $scope.displayByTag = function(tag) {
     $http.get('http://www.radio-browser.info/webservice/json/stations/bytagexact/' + tag).then(function(data) {
       $scope.tagList = [];
+      $scope.tagListPopular = [];
+      $scope.tagListNotPopular = [];
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
       $scope.bigTotalItems = data.data.length;

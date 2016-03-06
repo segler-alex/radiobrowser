@@ -115,16 +115,18 @@
         </div>
       </div>
       <div role="tabpanel" id="tags" ng-show="tab==='bytag'">
-        <H2>Popular tags</H2>
-        <div class="container-fluid">
-          <div ng-show="tagList" class="col-md-3" ng-repeat="tag in tagListPopular">
-            <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
+        <div ng-show="tagList.length > 0">
+          <H2>Popular tags</H2>
+          <div class="container-fluid">
+            <div class="col-md-3" ng-repeat="tag in tagListPopular">
+              <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
+            </div>
           </div>
-        </div>
-        <H2>Not so popular tags</H2>
-        <div class="container-fluid">
-          <div ng-show="tagList" class="col-md-3" ng-repeat="tag in tagListNotPopular">
-            <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
+          <H2>Not so popular tags</H2>
+          <div class="container-fluid">
+            <div class="col-md-3" ng-repeat="tag in tagListNotPopular">
+              <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
+            </div>
           </div>
         </div>
       </div>
