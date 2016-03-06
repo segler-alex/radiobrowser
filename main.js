@@ -223,6 +223,18 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     });
   }
 
+  $scope.displayByState = function(state) {
+    $http.get('http://www.radio-browser.info/webservice/json/stations/bystateexact/' + encodeURIComponent(state)).then(function(data) {
+      $scope.countryList = [];
+      $scope.resultListFull = data.data;
+      $scope.bigCurrentPage = 1;
+      $scope.bigTotalItems = data.data.length;
+      $scope.updateList();
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
+
   $scope.displayByLanguage = function(language) {
     $http.get('http://www.radio-browser.info/webservice/json/stations/bylanguageexact/' + encodeURIComponent(language)).then(function(data) {
       $scope.languageList = [];
