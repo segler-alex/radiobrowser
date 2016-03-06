@@ -39,13 +39,14 @@
       </div>
       <ul class="nav navbar-nav" id="mytabs">
         <!-- <ul class="nav nav-tabs" role="tablist"> -->
-        <li role="presentation" ng-class="{active: tab==='home'}"><a href="#home" aria-controls="home" role="tab" ng-click="setTab('home')">Home</a></li>
-        <li role="presentation" ng-class="{active: tab==='byclicks'}"><a href="#topclick" aria-controls="topclick" role="tab" ng-click="setTab('byclicks')">By clicks</a></li>
-        <li role="presentation" ng-class="{active: tab==='byvotes'}"><a href="#topvote" aria-controls="topvote" role="tab" ng-click="setTab('byvotes')">By vote</a></li>
-        <li role="presentation" ng-class="{active: tab==='bycountry'}"><a href="#countries" aria-controls="countries" role="tab" ng-click="setTab('bycountry')">By country</a></li>
-        <li role="presentation" ng-class="{active: tab==='latelychanged'}"><a href="#countries" aria-controls="latelychanged" role="tab" ng-click="setTab('latelychanged')">Lately changed</a></li>
-        <li role="presentation" ng-class="{active: tab==='latelyplayed'}"><a href="#countries" aria-controls="latelyplayed" role="tab" ng-click="setTab('latelyplayed')">Lately played</a></li>
-        <li role="presentation" ng-class="{active: tab==='editstation'}"><a href="#newstation" aria-controls="newstation" role="tab" ng-click="setTab('editstation')">New station</a></li>
+        <li role="presentation" ng-class="{active: tab==='home'}"><a href="" aria-controls="home" role="tab" ng-click="setTab('home')">Home</a></li>
+        <li role="presentation" ng-class="{active: tab==='byclicks'}"><a href="" aria-controls="topclick" role="tab" ng-click="setTab('byclicks')">By clicks</a></li>
+        <li role="presentation" ng-class="{active: tab==='byvotes'}"><a href="" aria-controls="topvote" role="tab" ng-click="setTab('byvotes')">By vote</a></li>
+        <li role="presentation" ng-class="{active: tab==='bycountry'}"><a href="" aria-controls="countries" role="tab" ng-click="setTab('bycountry')">By country</a></li>
+        <li role="presentation" ng-class="{active: tab==='bylanguage'}"><a href="" aria-controls="countries" role="tab" ng-click="setTab('bylanguage')">By language</a></li>
+        <li role="presentation" ng-class="{active: tab==='latelychanged'}"><a href="" aria-controls="latelychanged" role="tab" ng-click="setTab('latelychanged')">Lately changed</a></li>
+        <li role="presentation" ng-class="{active: tab==='latelyplayed'}"><a href="" aria-controls="latelyplayed" role="tab" ng-click="setTab('latelyplayed')">Lately played</a></li>
+        <li role="presentation" ng-class="{active: tab==='editstation'}"><a href="" aria-controls="newstation" role="tab" ng-click="setTab('editstation')">New station</a></li>
         <li role="presentation"><a href="http://www.radio-browser.info/webservice" aria-controls="api" role="tab" target="_blank">Developer API</a></li>
         <form class="navbar-form navbar-left" role="search">
           <div class="form-group">
@@ -100,6 +101,13 @@
         <div class="container-fluid">
           <div ng-show="countryList" class="col-md-3" ng-repeat="country in countryList">
             <button class="btn btn-xs btn-link" ng-click="displayByCountry(country.name)">{{country.name}} ({{country.stationcount}})</button>
+          </div>
+        </div>
+      </div>
+      <div role="tabpanel" id="countries" ng-show="tab==='bylanguage'">
+        <div class="container-fluid">
+          <div ng-show="languageList" class="col-md-3" ng-repeat="language in languageList">
+            <button class="btn btn-xs btn-link" ng-click="displayByLanguage(language.name)">{{language.name}} ({{language.stationcount}})</button>
           </div>
         </div>
       </div>

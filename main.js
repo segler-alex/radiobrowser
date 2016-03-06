@@ -97,6 +97,9 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     if (tab === "bycountry") {
       $scope.displayCountries();
     }
+    if (tab === "bylanguage") {
+      $scope.displayLanguages();
+    }
     if (tab === "latelychanged") {
       $scope.displayLastChanged();
     }
@@ -172,9 +175,30 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     });
   }
 
+  $scope.displayLanguages = function() {
+    $http.get('http://www.radio-browser.info/webservice/json/languages').then(function(data) {
+      $scope.languageList = data.data;
+      $scope.clearList();
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
+
   $scope.displayByCountry = function(country) {
     $http.get('http://www.radio-browser.info/webservice/json/stations/bycountryexact/' + country).then(function(data) {
       $scope.countryList = [];
+      $scope.resultListFull = data.data;
+      $scope.bigCurrentPage = 1;
+      $scope.bigTotalItems = data.data.length;
+      $scope.updateList();
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
+
+  $scope.displayByLanguage = function(language) {
+    $http.get('http://www.radio-browser.info/webservice/json/stations/bylanguageexact/' + language).then(function(data) {
+      $scope.languageList = [];
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
       $scope.bigTotalItems = data.data.length;
