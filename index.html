@@ -116,13 +116,19 @@
       </div>
       <div role="tabpanel" id="tags" ng-show="tab==='bytag'">
         <div ng-show="tagList.length > 0">
+          <H2>Very popular tags</H2>
+          <div class="container-fluid">
+            <div class="col-md-3" ng-repeat="tag in tagListVeryPopular">
+              <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
+            </div>
+          </div>
           <H2>Popular tags</H2>
           <div class="container-fluid">
             <div class="col-md-3" ng-repeat="tag in tagListPopular">
               <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
             </div>
           </div>
-          <H2>Not so popular tags</H2>
+          <H2>Used once</H2>
           <div class="container-fluid">
             <div class="col-md-3" ng-repeat="tag in tagListNotPopular">
               <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
@@ -216,7 +222,7 @@
           <td>{{station.votes}}</td>
           <td>{{station.name}}</td>
           <td>
-            <div class="btn btn-xs btn-info tagbutton" ng-repeat="value in getTagsArray(station.tags)">{{value}}</div>
+            <div class="btn btn-xs btn-info tagbutton" ng-repeat="value in getTagsArray(station.tags)" ng-click="displayByTag(value)">{{value}}</div>
           </td>
           <td>{{station.country}} <span ng-show="station.subcountry">/ {{station.subcountry }}</span></td>
           <td>

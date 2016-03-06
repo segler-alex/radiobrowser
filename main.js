@@ -190,12 +190,15 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   $scope.displayTags = function() {
     $http.get('http://www.radio-browser.info/webservice/json/tags').then(function(data) {
       $scope.tagList = data.data;
+      $scope.tagListVeryPopular = [];
       $scope.tagListPopular = [];
       $scope.tagListNotPopular = [];
 
       for (var i=0;i<$scope.tagList.length;i++){
         var tag = $scope.tagList[i];
-        if (tag.stationcount > 2){
+        if (tag.stationcount >= 10){
+          $scope.tagListVeryPopular.push(tag);
+        }else if (tag.stationcount > 1){
           $scope.tagListPopular.push(tag);
         }else{
           $scope.tagListNotPopular.push(tag);
