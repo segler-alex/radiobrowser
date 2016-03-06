@@ -175,7 +175,7 @@
             <div class="form-group">
               <label for="StationState" class="col-sm-2 control-label">State</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationState" placeholder="State.." ng-model="editStation.subcountry" uib-typeahead="state.name for state in getStates($viewValue)" typeahead-template-url="customTemplate.html" />
+                <input type="text" class="form-control" id="StationState" placeholder="State.." ng-model="editStation.state" uib-typeahead="state.name for state in getStates($viewValue)" typeahead-template-url="customTemplate.html" />
               </div>
             </div>
             <div class="form-group">
@@ -214,7 +214,7 @@
         <th>Name</th>
         <th>Tags</th>
         <th>Country</th>
-        <th></th>
+        <th width="200"></th>
       </thead>
       <tbody>
         <tr ng-repeat="station in resultList">
