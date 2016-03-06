@@ -44,6 +44,7 @@
         <li role="presentation" ng-class="{active: tab==='byvotes'}"><a href="" aria-controls="topvote" role="tab" ng-click="setTab('byvotes')">By vote</a></li>
         <li role="presentation" ng-class="{active: tab==='bycountry'}"><a href="" aria-controls="countries" role="tab" ng-click="setTab('bycountry')">By country</a></li>
         <li role="presentation" ng-class="{active: tab==='bylanguage'}"><a href="" aria-controls="countries" role="tab" ng-click="setTab('bylanguage')">By language</a></li>
+        <li role="presentation" ng-class="{active: tab==='bytags'}"><a href="" aria-controls="countries" role="tab" ng-click="setTab('bytag')">By tag</a></li>
         <li role="presentation" ng-class="{active: tab==='latelychanged'}"><a href="" aria-controls="latelychanged" role="tab" ng-click="setTab('latelychanged')">Lately changed</a></li>
         <li role="presentation" ng-class="{active: tab==='latelyplayed'}"><a href="" aria-controls="latelyplayed" role="tab" ng-click="setTab('latelyplayed')">Lately played</a></li>
         <li role="presentation" ng-class="{active: tab==='editstation'}"><a href="" aria-controls="newstation" role="tab" ng-click="setTab('editstation')">New station</a></li>
@@ -63,9 +64,9 @@
         <div>
           <p>This is a community approach to collect as many internet radio stations as possible. Any help is appreciated!</p>
           <p>Station count at the moment: <b>{{stats.stations}}</b>
-            <br/> Used tags: <b>{{stats.tags}}</b>
             <br/> Station clicks last hour: <b>{{stats.clicks_last_hour}}</b>
             <br/> Station clicks last day: <b>{{stats.clicks_last_day}}</b>
+            <br/> Distinct tags: <b>{{stats.tags}}</b>
             <br/> Distinct countries: <b>{{stats.countries}}</b>
             <br/> Distinct languages: <b>{{stats.languages}}</b>
           </p>
@@ -110,6 +111,13 @@
         <div class="container-fluid">
           <div ng-show="languageList" class="col-md-3" ng-repeat="language in languageList">
             <button class="btn btn-xs btn-link" ng-click="displayByLanguage(language.name)">{{language.name}} ({{language.stationcount}})</button>
+          </div>
+        </div>
+      </div>
+      <div role="tabpanel" id="tags" ng-show="tab==='bytag'">
+        <div class="container-fluid">
+          <div ng-show="tagList" class="col-md-3" ng-repeat="tag in tagList">
+            <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
           </div>
         </div>
       </div>

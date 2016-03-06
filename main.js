@@ -100,6 +100,9 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     if (tab === "bylanguage") {
       $scope.displayLanguages();
     }
+    if (tab === "bytag") {
+      $scope.displayTags();
+    }
     if (tab === "latelychanged") {
       $scope.displayLastChanged();
     }
@@ -184,6 +187,15 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     });
   }
 
+  $scope.displayTags = function() {
+    $http.get('http://www.radio-browser.info/webservice/json/tags').then(function(data) {
+      $scope.tagList = data.data;
+      $scope.clearList();
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
+
   $scope.displayByCountry = function(country) {
     $http.get('http://www.radio-browser.info/webservice/json/stations/bycountryexact/' + country).then(function(data) {
       $scope.countryList = [];
@@ -199,6 +211,18 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   $scope.displayByLanguage = function(language) {
     $http.get('http://www.radio-browser.info/webservice/json/stations/bylanguageexact/' + language).then(function(data) {
       $scope.languageList = [];
+      $scope.resultListFull = data.data;
+      $scope.bigCurrentPage = 1;
+      $scope.bigTotalItems = data.data.length;
+      $scope.updateList();
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
+
+  $scope.displayByTag = function(tag) {
+    $http.get('http://www.radio-browser.info/webservice/json/stations/bytagexact/' + tag).then(function(data) {
+      $scope.tagList = [];
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
       $scope.bigTotalItems = data.data.length;
