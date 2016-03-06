@@ -173,7 +173,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayByCountry = function(country) {
-    $http.get('http://www.radio-browser.info/webservice/json/stations/bycountry/' + country).then(function(data) {
+    $http.get('http://www.radio-browser.info/webservice/json/stations/bycountryexact/' + country).then(function(data) {
       $scope.countryList = [];
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
