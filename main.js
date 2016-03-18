@@ -17,7 +17,7 @@ app.directive('ngEnter', function() {
 app.controller('MainController', function($scope, $http, $sce, $httpParamSerializerJQLike) {
   $scope.bigTotalItems = 0;
   $scope.bigCurrentPage = 1;
-  $scope.itemsPerPage = 10;
+  $scope.itemsPerPage = 20;
   $scope.countryList = [];
   $scope.playerItem = null;
   $scope.audioVolume = 1;
@@ -30,6 +30,11 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }, function(err) {
     console.log("error:" + err);
   });
+
+  $scope.changeItemsPerPage = function(items) {
+    $scope.itemsPerPage = items;
+    $scope.updateList();
+  }
 
   $scope.addTag = function(tag) {
     $scope.editStation.tags_arr.splice(0, 0, tag);
@@ -194,13 +199,13 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
       $scope.tagListPopular = [];
       $scope.tagListNotPopular = [];
 
-      for (var i=0;i<$scope.tagList.length;i++){
+      for (var i = 0; i < $scope.tagList.length; i++) {
         var tag = $scope.tagList[i];
-        if (tag.stationcount >= 10){
+        if (tag.stationcount >= 10) {
           $scope.tagListVeryPopular.push(tag);
-        }else if (tag.stationcount > 1){
+        } else if (tag.stationcount > 1) {
           $scope.tagListPopular.push(tag);
-        }else{
+        } else {
           $scope.tagListNotPopular.push(tag);
         }
       }
@@ -397,7 +402,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   };
 
   $scope.getTagsArray = function(tags_string) {
-    if (tags_string.trim() === ""){
+    if (tags_string.trim() === "") {
       return [];
     }
     return tags_string.split(',');
