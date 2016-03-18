@@ -237,7 +237,7 @@
           <td>
             <div class="btn btn-xs btn-info tagbutton" ng-repeat="value in getTagsArray(station.tags)" ng-click="displayByTag(value)">{{value}}</div>
           </td>
-          <td><button class="btn btn-xs btn-info" ng-click="displayByCountry(station.country)">{{station.country}}</button> <span ng-show="station.state">/ <button class="btn btn-xs btn-info" ng-click="displayByState(station.state)">{{station.state }}</button></span></td>
+          <td><button class="btn btn-xs btn-info" ng-click="displayByCountry(station.country)" ng-show="station.country">{{station.country}}</button> <span ng-show="station.state">/ <button class="btn btn-xs btn-info" ng-click="displayByState(station.state)">{{station.state }}</button></span></td>
           <td>
             <button class="btn btn-link btn-xs" ng-click="play(station.id)"><span class="glyphicon glyphicon-play" /></button>
             <a href="http://www.radio-browser.info/webservice/pls/url/{{station.id}}" class="btn btn-link btn-xs" ><span class="glyphicon glyphicon-floppy-disk" /></a>
