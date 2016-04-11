@@ -16,6 +16,7 @@
   <script src="https://raw.github.com/nickdesaulniers/javascript-playlist-parser/master/lib/parser.min.js"></script>
   <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.js"></script>
   <script src="bower_components/angular-bootstrap-slider/slider.js"></script>
+  <script src='bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js'></script>
 
   <script src="app.js"></script>
   <script src="main.js"></script>
@@ -220,7 +221,14 @@
       </div>
     </div>
 
-    <table class="table table-condensed table-hover" ng-show="bigTotalItems > 0">
+    <div ng-show="bigTotalItems > 0" infinite-scroll="myPagingFunction()" infinite-scroll-distance="0">
+      <div ng-repeat="station in resultList" class="stationContainer">
+        <div class="stationName">{{station.name}}</div>
+        <div class="btn btn-xs btn-info tagbutton" ng-repeat="value in getTagsArray(station.tags)" ng-click="displayByTag(value)">{{value}}</div><br/>
+        <button class="btn btn-xs btn-info" ng-click="displayByCountry(station.country)" ng-show="station.country">{{station.country}}</button> <span ng-show="station.state">/ <button class="btn btn-xs btn-info" ng-click="displayByState(station.state)">{{station.state }}</button></span>
+      </div>
+    </div>
+    <!--<table class="table table-condensed table-hover" ng-show="bigTotalItems > 0">
       <thead>
         <th width="10"></th>
         <th width="10"><span class="glyphicon glyphicon-thumbs-up" /></th>
@@ -247,10 +255,14 @@
           </td>
         </tr>
       </tbody>
-    </table>
-    <center>
+    </table>-->
+    <!--<center>
       <uib-pagination ng-show="bigTotalItems > 0" total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="5" class="pagination-sm" boundary-links="true" num-pages="numPages" items-per-page="itemsPerPage" force-ellipses="true" ng-change="updateList()"></uib-pagination>
-    </center>
+      <button ng-click="changeItemsPerPage(5)">5</button>
+      <button ng-click="changeItemsPerPage(10)">10</button>
+      <button ng-click="changeItemsPerPage(20)">20</button>
+      <button ng-click="changeItemsPerPage(30)">30</button>
+    </center>-->
   </div>
 
   <div class="player bg-success container-fluid" ng-class="{'player-active':playerItem}">

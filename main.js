@@ -31,6 +31,10 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     console.log("error:" + err);
   });
 
+  $scope.myPagingFunction = function(){
+    console.log("paging..");
+  }
+
   $scope.changeItemsPerPage = function(items) {
     $scope.itemsPerPage = items;
     $scope.updateList();
