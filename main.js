@@ -24,8 +24,9 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   $scope.editStation = null;
   var audio = null;
   $scope.tab = "home";
+  const serverAdress = "http://www.radio-browser.info";
 
-  $http.get('http://www.radio-browser.info/webservice/json/stats').then(function(data) {
+  $http.get(serverAdress+'/webservice/json/stats').then(function(data) {
     $scope.stats = data.data;
   }, function(err) {
     console.log("error:" + err);
@@ -138,9 +139,9 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
       console.log("---" + $scope.editStation.id);
       $scope.editStation.tags = $scope.editStation.tags_arr.join(',');
       if (undefined === $scope.editStation.id) {
-        url = 'http://www.radio-browser.info/webservice/add';
+        url = serverAdress+'/webservice/add';
       } else {
-        url = 'http://www.radio-browser.info/webservice/edit';
+        url = serverAdress+'/webservice/edit';
         $scope.editStation.stationid = $scope.editStation.id;
       }
       $http({
@@ -159,7 +160,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.vote = function(stationid) {
-    $http.get('http://www.radio-browser.info/webservice/json/vote/' + stationid).then(function(data) {
+    $http.get(serverAdress+'/webservice/json/vote/' + stationid).then(function(data) {
       replaceStations(data.data);
       $scope.updateList();
     }, function(err) {
@@ -175,7 +176,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayCountries = function() {
-    $http.get('http://www.radio-browser.info/webservice/json/countries').then(function(data) {
+    $http.get(serverAdress+'/webservice/json/countries').then(function(data) {
       $scope.countryList = data.data;
       $scope.clearList();
     }, function(err) {
@@ -184,7 +185,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayLanguages = function() {
-    $http.get('http://www.radio-browser.info/webservice/json/languages').then(function(data) {
+    $http.get(serverAdress+'/webservice/json/languages').then(function(data) {
       $scope.languageList = data.data;
       $scope.clearList();
     }, function(err) {
@@ -193,7 +194,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayTags = function() {
-    $http.get('http://www.radio-browser.info/webservice/json/tags').then(function(data) {
+    $http.get(serverAdress+'/webservice/json/tags').then(function(data) {
       $scope.tagList = data.data;
       $scope.tagListVeryPopular = [];
       $scope.tagListPopular = [];
@@ -217,7 +218,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayByCountry = function(country) {
-    $http.get('http://www.radio-browser.info/webservice/json/stations/bycountryexact/' + encodeURIComponent(country)).then(function(data) {
+    $http.get(serverAdress+'/webservice/json/stations/bycountryexact/' + encodeURIComponent(country)).then(function(data) {
       $scope.countryList = [];
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
@@ -229,7 +230,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayByState = function(state) {
-    $http.get('http://www.radio-browser.info/webservice/json/stations/bystateexact/' + encodeURIComponent(state)).then(function(data) {
+    $http.get(serverAdress+'/webservice/json/stations/bystateexact/' + encodeURIComponent(state)).then(function(data) {
       $scope.countryList = [];
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
@@ -241,7 +242,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayByLanguage = function(language) {
-    $http.get('http://www.radio-browser.info/webservice/json/stations/bylanguageexact/' + encodeURIComponent(language)).then(function(data) {
+    $http.get(serverAdress+'/webservice/json/stations/bylanguageexact/' + encodeURIComponent(language)).then(function(data) {
       $scope.languageList = [];
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
@@ -253,7 +254,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayByTag = function(tag) {
-    $http.get('http://www.radio-browser.info/webservice/json/stations/bytagexact/' + encodeURIComponent(tag)).then(function(data) {
+    $http.get(serverAdress+'/webservice/json/stations/bytagexact/' + encodeURIComponent(tag)).then(function(data) {
       $scope.tagList = [];
       $scope.tagListPopular = [];
       $scope.tagListNotPopular = [];
@@ -267,7 +268,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayTopClick = function() {
-    $http.get('http://www.radio-browser.info/webservice/json/stations/topclick/100').then(function(data) {
+    $http.get(serverAdress+'/webservice/json/stations/topclick/100').then(function(data) {
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
       $scope.bigTotalItems = data.data.length;
@@ -278,7 +279,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayTopVote = function() {
-    $http.get('http://www.radio-browser.info/webservice/json/stations/topvote/100').then(function(data) {
+    $http.get(serverAdress+'/webservice/json/stations/topvote/100').then(function(data) {
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
       $scope.bigTotalItems = data.data.length;
@@ -289,7 +290,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayLastChanged = function() {
-    $http.get('http://www.radio-browser.info/webservice/json/stations/lastchange/100').then(function(data) {
+    $http.get(serverAdress+'/webservice/json/stations/lastchange/100').then(function(data) {
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
       $scope.bigTotalItems = data.data.length;
@@ -300,7 +301,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayLastPlayed = function() {
-    $http.get('http://www.radio-browser.info/webservice/json/stations/lastclick/100').then(function(data) {
+    $http.get(serverAdress+'/webservice/json/stations/lastclick/100').then(function(data) {
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
       $scope.bigTotalItems = data.data.length;
@@ -362,7 +363,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.doSearch = function(term) {
-    $http.get('http://www.radio-browser.info/webservice/json/stations/byname/' + encodeURIComponent(term)).then(function(data) {
+    $http.get(serverAdress+'/webservice/json/stations/byname/' + encodeURIComponent(term)).then(function(data) {
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
       $scope.bigTotalItems = data.data.length;
@@ -378,25 +379,25 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.getCountries = function(term) {
-    return $http.get('http://www.radio-browser.info/webservice/json/countries/' + encodeURIComponent(term), {}).then(function(response) {
+    return $http.get(serverAdress+'/webservice/json/countries/' + encodeURIComponent(term), {}).then(function(response) {
       return response.data.slice(0, 5);
     });
   };
 
   $scope.getStates = function(term) {
-    return $http.get('http://www.radio-browser.info/webservice/json/states/' + encodeURIComponent(term), {}).then(function(response) {
+    return $http.get(serverAdress+'/webservice/json/states/' + encodeURIComponent(term), {}).then(function(response) {
       return response.data.slice(0, 5);
     });
   };
 
   $scope.getLanguages = function(term) {
-    return $http.get('http://www.radio-browser.info/webservice/json/languages/' + encodeURIComponent(term), {}).then(function(response) {
+    return $http.get(serverAdress+'/webservice/json/languages/' + encodeURIComponent(term), {}).then(function(response) {
       return response.data.slice(0, 5);
     });
   };
 
   $scope.getTags = function(term) {
-    return $http.get('http://www.radio-browser.info/webservice/json/tags/' + encodeURIComponent(term), {}).then(function(response) {
+    return $http.get(serverAdress+'/webservice/json/tags/' + encodeURIComponent(term), {}).then(function(response) {
       return response.data.slice(0, 5);
     });
   };
