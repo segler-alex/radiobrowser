@@ -378,6 +378,12 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     $scope.resultList = $scope.resultListFull.slice(($scope.bigCurrentPage - 1) * $scope.itemsPerPage, ($scope.bigCurrentPage) * $scope.itemsPerPage);
   }
 
+  $scope.getCodecs = function(term) {
+    return $http.get(serverAdress+'/webservice/json/codecs/' + encodeURIComponent(term), {}).then(function(response) {
+      return response.data.slice(0, 5);
+    });
+  };
+
   $scope.getCountries = function(term) {
     return $http.get(serverAdress+'/webservice/json/countries/' + encodeURIComponent(term), {}).then(function(response) {
       return response.data.slice(0, 5);
