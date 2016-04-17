@@ -313,7 +313,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
 
   $scope.play = function(id) {
     // decode playlist
-    var decodeUrl = "http://www.radio-browser.info/webservice/json/url/" + id;
+    var decodeUrl = serverAdress + "/webservice/json/url/" + id;
     $http.get(decodeUrl).then(function(data) {
       if (data.data.length > 0) {
         var station = data.data[0];
