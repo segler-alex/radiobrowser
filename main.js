@@ -219,6 +219,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
 
   $scope.displayByCountry = function(country) {
     $http.get(serverAdress+'/webservice/json/stations/bycountryexact/' + encodeURIComponent(country)).then(function(data) {
+      $scope.tab = "bycountry";
       $scope.countryList = [];
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
@@ -255,6 +256,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
 
   $scope.displayByTag = function(tag) {
     $http.get(serverAdress+'/webservice/json/stations/bytagexact/' + encodeURIComponent(tag)).then(function(data) {
+      $scope.tab = "bytag";
       $scope.tagList = [];
       $scope.tagListPopular = [];
       $scope.tagListNotPopular = [];
