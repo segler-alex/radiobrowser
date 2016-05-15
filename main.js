@@ -24,7 +24,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   $scope.editStation = null;
   var audio = null;
   $scope.tab = "home";
-  const serverAdress = "http://www.radio-browser.info";
+  const serverAdress = "https://www.radio-browser.info";
 
   $http.get(serverAdress+'/webservice/json/stats').then(function(data) {
     $scope.stats = data.data;
