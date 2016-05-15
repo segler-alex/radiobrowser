@@ -106,6 +106,9 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     if (tab === "bylanguage") {
       $scope.displayLanguages();
     }
+    if (tab === "bycodec") {
+      $scope.displayCodecs();
+    }
     if (tab === "bytag") {
       $scope.displayTags();
     }
@@ -193,6 +196,15 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     });
   }
 
+  $scope.displayCodecs = function() {
+    $http.get(serverAdress+'/webservice/json/codecs').then(function(data) {
+      $scope.codecList = data.data;
+      $scope.clearList();
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
+
   $scope.displayTags = function() {
     $http.get(serverAdress+'/webservice/json/tags').then(function(data) {
       $scope.tagList = data.data;
@@ -245,6 +257,19 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   $scope.displayByLanguage = function(language) {
     $http.get(serverAdress+'/webservice/json/stations/bylanguageexact/' + encodeURIComponent(language)).then(function(data) {
       $scope.languageList = [];
+      $scope.resultListFull = data.data;
+      $scope.bigCurrentPage = 1;
+      $scope.bigTotalItems = data.data.length;
+      $scope.updateList();
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
+
+  $scope.displayByCodec = function(codec) {
+    $http.get(serverAdress+'/webservice/json/stations/bycodecexact/' + encodeURIComponent(codec)).then(function(data) {
+      $scope.tab = "bycodec";
+      $scope.codecList = [];
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
       $scope.bigTotalItems = data.data.length;

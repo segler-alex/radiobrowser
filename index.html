@@ -54,6 +54,7 @@
             <li ng-class="{active: tab==='bycountry'}"><a href="#" ng-click="setTab('bycountry')">By country</a></li>
             <li ng-class="{active: tab==='bylanguage'}"><a href="#" ng-click="setTab('bylanguage')">By language</a></li>
             <li ng-class="{active: tab==='bytag'}"><a href="#" ng-click="setTab('bytag')">By tag</a></li>
+            <li ng-class="{active: tab==='bycodec'}"><a href="#" ng-click="setTab('bycodec')">By codec</a></li>
             <li ng-class="{active: tab==='latelychanged'}"><a href="#" ng-click="setTab('latelychanged')">Lately changed</a></li>
             <li ng-class="{active: tab==='latelyplayed'}"><a href="#" ng-click="setTab('latelyplayed')">Lately played</a></li>
             <li ng-class="{active: tab==='editstation'}"><a href="#" ng-click="setTab('editstation')">New station</a></li>
@@ -125,6 +126,13 @@
         <div class="container-fluid">
           <div ng-show="languageList" class="col-md-3" ng-repeat="language in languageList">
             <button class="btn btn-xs btn-link" ng-click="displayByLanguage(language.name)">{{language.name}} ({{language.stationcount}})</button>
+          </div>
+        </div>
+      </div>
+      <div role="tabpanel" id="codecs" ng-show="tab==='bycodec'">
+        <div class="container-fluid">
+          <div ng-show="codecList" class="col-md-3" ng-repeat="codec in codecList">
+            <button class="btn btn-xs btn-link" ng-click="displayByCodec(codec.name)">{{codec.name}} ({{codec.stationcount}})</button>
           </div>
         </div>
       </div>
@@ -237,7 +245,7 @@
           <td>{{station.votes}}</td>
           <td>{{station.name}}</td>
           <td>
-            <span class="btn btn-xs btn-info" ng-show="station.codec">{{station.codec}}</span>
+            <span class="btn btn-xs btn-info" ng-show="station.codec" ng-click="displayByCodec(station.codec)">{{station.codec}}</span>
             <span class="btn btn-xs btn-info" ng-show="station.bitrate > 0">{{station.bitrate}} kbps</span>
             <span class="btn btn-xs btn-danger" ng-show="station.lastcheckok==='0'">BROKEN</span>
           </td>
