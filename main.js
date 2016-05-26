@@ -22,6 +22,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   $scope.playerItem = null;
   $scope.audioVolume = 1;
   $scope.editStation = null;
+  $scope.activeSending = false;
   var audio = null;
   $scope.tab = "home";
   const serverAdress = "https://www.radio-browser.info";
@@ -145,8 +146,12 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
 
   $scope.sendStation = function() {
     if ($scope.editStation !== null) {
+      $scope.activeSending = true;
       console.log("---" + $scope.editStation.id);
-      $scope.editStation.tags = $scope.editStation.tags_arr.join(',');
+      $scope.editStation.tags = "";
+      if ($scope.editStation.tags_arr){
+        $scope.editStation.tags = $scope.editStation.tags_arr.join(',');
+      }
       if (undefined === $scope.editStation.id) {
         url = serverAdress+'/webservice/add';
       } else {
@@ -164,6 +169,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
         console.log("ok:" + response);
         $scope.editStation = null;
         $scope.clearList();
+        $scope.activeSending = false;
       });
     }
   }
