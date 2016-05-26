@@ -55,6 +55,8 @@
             <li ng-class="{active: tab==='bylanguage'}"><a href="#" ng-click="setTab('bylanguage')">By language</a></li>
             <li ng-class="{active: tab==='bytag'}"><a href="#" ng-click="setTab('bytag')">By tag</a></li>
             <li ng-class="{active: tab==='bycodec'}"><a href="#" ng-click="setTab('bycodec')">By codec</a></li>
+            <li ng-class="{active: tab==='broken'}"><a href="#" ng-click="setTab('broken')">Broken</a></li>
+            <li ng-class="{active: tab==='improve'}"><a href="#" ng-click="setTab('improve')">Improve</a></li>
             <li ng-class="{active: tab==='latelychanged'}"><a href="#" ng-click="setTab('latelychanged')">Lately changed</a></li>
             <li ng-class="{active: tab==='latelyplayed'}"><a href="#" ng-click="setTab('latelyplayed')">Lately played</a></li>
             <li ng-class="{active: tab==='editstation'}"><a href="#" ng-click="setTab('editstation')">New station</a></li>
@@ -77,14 +79,15 @@
       <div role="tabpanel" id="home" ng-show="tab==='home'">
         <div>
           <p>This is a community approach to collect as many internet radio stations as possible. Any help is appreciated!</p>
-          <p>Station count at the moment: <b>{{stats.stations}}</b>
+          <p><u>Statistics</u><br/>Station count at the moment: <b>{{stats.stations}}</b>
             <br/> Station clicks last hour: <b>{{stats.clicks_last_hour}}</b>
             <br/> Station clicks last day: <b>{{stats.clicks_last_day}}</b>
             <br/> Distinct tags: <b>{{stats.tags}}</b>
             <br/> Distinct countries: <b>{{stats.countries}}</b>
             <br/> Distinct languages: <b>{{stats.languages}}</b>
           </p>
-          <p>Everyone can use this station board in their software freely. Just have a look at the API documentation.</p>
+          <p><u>HELP!</u><br/>Please help by fixing stations in the tab "broken". The stations there do not work at the present time.<br/>If you do not know how to do that, please have a look at the tab "improve", and add more information to the stations like tags or country.</p>
+          <p><u>Free for ALL!</u><br/>Everyone can use this station board in their software freely. Just have a look at the API documentation.</p>
           <p>To play the stations you need some media player software like:
             <br/>
             <ul>

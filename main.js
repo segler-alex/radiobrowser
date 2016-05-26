@@ -97,6 +97,12 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     if (tab === "byclicks") {
       $scope.displayTopClick();
     }
+    if (tab === "broken") {
+      $scope.displayBroken();
+    }
+    if (tab === "improve") {
+      $scope.displayImprove();
+    }
     if (tab === "byvotes") {
       $scope.displayTopVote();
     }
@@ -296,6 +302,28 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
 
   $scope.displayTopClick = function() {
     $http.get(serverAdress+'/webservice/json/stations/topclick/100').then(function(data) {
+      $scope.resultListFull = data.data;
+      $scope.bigCurrentPage = 1;
+      $scope.bigTotalItems = data.data.length;
+      $scope.updateList();
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
+
+  $scope.displayBroken = function() {
+    $http.get(serverAdress+'/webservice/json/stations/broken/10').then(function(data) {
+      $scope.resultListFull = data.data;
+      $scope.bigCurrentPage = 1;
+      $scope.bigTotalItems = data.data.length;
+      $scope.updateList();
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
+
+  $scope.displayImprove = function() {
+    $http.get(serverAdress+'/webservice/json/stations/improvable/10').then(function(data) {
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
       $scope.bigTotalItems = data.data.length;
