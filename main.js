@@ -185,7 +185,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayCountries = function() {
-    $http.get(serverAdress+'/webservice/json/countries').then(function(data) {
+    $http.post(serverAdress+'/webservice/json/countries', {"order":"value"}).then(function(data) {
       $scope.countryList = data.data;
       $scope.clearList();
     }, function(err) {
@@ -194,7 +194,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayLanguages = function() {
-    $http.get(serverAdress+'/webservice/json/languages').then(function(data) {
+    $http.post(serverAdress+'/webservice/json/languages', {"order":"value"}).then(function(data) {
       $scope.languageList = data.data;
       $scope.clearList();
     }, function(err) {
@@ -203,7 +203,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayCodecs = function() {
-    $http.get(serverAdress+'/webservice/json/codecs').then(function(data) {
+    $http.post(serverAdress+'/webservice/json/codecs', {"order":"value"}).then(function(data) {
       $scope.codecList = data.data;
       $scope.clearList();
     }, function(err) {
@@ -212,7 +212,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayTags = function() {
-    $http.get(serverAdress+'/webservice/json/tags').then(function(data) {
+    $http.post(serverAdress+'/webservice/json/tags', {"order":"value"}).then(function(data) {
       $scope.tagList = data.data;
       $scope.tagListVeryPopular = [];
       $scope.tagListPopular = [];
