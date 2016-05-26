@@ -434,31 +434,31 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.getCodecs = function(term) {
-    return $http.get(serverAdress+'/webservice/json/codecs/' + encodeURIComponent(term), {}).then(function(response) {
+    return $http.post(serverAdress+'/webservice/json/codecs/' + encodeURIComponent(term), {"order":"stationcount", "reverse":"true"}).then(function(response) {
       return response.data.slice(0, 5);
     });
   };
 
   $scope.getCountries = function(term) {
-    return $http.get(serverAdress+'/webservice/json/countries/' + encodeURIComponent(term), {}).then(function(response) {
+    return $http.post(serverAdress+'/webservice/json/countries/' + encodeURIComponent(term), {"order":"stationcount", "reverse":"true"}).then(function(response) {
       return response.data.slice(0, 5);
     });
   };
 
   $scope.getStates = function(term) {
-    return $http.get(serverAdress+'/webservice/json/states/' + encodeURIComponent(term), {}).then(function(response) {
+    return $http.post(serverAdress+'/webservice/json/states/' + encodeURIComponent(term), {"order":"stationcount", "reverse":"true"}).then(function(response) {
       return response.data.slice(0, 5);
     });
   };
 
   $scope.getLanguages = function(term) {
-    return $http.get(serverAdress+'/webservice/json/languages/' + encodeURIComponent(term), {}).then(function(response) {
+    return $http.post(serverAdress+'/webservice/json/languages/' + encodeURIComponent(term), {"order":"stationcount", "reverse":"true"}).then(function(response) {
       return response.data.slice(0, 5);
     });
   };
 
   $scope.getTags = function(term) {
-    return $http.get(serverAdress+'/webservice/json/tags/' + encodeURIComponent(term), {}).then(function(response) {
+    return $http.post(serverAdress+'/webservice/json/tags/' + encodeURIComponent(term), {"order":"stationcount", "reverse":"true"}).then(function(response) {
       return response.data.slice(0, 5);
     });
   };
