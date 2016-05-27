@@ -235,6 +235,7 @@
               </div>
             </div>
             <button class="btn btn-default" ng-click="sendStation()" ng-disabled="activeSending || !FormInput.$valid">Save</button>
+            <button class="btn btn-default" ng-click="deleteStation(editStation.id)" ng-disabled="activeSending" ng-show="editStation.id">Delete</button>
           </form>
         </div>
       </div>

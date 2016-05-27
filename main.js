@@ -59,7 +59,6 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     } else {
       $scope.editStation.tags_arr = station.tags.split(',');
     }
-
   }
 
   function replaceStations(stationupdates) {
@@ -466,6 +465,22 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   $scope.getTags = function(term) {
     return $http.post(serverAdress+'/webservice/json/tags/' + encodeURIComponent(term), {"order":"stationcount", "reverse":"true"}).then(function(response) {
       return response.data.slice(0, 5);
+    });
+  };
+
+  $scope.deleteStation = function(stationid) {
+    console.log("deletestation:"+stationid);
+    $http.get(serverAdress+'/webservice/json/delete/'+stationid).then(function(data) {
+      $scope.editStation = null;
+      $scope.clearList();
+      console.log(JSON.stringify(data));
+      if (data.data.ok){
+          alert("delete ok");
+      }else{
+          alert("could not delete station:"+data.data.message);
+      }
+    }, function(err) {
+      console.log("error:" + err);
     });
   };
 
