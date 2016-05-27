@@ -487,7 +487,6 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     $http.get(serverAdress+'/webservice/json/delete/'+stationid).then(function(data) {
       $scope.editStation = null;
       $scope.clearList();
-      console.log(JSON.stringify(data));
       if (data.data.ok === "true"){
           alert("delete ok");
       }else{
@@ -502,12 +501,12 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     console.log("revertStation:"+stationid+"  "+changeid);
     $http.get(serverAdress+'/webservice/json/revert/'+stationid+'/'+changeid).then(function(data) {
       $scope.clearList();
-      console.log(JSON.stringify(data));
       if (data.data.ok === "true"){
           alert("undelete ok");
       }else{
           alert("could not undelete station:"+data.data.message);
       }
+      $scope.setTab("home");
     }, function(err) {
       console.log("error:" + err);
     });
