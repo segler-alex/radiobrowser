@@ -155,9 +155,9 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
         $scope.editStation.tags = $scope.editStation.tags_arr.join(',');
       }
       if (undefined === $scope.editStation.id) {
-        url = serverAdress+'/webservice/add';
+        url = serverAdress+'/webservice/json/add';
       } else {
-        url = serverAdress+'/webservice/edit';
+        url = serverAdress+'/webservice/json/edit';
         $scope.editStation.stationid = $scope.editStation.id;
       }
       $http({
