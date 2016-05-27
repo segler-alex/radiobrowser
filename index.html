@@ -57,6 +57,7 @@
             <li ng-class="{active: tab==='bycodec'}"><a href="#" ng-click="setTab('bycodec')">By codec</a></li>
             <li ng-class="{active: tab==='broken'}"><a href="#" ng-click="setTab('broken')">Broken</a></li>
             <li ng-class="{active: tab==='improve'}"><a href="#" ng-click="setTab('improve')">Improve</a></li>
+            <li ng-class="{active: tab==='deleted'}"><a href="#" ng-click="setTab('deleted')">Deleted</a></li>
             <li ng-class="{active: tab==='latelychanged'}"><a href="#" ng-click="setTab('latelychanged')">Lately changed</a></li>
             <li ng-class="{active: tab==='latelyplayed'}"><a href="#" ng-click="setTab('latelyplayed')">Lately played</a></li>
             <li ng-class="{active: tab==='editstation'}"><a href="#" ng-click="setTab('editstation')">New station</a></li>
@@ -246,7 +247,7 @@
         <th width="10"></th>
         <th width="10"><span class="glyphicon glyphicon-thumbs-up" /></th>
         <th>Name</th>
-        <th>Streaminfo</th>
+        <th ng-show="tab!=='deleted'">Streaminfo</th>
         <th>Tags</th>
         <th>Country</th>
         <th width="200"></th>
@@ -256,7 +257,7 @@
           <td align="right"><img ng-src="{{station.favicon}}" height="20px" ng-show="station.favicon" /></td>
           <td>{{station.votes}}</td>
           <td>{{station.name}}</td>
-          <td>
+          <td ng-show="tab!=='deleted'">
             <span class="btn btn-xs btn-info" ng-show="station.codec" ng-click="displayByCodec(station.codec)">{{station.codec}}</span>
             <span class="btn btn-xs btn-info" ng-show="station.bitrate > 0">{{station.bitrate}} kbps</span>
             <span class="btn btn-xs btn-danger" ng-show="station.lastcheckok==='0'">BROKEN</span>
@@ -265,12 +266,15 @@
             <div class="btn btn-xs btn-info tagbutton" ng-repeat="value in getTagsArray(station.tags)" ng-click="displayByTag(value)">{{value}}</div>
           </td>
           <td><button class="btn btn-xs btn-info" ng-click="displayByCountry(station.country)" ng-show="station.country">{{station.country}}</button> <span ng-show="station.state">/ <button class="btn btn-xs btn-info" ng-click="displayByState(station.state)">{{station.state }}</button></span></td>
-          <td>
+          <td ng-show="tab!=='deleted'">
             <button class="btn btn-link btn-xs" ng-click="play(station.id)"><span class="glyphicon glyphicon-play" /></button>
             <a href="http://www.radio-browser.info/webservice/pls/url/{{station.id}}" class="btn btn-link btn-xs" ><span class="glyphicon glyphicon-floppy-disk" /></a>
             <a href="{{station.homepage}}" ng-show="station.homepage" target="_blank"><span class="btn btn-link btn-xs glyphicon glyphicon-home" /></a>
             <button class="btn btn-link btn-xs" ng-click="vote(station.id)"><span class="glyphicon glyphicon-thumbs-up" /></button>
             <button class="btn btn-link btn-xs" ng-click="edit(station)"><span class="glyphicon glyphicon glyphicon-pencil" /></button>
+          </td>
+          <td ng-show="tab==='deleted'">
+            <button class="btn btn-link btn-xs" ng-click="revertStation(station.id, station.changeid)">Undelete</button>
           </td>
         </tr>
       </tbody>

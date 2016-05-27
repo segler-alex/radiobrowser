@@ -100,6 +100,9 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     if (tab === "broken") {
       $scope.displayBroken();
     }
+    if (tab === "deleted") {
+      $scope.displayDeleted();
+    }
     if (tab === "improve") {
       $scope.displayImprove();
     }
@@ -327,6 +330,17 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     });
   }
 
+  $scope.displayDeleted = function() {
+    $http.get(serverAdress+'/webservice/json/stations/deleted').then(function(data) {
+      $scope.resultListFull = data.data;
+      $scope.bigCurrentPage = 1;
+      $scope.bigTotalItems = data.data.length;
+      $scope.updateList();
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
+
   $scope.displayImprove = function() {
     $http.get(serverAdress+'/webservice/json/stations/improvable/10').then(function(data) {
       $scope.resultListFull = data.data;
@@ -474,10 +488,25 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
       $scope.editStation = null;
       $scope.clearList();
       console.log(JSON.stringify(data));
-      if (data.data.ok){
+      if (data.data.ok === "true"){
           alert("delete ok");
       }else{
           alert("could not delete station:"+data.data.message);
+      }
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  };
+
+  $scope.revertStation = function(stationid,changeid) {
+    console.log("revertStation:"+stationid+"  "+changeid);
+    $http.get(serverAdress+'/webservice/json/revert/'+stationid+'/'+changeid).then(function(data) {
+      $scope.clearList();
+      console.log(JSON.stringify(data));
+      if (data.data.ok === "true"){
+          alert("undelete ok");
+      }else{
+          alert("could not undelete station:"+data.data.message);
       }
     }, function(err) {
       console.log("error:" + err);
