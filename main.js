@@ -14,7 +14,7 @@ app.directive('ngEnter', function() {
   };
 });
 
-app.controller('MainController', function($scope, $http, $sce, $httpParamSerializerJQLike) {
+app.controller('MainController', function($scope, $http, $sce, $httpParamSerializerJQLike, $uibModal) {
   $scope.bigTotalItems = 0;
   $scope.bigCurrentPage = 1;
   $scope.itemsPerPage = 20;
@@ -157,7 +157,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
       if (undefined === $scope.editStation.id) {
         url = serverAdress+'/webservice/json/add';
       } else {
-        url = serverAdress+'/webservice/json/edit';
+        url = serverAdress+'/webservice/json/edit/'+$scope.editStation.id;
         $scope.editStation.stationid = $scope.editStation.id;
       }
       $http({
@@ -168,10 +168,11 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       }).success(function(response) {
-        console.log("ok:" + response);
+        console.log("ok:" + JSON.stringify(response));
         $scope.editStation = null;
         $scope.clearList();
         $scope.activeSending = false;
+        $scope.open(response);
       });
     }
   }
@@ -523,5 +524,35 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
       return [];
     }
     return tags_string.split(',');
+  };
+
+  $scope.open = function (sth) {
+    console.log("open");
+    var modalInstance = $uibModal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalContent.html',
+      controller: 'ModalInstanceCtrl',
+      resolve: {
+        items: function () {
+          return sth;
+        }
+      }
+    });
+
+    modalInstance.result.then(function () {
+      console.log("closed");
+    }, function () {
+      console.log("dismissed");
+    });
+  };
+});
+
+
+app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
+  console.log("PARAM:"+JSON.stringify(items));
+  $scope.result = items;
+
+  $scope.ok = function () {
+    $uibModalInstance.close();
   };
 });
