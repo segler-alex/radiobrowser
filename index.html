@@ -39,14 +39,14 @@
                     <span ng-show="result.stream_check_ok === 'true'" class="glyphicon glyphicon-ok" color="green"></span>
                     <span ng-show="result.stream_check_ok !== 'true'" class="glyphicon glyphicon-remove" color="red"></span>
                 </li>
-                <li><u>Bitrate:</u> {{result.stream_check_bitrate}}</li>
-                <li><u>Codec:</u> {{result.stream_check_codec}}</li>
+                <li ng-show="result.stream_check_ok === 'true'"><u>Bitrate:</u> {{result.stream_check_bitrate}}</li>
+                <li ng-show="result.stream_check_ok === 'true'"><u>Codec:</u> {{result.stream_check_codec}}</li>
                 <li>
                     <u>Favicon check done:</u>
                     <span ng-show="result.favicon_check_done === 'true'" class="glyphicon glyphicon-ok" color="green"></span>
                     <span ng-show="result.favicon_check_done !== 'true'" class="glyphicon glyphicon-remove" color="yellow"></span>
                 </li>
-                <li>
+                <li ng-show="result.favicon_check_done === 'true'">
                     <u>Favicon found:</u>
                     <span ng-show="result.favicon_check_ok === 'true'" class="glyphicon glyphicon-ok" color="green"></span>
                     <span ng-show="result.favicon_check_ok !== 'true'" class="glyphicon glyphicon-remove" color="yellow"></span><br/>
@@ -227,7 +227,7 @@
               <label for="StationName" class="col-sm-2 control-label">Favicon</label>
               <div class="col-sm-10">
                 <input type="text" class="form-control" id="StationIcon" placeholder="http://.." ng-model="editStation.favicon" ng-disabled="activeSending" />
-                <img ng-src="{{editStation.favicon}}" height="40" />
+                <img ng-show="editStation && editStation.favicon !== ''" ng-src="{{editStation.favicon}}" height="40" />
               </div>
             </div>
             <div class="form-group">
