@@ -393,10 +393,10 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     // decode playlist
     var decodeUrl = serverAdress + "/webservice/json/url/" + id;
     $http.get(decodeUrl).then(function(data) {
-      if (data.data.length > 0) {
-        var station = data.data[0];
+      if (data.data.ok === "true") {
+        var station = data.data;
         $scope.playerItem = station;
-        PlayAudioStream(data.data[0].url);
+        PlayAudioStream(station.url);
       }
     }, function(err) {
       console.log("error:" + err);
