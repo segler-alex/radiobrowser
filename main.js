@@ -176,9 +176,13 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     }
   }
 
-  $scope.vote = function(stationid) {
-    $http.get(serverAdress+'/webservice/json/vote/' + stationid).then(function(data) {
-      replaceStations(data.data);
+  $scope.vote = function(station) {
+    $http.get(serverAdress+'/webservice/json/vote/' + station.id).then(function(data) {
+      if (data.data.ok === "true"){
+        station.votes = parseInt(station.votes) + 1;
+      }else{
+        alert("could not vote for station: "+data.data.message);
+      }
       $scope.updateList();
     }, function(err) {
       console.log("error:" + err);

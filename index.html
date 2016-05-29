@@ -270,7 +270,7 @@
             <button class="btn btn-link btn-xs" ng-click="play(station.id)"><span class="glyphicon glyphicon-play" /></button>
             <a href="http://www.radio-browser.info/webservice/pls/url/{{station.id}}" class="btn btn-link btn-xs" ><span class="glyphicon glyphicon-floppy-disk" /></a>
             <a href="{{station.homepage}}" ng-show="station.homepage" target="_blank"><span class="btn btn-link btn-xs glyphicon glyphicon-home" /></a>
-            <button class="btn btn-link btn-xs" ng-click="vote(station.id)"><span class="glyphicon glyphicon-thumbs-up" /></button>
+            <button class="btn btn-link btn-xs" ng-click="vote(station)"><span class="glyphicon glyphicon-thumbs-up" /></button>
             <button class="btn btn-link btn-xs" ng-click="edit(station)"><span class="glyphicon glyphicon glyphicon-pencil" /></button>
           </td>
           <td ng-show="tab==='deleted'">
