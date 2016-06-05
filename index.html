@@ -195,14 +195,14 @@
         </div>
       </div>
       <div role="tabpanel" id="newstation" ng-show="tab==='editstation'">
-        <div style="width:600px">
+        <div style="float:left;width:600px;margin-left:50px">
           <H2 ng-hide="editStation.id">Add new station</H2>
           <H2 ng-show="editStation.id">Edit station</H2>
           <form class="form-horizontal" name="FormInput">
             <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationName.$valid,'has-error':!FormInput.StationName.$valid}">
               <label for="StationName" class="col-sm-2 control-label">Name</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationName" placeholder="Name.." ng-model="editStation.name" required name="StationName" ng-disabled="activeSending" />
+                <input type="text" class="form-control" id="StationName" placeholder="Name.." ng-model="editStation.name" required name="StationName" ng-disabled="activeSending" ng-change="updateSimiliar(editStation.name)"/>
                 <span class="help-block" ng-show="!FormInput.StationName.$valid">The name is required</span>
                 <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationName.$valid"></span>
                 <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationName.$valid"></span>
@@ -271,6 +271,13 @@
             <button class="btn btn-default" ng-click="sendStation()" ng-disabled="activeSending || !FormInput.$valid">Save</button>
             <button class="btn btn-default" ng-click="deleteStation(editStation.id)" ng-disabled="activeSending" ng-show="editStation.id">Delete</button>
           </form>
+        </div>
+        <div style="float:left;width:600px;margin-left:50px" ng-show="similiarStations.length > 0">
+          <H2>Similiar stations in database:</H2>
+          Please do not add stations, that are already in the database.
+          <ul>
+            <li ng-repeat="station in similiarStations">{{station.name}} (<a href="{{station.homepage}}" target="_blank">{{station.homepage}}</a>)</li>
+          </ul>
         </div>
       </div>
     </div>

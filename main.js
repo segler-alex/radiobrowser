@@ -23,6 +23,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   $scope.audioVolume = 1;
   $scope.editStation = null;
   $scope.activeSending = false;
+  $scope.similiarStations = [];
   var audio = null;
   $scope.tab = "home";
   const serverAdress = "https://www.radio-browser.info";
@@ -32,6 +33,25 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }, function(err) {
     console.log("error:" + err);
   });
+
+  $scope.updateSimiliar = function(name){
+    $http.post(serverAdress+'/webservice/json/stations/byname/' + name,{limit:20}).then(function(data) {
+      if ($scope.editStation.id){
+          var stations = [];
+          for (var i=0;i<data.data.length;i++){
+              var station = data.data[i];
+              if (station.id !== $scope.editStation.id){
+                  stations.push(station);
+              }
+          }
+          $scope.similiarStations = stations;
+      }else{
+          $scope.similiarStations = data.data;
+      }
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
 
   $scope.changeItemsPerPage = function(items) {
     $scope.itemsPerPage = items;
@@ -54,6 +74,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     console.log(JSON.stringify(station));
     $scope.setTab("editstation");
     $scope.editStation = station;
+    $scope.updateSimiliar(station.name);
     if (station.tags.trim() === "") {
       $scope.editStation.tags_arr = [];
     } else {
@@ -137,6 +158,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
       $scope.editStation.tags = "";
       $scope.editStation.subcountry = "";
       $scope.editStation.tags_arr = [];
+      $scope.similiarStations = [];
     }
     if (tab === "api") {
       $scope.clearList();
