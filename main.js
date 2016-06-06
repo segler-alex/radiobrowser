@@ -215,6 +215,8 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
         $scope.editStation = null;
         $scope.clearList();
         $scope.activeSending = false;
+        $scope.similiarStations = [];
+        $scope.imageList = [];
         $scope.open(response);
       });
     }
