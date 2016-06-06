@@ -220,17 +220,29 @@
             <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationHomepage.$valid,'has-error':!FormInput.StationHomepage.$valid}">
               <label for="StationHomepage" class="col-sm-2 control-label">Homepage</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationHomepage" placeholder="http://.." ng-model="editStation.homepage" name="StationHomepage" required ng-pattern="/^https?:\/\/.+$/" ng-disabled="activeSending" />
+                <input type="text" class="form-control" id="StationHomepage" placeholder="http://.." ng-change="updateImageList(editStation.homepage)" ng-model="editStation.homepage" name="StationHomepage" required ng-pattern="/^https?:\/\/.+$/" ng-disabled="activeSending" />
                 <span class="help-block" ng-show="!FormInput.StationHomepage.$valid">The homepage url is required, and needs to start with http:// or https://</span>
                 <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationHomepage.$valid"></span>
                 <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationHomepage.$valid"></span>
+                <div ng-show="imageList.length > 0">
+                  <br/>
+                  <p>
+                    <u>Extracted images:</u>
+                    Please choose one image or input url yourself:<br/>
+                    <nobr>
+                      <button ng-repeat="image in imageList" ng-click="editStation.favicon=image;">
+                        <img src="{{image}}" height="30"/>
+                      </button>
+                    </nobr>
+                  </p>
+                </div>
               </div>
             </div>
             <div class="form-group">
               <label for="StationIcon" class="col-sm-2 control-label">Favicon</label>
               <div class="col-sm-10">
                 <input type="text" class="form-control" id="StationIcon" placeholder="http://.." ng-model="editStation.favicon" ng-disabled="activeSending" />
-                <img ng-show="editStation && editStation.favicon !== ''" ng-src="{{editStation.favicon}}" height="40" />
+                <img ng-show="editStation && editStation.favicon !== ''" ng-src="{{editStation.favicon}}" height="40" /><br/>
               </div>
             </div>
             <div class="form-group">

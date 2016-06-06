@@ -24,15 +24,33 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   $scope.editStation = null;
   $scope.activeSending = false;
   $scope.similiarStations = [];
+  $scope.imageList = [];
   var audio = null;
   $scope.tab = "home";
   const serverAdress = "https://www.radio-browser.info";
 
-  $http.get(serverAdress+'/webservice/json/stats').then(function(data) {
-    $scope.stats = data.data;
-  }, function(err) {
-    console.log("error:" + err);
-  });
+  updateStats();
+
+  function updateStats(){
+    $http.get(serverAdress+'/webservice/json/stats').then(function(data) {
+      $scope.stats = data.data;
+    }, function(err) {
+      console.log("error:" + err);
+    });
+  }
+
+  $scope.updateImageList = function(url){
+    $http.post(serverAdress+'/webservice/json/extract_images',{'url':url}).then(function(data) {
+      $scope.imageList = data.data;
+      if (data.data.ok === "true"){
+        $scope.imageList = data.data.images;
+      }else{
+        $scope.imageList = [];
+      }
+    }, function(err) {
+      console.log("error:" + JSON.stringify(err));
+    });
+  }
 
   $scope.updateSimiliar = function(name){
     $http.post(serverAdress+'/webservice/json/stations/byname/' + name,{limit:20}).then(function(data) {
@@ -75,6 +93,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     $scope.setTab("editstation");
     $scope.editStation = station;
     $scope.updateSimiliar(station.name);
+    $scope.updateImageList(station.homepage);
     if (station.tags.trim() === "") {
       $scope.editStation.tags_arr = [];
     } else {
@@ -113,6 +132,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     $scope.tab = tab;
 
     if (tab === "home") {
+      updateStats();
       $scope.clearList();
     }
     if (tab === "byclicks") {
@@ -159,6 +179,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
       $scope.editStation.subcountry = "";
       $scope.editStation.tags_arr = [];
       $scope.similiarStations = [];
+      $scope.imageList = [];
     }
     if (tab === "api") {
       $scope.clearList();
