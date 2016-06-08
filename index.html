@@ -53,6 +53,10 @@
                     <img ng-src="{{result.favicon_check_url}}" ng-show="result.favicon_check_ok" width="100"/>
                 </li>
             </ul>
+            <div ng-show="result.stream_check_ok === 'false'">
+              Please check the link you provided again with a media play (for example <a href="http://videolan.org/">VLC</a> (FREE)). If the stream works with your mediaplayer, please drop me a <a href="mailto:segler_alex@web.de">note</a> or create a bug report on <a href="https://github.com/segler-alex/radiobrowser/issues">github</a>.<br/><br/>
+              Thank you!
+            </div>
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
