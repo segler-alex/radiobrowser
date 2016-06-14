@@ -317,7 +317,7 @@
         <th>Tags</th>
         <th>Country</th>
         <th ng-show="tab!=='deleted'">Last online check (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)</th>
-        <th ng-show="tab!=='deleted'">Last contact (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)</th>
+        <th ng-show="tab==='broken'">Last contact (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)</th>
         <th width="200"></th>
       </thead>
       <tbody>
@@ -335,7 +335,7 @@
           </td>
           <td><button class="btn btn-xs btn-info" ng-click="displayByCountry(station.country)" ng-show="station.country">{{station.country}}</button> <span ng-show="station.state">/ <button class="btn btn-xs btn-info" ng-click="displayByState(station.state)">{{station.state }}</button></span></td>
           <td ng-show="tab!=='deleted'">{{station.lastchecktime || "never"}}</td>
-          <td ng-show="tab!=='deleted'">{{station.lastcheckoktime || "never"}}</td>
+          <td ng-show="tab==='broken'">{{station.lastcheckoktime || "never"}}</td>
           <td ng-show="tab!=='deleted'">
             <button class="btn btn-link btn-xs" ng-click="play(station.id)"><span class="glyphicon glyphicon-play" /></button>
             <a href="http://www.radio-browser.info/webservice/pls/url/{{station.id}}" class="btn btn-link btn-xs" ><span class="glyphicon glyphicon-floppy-disk" /></a>
