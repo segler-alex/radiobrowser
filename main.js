@@ -370,7 +370,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   }
 
   $scope.displayBroken = function() {
-    $http.get(serverAdress+'/webservice/json/stations/broken/10').then(function(data) {
+    $http.get(serverAdress+'/webservice/json/stations/broken/100').then(function(data) {
       $scope.resultListFull = data.data;
       $scope.bigCurrentPage = 1;
       $scope.bigTotalItems = data.data.length;
