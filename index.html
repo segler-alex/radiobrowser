@@ -243,7 +243,7 @@
                     Please choose one image or input url yourself:<br/>
                     <nobr>
                       <button ng-repeat="image in imageList" ng-click="editStation.favicon=image;">
-                        <img src="{{image}}" height="30"/>
+                        <img ng-src="{{image}}" height="30"/>
                       </button>
                     </nobr>
                   </p>
