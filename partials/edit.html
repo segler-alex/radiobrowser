@@ -1,100 +1,102 @@
-The information provided here, will be released under the public domain.
-<br/> Radio-browser.info only saves links. The content of the streams or the favicons or the homepages of the stations are property of the radio stations themselves.
-<br/>
-<div style="float:left;width:600px;margin-left:50px">
-    <H2 ng-hide="editStation.id">Add new station</H2>
-    <H2 ng-show="editStation.id">Edit station</H2>
-    <form class="form-horizontal" name="FormInput">
-        <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationName.$valid,'has-error':!FormInput.StationName.$valid}">
-            <label for="StationName" class="col-sm-2 control-label">Name</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationName" placeholder="Name.." ng-model="editStation.name" required name="StationName" ng-disabled="activeSending" ng-change="updateSimiliar(editStation.name)" />
-                <span class="help-block" ng-show="!FormInput.StationName.$valid">The name is required</span>
-                <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationName.$valid"></span>
-                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationName.$valid"></span>
-            </div>
-        </div>
-        <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationUrl.$valid,'has-error':!FormInput.StationUrl.$valid}">
-            <label for="StationUrl" class="col-sm-2 control-label">URL</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationUrl" placeholder="http://.." ng-model="editStation.url" name="StationUrl" required ng-pattern="/^https?:\/\/.+$/" ng-disabled="activeSending" />
-                <span class="help-block" ng-show="!FormInput.StationUrl.$valid">The streaming url is required, and needs to start with http:// or https://</span>
-                <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationUrl.$valid"></span>
-                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationUrl.$valid"></span>
-            </div>
-        </div>
-        <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationHomepage.$valid,'has-error':!FormInput.StationHomepage.$valid}">
-            <label for="StationHomepage" class="col-sm-2 control-label">Homepage</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationHomepage" placeholder="http://.." ng-change="updateImageList(editStation.homepage)" ng-model="editStation.homepage" name="StationHomepage" required ng-pattern="/^https?:\/\/.+$/" ng-disabled="activeSending"
-                />
-                <span class="help-block" ng-show="!FormInput.StationHomepage.$valid">The homepage url is required, and needs to start with http:// or https://</span>
-                <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationHomepage.$valid"></span>
-                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationHomepage.$valid"></span>
-                <div ng-show="imageList.length > 0">
-                    <br/>
-                    <p>
-                        <u>Extracted images:</u> Please choose one image or input url yourself:
-                        <br/>
-                        <nobr>
-                            <button ng-repeat="image in imageList" ng-click="editStation.favicon=image;">
-                                <img ng-src="{{image}}" height="30" />
-                            </button>
-                        </nobr>
-                    </p>
+<div ng-controller="EditController as edit">
+    The information provided here, will be released under the public domain.
+    <br/> Radio-browser.info only saves links. The content of the streams or the favicons or the homepages of the stations are property of the radio stations themselves.
+    <br/>
+    <div style="float:left;width:600px;margin-left:50px">
+        <H2 ng-hide="editStation.id">Add new station</H2>
+        <H2 ng-show="editStation.id">Edit station</H2>
+        <form class="form-horizontal" name="FormInput">
+            <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationName.$valid,'has-error':!FormInput.StationName.$valid}">
+                <label for="StationName" class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="StationName" placeholder="Name.." ng-model="editStation.name" required name="StationName" ng-disabled="activeSending" ng-change="updateSimiliar(editStation.name)" />
+                    <span class="help-block" ng-show="!FormInput.StationName.$valid">The name is required</span>
+                    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationName.$valid"></span>
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationName.$valid"></span>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="StationIcon" class="col-sm-2 control-label">Favicon</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationIcon" placeholder="http://.." ng-model="editStation.favicon" ng-disabled="activeSending" />
-                <img ng-show="editStation && editStation.favicon !== ''" ng-src="{{editStation.favicon}}" height="40" />
-                <br/>
+            <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationUrl.$valid,'has-error':!FormInput.StationUrl.$valid}">
+                <label for="StationUrl" class="col-sm-2 control-label">URL</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="StationUrl" placeholder="http://.." ng-model="editStation.url" name="StationUrl" required ng-pattern="/^https?:\/\/.+$/" ng-disabled="activeSending" />
+                    <span class="help-block" ng-show="!FormInput.StationUrl.$valid">The streaming url is required, and needs to start with http:// or https://</span>
+                    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationUrl.$valid"></span>
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationUrl.$valid"></span>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="StationCountry" class="col-sm-2 control-label">Country</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationCountry" placeholder="Country.." ng-model="editStation.country" uib-typeahead="country.name for country in getCountries($viewValue)" ng-disabled="activeSending" />
+            <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationHomepage.$valid,'has-error':!FormInput.StationHomepage.$valid}">
+                <label for="StationHomepage" class="col-sm-2 control-label">Homepage</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="StationHomepage" placeholder="http://.." ng-change="updateImageList(editStation.homepage)" ng-model="editStation.homepage" name="StationHomepage" required ng-pattern="/^https?:\/\/.+$/" ng-disabled="activeSending"
+                    />
+                    <span class="help-block" ng-show="!FormInput.StationHomepage.$valid">The homepage url is required, and needs to start with http:// or https://</span>
+                    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationHomepage.$valid"></span>
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationHomepage.$valid"></span>
+                    <div ng-show="imageList.length > 0">
+                        <br/>
+                        <p>
+                            <u>Extracted images:</u> Please choose one image or input url yourself:
+                            <br/>
+                            <nobr>
+                                <button ng-repeat="image in imageList" ng-click="editStation.favicon=image;">
+                                    <img ng-src="{{image}}" height="30" />
+                                </button>
+                            </nobr>
+                        </p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="StationState" class="col-sm-2 control-label">State</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationState" placeholder="State.." ng-model="editStation.state" uib-typeahead="state.name for state in getStates($viewValue)" typeahead-template-url="customTemplate.html" ng-disabled="activeSending" />
+            <div class="form-group">
+                <label for="StationIcon" class="col-sm-2 control-label">Favicon</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="StationIcon" placeholder="http://.." ng-model="editStation.favicon" ng-disabled="activeSending" />
+                    <img ng-show="editStation && editStation.favicon !== ''" ng-src="{{editStation.favicon}}" height="40" />
+                    <br/>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="StationLanguage" class="col-sm-2 control-label">Language</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationLanguage" placeholder="Language.." ng-model="editStation.language" uib-typeahead="language.name for language in getLanguages($viewValue)" ng-disabled="activeSending" />
+            <div class="form-group">
+                <label for="StationCountry" class="col-sm-2 control-label">Country</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="StationCountry" placeholder="Country.." ng-model="editStation.country" uib-typeahead="country.name for country in getCountries($viewValue)" ng-disabled="activeSending" />
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="StationTags" class="col-sm-2 control-label">Tags</label>
-            <div class="col-sm-10">
-                <span ng-repeat="value in editStation.tags_arr">
+            <div class="form-group">
+                <label for="StationState" class="col-sm-2 control-label">State</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="StationState" placeholder="State.." ng-model="editStation.state" uib-typeahead="state.name for state in getStates($viewValue)" typeahead-template-url="customTemplate.html" ng-disabled="activeSending" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="StationLanguage" class="col-sm-2 control-label">Language</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="StationLanguage" placeholder="Language.." ng-model="editStation.language" uib-typeahead="language.name for language in getLanguages($viewValue)" ng-disabled="activeSending" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="StationTags" class="col-sm-2 control-label">Tags</label>
+                <div class="col-sm-10">
+                    <span ng-repeat="value in editStation.tags_arr">
           <span class="btn-group btn-group-xs">
             <button class="btn btn-xs btn-default">{{value}}</button>
             <button class="btn btn-xs btn-danger" ng-click="removeTag(value)"><span class="glyphicon glyphicon-remove"/></button>
           </span>
-                </span>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="StationTags" placeholder="Tags.." ng-model="editStation.tag" uib-typeahead="tag.name for tag in getTags($viewValue)" ng-enter="addTag(editStation.tag)" ng-disabled="activeSending" />
-                    <span class="input-group-btn">
+                    </span>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="StationTags" placeholder="Tags.." ng-model="editStation.tag" uib-typeahead="tag.name for tag in getTags($viewValue)" ng-enter="addTag(editStation.tag)" ng-disabled="activeSending" />
+                        <span class="input-group-btn">
             <button class="btn btn-default" type="button" ng-click="addTag(editStation.tag)" ng-disabled="activeSending"><span class="glyphicon glyphicon-ok"/></button>
           </span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <button class="btn btn-default" ng-click="sendStation()" ng-disabled="activeSending || !FormInput.$valid">Save</button>
-        <button class="btn btn-default" ng-click="deleteStation(editStation.id)" ng-disabled="activeSending" ng-show="editStation.id">Delete</button>
-    </form>
-</div>
-<div style="float:left;width:600px;margin-left:50px" ng-show="similiarStations.length > 0">
-    <H2>Similiar stations in database:</H2> Please do not add stations, that are already in the database.
-    <ul>
-        <li ng-repeat="station in similiarStations">{{station.name}} (<a href="{{station.homepage}}" target="_blank">{{station.homepage}}</a>)</li>
-    </ul>
+            <button class="btn btn-default" ng-click="sendStation()" ng-disabled="activeSending || !FormInput.$valid">Save</button>
+            <button class="btn btn-default" ng-click="deleteStation(editStation.id)" ng-disabled="activeSending" ng-show="editStation.id">Delete</button>
+        </form>
+    </div>
+    <div style="float:left;width:600px;margin-left:50px" ng-show="similiarStations.length > 0">
+        <H2>Similiar stations in database:</H2> Please do not add stations, that are already in the database.
+        <ul>
+            <li ng-repeat="station in similiarStations">{{station.name}} (<a href="{{station.homepage}}" target="_blank">{{station.homepage}}</a>)</li>
+        </ul>
+    </div>
 </div>

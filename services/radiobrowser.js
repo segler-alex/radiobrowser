@@ -6,7 +6,12 @@ angular.module('RadioBrowserApp').factory('radiobrowser', ['$http', function rad
         return $http.get(serverAdress + '/webservice/json/stats');
     }
 
+    function post(relLink, data) {
+        return $http.post(serverAdress + relLink, data);
+    }
+
     return {
-        'getStats': getStats
+        'getStats': getStats,
+        'post': post
     };
 }]);

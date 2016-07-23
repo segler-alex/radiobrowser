@@ -7,62 +7,14 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   $scope.countryList = [];
   $scope.playerItem = null;
   $scope.audioVolume = 1;
-  $scope.editStation = null;
-  $scope.activeSending = false;
-  $scope.similiarStations = [];
-  $scope.imageList = [];
   var audio = null;
   $scope.tab = "home";
   // const serverAdress = "http://localhost";
   const serverAdress = "http://www.radio-browser.info";
 
-  $scope.updateImageList = function(url){
-    $http.post(serverAdress+'/webservice/json/extract_images',{'url':url}).then(function(data) {
-      $scope.imageList = data.data;
-      if (data.data.ok === "true"){
-        $scope.imageList = data.data.images;
-      }else{
-        $scope.imageList = [];
-      }
-    }, function(err) {
-      console.log("error:" + JSON.stringify(err));
-    });
-  }
-
-  $scope.updateSimiliar = function(name){
-    $http.post(serverAdress+'/webservice/json/stations/byname/' + name,{limit:20}).then(function(data) {
-      if ($scope.editStation.id){
-          var stations = [];
-          for (var i=0;i<data.data.length;i++){
-              var station = data.data[i];
-              if (station.id !== $scope.editStation.id){
-                  stations.push(station);
-              }
-          }
-          $scope.similiarStations = stations;
-      }else{
-          $scope.similiarStations = data.data;
-      }
-    }, function(err) {
-      console.log("error:" + err);
-    });
-  }
-
   $scope.changeItemsPerPage = function(items) {
     $scope.itemsPerPage = items;
     $scope.updateList();
-  }
-
-  $scope.addTag = function(tag) {
-    $scope.editStation.tags_arr.splice(0, 0, tag);
-    $scope.editStation.tag = "";
-  }
-
-  $scope.removeTag = function(tag) {
-    var index = $scope.editStation.tags_arr.indexOf(tag);
-    if (index !== -1) {
-      $scope.editStation.tags_arr.splice(index, 1);
-    }
   }
 
   $scope.edit = function(station) {
@@ -163,39 +115,6 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     }
     if (tab !== 'editstation') {
       $scope.editStation = null;
-    }
-  }
-
-  $scope.sendStation = function() {
-    if ($scope.editStation !== null) {
-      $scope.activeSending = true;
-      console.log("---" + $scope.editStation.id);
-      $scope.editStation.tags = "";
-      if ($scope.editStation.tags_arr){
-        $scope.editStation.tags = $scope.editStation.tags_arr.join(',');
-      }
-      if (undefined === $scope.editStation.id) {
-        url = serverAdress+'/webservice/json/add';
-      } else {
-        url = serverAdress+'/webservice/json/edit/'+$scope.editStation.id;
-        $scope.editStation.stationid = $scope.editStation.id;
-      }
-      $http({
-        url: url,
-        method: 'POST',
-        data: $httpParamSerializerJQLike($scope.editStation),
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }).success(function(response) {
-        console.log("ok:" + JSON.stringify(response));
-        $scope.editStation = null;
-        $scope.clearList();
-        $scope.activeSending = false;
-        $scope.similiarStations = [];
-        $scope.imageList = [];
-        $scope.open(response);
-      });
     }
   }
 
@@ -546,35 +465,5 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
       return [];
     }
     return tags_string.split(',');
-  };
-
-  $scope.open = function (sth) {
-    console.log("open");
-    var modalInstance = $uibModal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'myModalContent.html',
-      controller: 'ModalInstanceCtrl',
-      resolve: {
-        items: function () {
-          return sth;
-        }
-      }
-    });
-
-    modalInstance.result.then(function () {
-      console.log("closed");
-    }, function () {
-      console.log("dismissed");
-    });
-  };
-});
-
-
-app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
-  console.log("PARAM:"+JSON.stringify(items));
-  $scope.result = items;
-
-  $scope.ok = function () {
-    $uibModalInstance.close();
   };
 });
