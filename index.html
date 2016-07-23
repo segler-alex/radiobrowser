@@ -14,67 +14,57 @@
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="https://raw.github.com/nickdesaulniers/javascript-playlist-parser/master/lib/parser.min.js"></script>
     <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.js"></script>
     <script src="bower_components/angular-bootstrap-slider/slider.js"></script>
 
     <script src="app.js"></script>
     <script src="controllers/main.js"></script>
+
+    <script type="text/ng-template" id="customTemplate.html" src="templates/countryItem.html"> </script>
+    <script type="text/ng-template" id="myModalContent.html" src="modals/sendModal.html"> </script>
 </head>
 
-<script type="text/ng-template" id="customTemplate.html">
-    <a>
-        <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span> ({{match.model.country}})
-    </a>
-</script>
-
 <body ng-controller="MainController">
-    <script type="text/ng-template" id="myModalContent.html" src="modals/sendModal.html" > </script>
-    <div>
-        <!-- Nav tabs -->
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#" ng-click="setTab('home')">Community Radio Browser</a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li ng-class="{active: tab==='byclicks'}"><a href="#" ng-click="setTab('byclicks')">By clicks</a></li>
-                        <li ng-class="{active: tab==='byvotes'}"><a href="#" ng-click="setTab('byvotes')">By vote</a></li>
-                        <li ng-class="{active: tab==='bycountry'}"><a href="#" ng-click="setTab('bycountry')">By country</a></li>
-                        <li ng-class="{active: tab==='bylanguage'}"><a href="#" ng-click="setTab('bylanguage')">By language</a></li>
-                        <li ng-class="{active: tab==='bytag'}"><a href="#" ng-click="setTab('bytag')">By tag</a></li>
-                        <li ng-class="{active: tab==='bycodec'}"><a href="#" ng-click="setTab('bycodec')">By codec</a></li>
-                        <li ng-class="{active: tab==='broken'}"><a href="#" ng-click="setTab('broken')">Broken</a></li>
-                        <li ng-class="{active: tab==='improve'}"><a href="#" ng-click="setTab('improve')">Improve</a></li>
-                        <li ng-class="{active: tab==='deleted'}"><a href="#" ng-click="setTab('deleted')">Deleted</a></li>
-                        <li ng-class="{active: tab==='latelychanged'}"><a href="#" ng-click="setTab('latelychanged')">Lately changed</a></li>
-                        <li ng-class="{active: tab==='latelyplayed'}"><a href="#" ng-click="setTab('latelyplayed')">Lately played</a></li>
-                        <li ng-class="{active: tab==='editstation'}"><a href="#" ng-click="setTab('editstation')">New station</a></li>
-                        <li><a href="http://www.radio-browser.info/webservice">Developer API</a></li>
-                    </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search" ng-model="searchterm">
-                        </div>
-                        <button type="submit" class="btn btn-default" ng-click="doSearch(searchterm)"><span class="glyphicon glyphicon-ok" /></button>
-                    </form>
-                </div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#" ng-click="setTab('home')">Community Radio Browser</a>
             </div>
-        </nav>
 
-        <div class="tab-content" role="tabpanel">
-            <div ui-view></div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li ng-class="{active: tab==='byclicks'}"><a ui-sref="list" ng-click="setTab('byclicks')">By clicks</a></li>
+                    <li ng-class="{active: tab==='byvotes'}"><a ui-sref="list" ng-click="setTab('byvotes')">By vote</a></li>
+                    <li ng-class="{active: tab==='bycountry'}"><a ui-sref="countries" ng-click="setTab('bycountry')">By country</a></li>
+                    <li ng-class="{active: tab==='bylanguage'}"><a ui-sref="languages" ng-click="setTab('bylanguage')">By language</a></li>
+                    <li ng-class="{active: tab==='bytag'}"><a ui-sref="tags" ng-click="setTab('bytag')">By tag</a></li>
+                    <li ng-class="{active: tab==='bycodec'}"><a ui-sref="codecs" ng-click="setTab('bycodec')">By codec</a></li>
+                    <li ng-class="{active: tab==='broken'}"><a ui-sref="list" ng-click="setTab('broken')">Broken</a></li>
+                    <li ng-class="{active: tab==='improve'}"><a ui-sref="list" ng-click="setTab('improve')">Improve</a></li>
+                    <li ng-class="{active: tab==='deleted'}"><a ui-sref="list" ng-click="setTab('deleted')">Deleted</a></li>
+                    <li ng-class="{active: tab==='latelychanged'}"><a ui-sref="list" ng-click="setTab('latelychanged')">Lately changed</a></li>
+                    <li ng-class="{active: tab==='latelyplayed'}"><a ui-sref="list" ng-click="setTab('latelyplayed')">Lately played</a></li>
+                    <li ng-class="{active: tab==='editstation'}"><a href="#" ng-click="setTab('editstation')">New station</a></li>
+                    <li><a href="http://www.radio-browser.info/webservice">Developer API</a></li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search" ng-model="searchterm">
+                    </div>
+                    <button type="submit" class="btn btn-default" ng-click="doSearch(searchterm)"><span class="glyphicon glyphicon-ok" /></button>
+                </form>
+            </div>
         </div>
+    </nav>
+
+    <div class="tab-content" role="tabpanel">
+        <div ui-view></div>
     </div>
 
     <div class="player bg-success container-fluid" ng-class="{'player-active':playerItem}">
