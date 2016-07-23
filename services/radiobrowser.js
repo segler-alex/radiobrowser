@@ -1,11 +1,12 @@
-angular.module('RadioBrowserApp').factory('apiToken', ['clientId', function apiTokenFactory(clientId) {
-  var encrypt = function(data1, data2) {
-    // NSA-proof encryption algorithm:
-    return (data1 + ':' + data2).toUpperCase();
-  };
+angular.module('RadioBrowserApp').factory('radiobrowser', ['$http', function radiobrowser($http) {
+    // const serverAdress = "http://localhost";
+    const serverAdress = "http://www.radio-browser.info";
 
-  var secret = window.localStorage.getItem('myApp.secret');
-  var apiToken = encrypt(clientId, secret);
+    function getStats() {
+        return $http.get(serverAdress + '/webservice/json/stats');
+    }
 
-  return apiToken;
+    return {
+        'getStats': getStats
+    };
 }]);
