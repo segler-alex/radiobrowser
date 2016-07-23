@@ -1,0 +1,5 @@
+<div class="container-fluid">
+    <div ng-show="languageList" class="col-md-3" ng-repeat="language in languageList">
+        <button class="btn btn-xs btn-link" ng-click="displayByLanguage(language.name)">{{language.name}} ({{language.stationcount}})</button>
+    </div>
+</div>

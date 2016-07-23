@@ -2,371 +2,93 @@
 <html ng-app="RadioBrowserApp">
 
 <head>
-  <title>Community Radio Station Board</title>
+    <title>Community Radio Station Board</title>
 
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css">
-  <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css">
+    <link rel="stylesheet" href="css/main.css">
 
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-  <script src="https://raw.github.com/nickdesaulniers/javascript-playlist-parser/master/lib/parser.min.js"></script>
-  <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.js"></script>
-  <script src="bower_components/angular-bootstrap-slider/slider.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="https://raw.github.com/nickdesaulniers/javascript-playlist-parser/master/lib/parser.min.js"></script>
+    <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.js"></script>
+    <script src="bower_components/angular-bootstrap-slider/slider.js"></script>
 
-  <script src="app.js"></script>
-  <script src="main.js"></script>
+    <script src="app.js"></script>
+    <script src="controllers/main.js"></script>
 </head>
 
 <script type="text/ng-template" id="customTemplate.html">
-  <a>
-    <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span> ({{match.model.country}})
-  </a>
+    <a>
+        <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span> ({{match.model.country}})
+    </a>
 </script>
 
 <body ng-controller="MainController">
-    <script type="text/ng-template" id="myModalContent.html">
-        <div class="modal-header">
-            <h3 class="modal-title">Result</h3>
-        </div>
-        <div class="modal-body">
-            <ul>
-                <li>
-                    <u>Connection check:</u>
-                    <span ng-show="result.stream_check_ok === 'true'" class="glyphicon glyphicon-ok" color="green"></span>
-                    <span ng-show="result.stream_check_ok !== 'true'" class="glyphicon glyphicon-remove" color="red"></span>
-                </li>
-                <li ng-show="result.stream_check_ok === 'true'"><u>Bitrate:</u> {{result.stream_check_bitrate}}</li>
-                <li ng-show="result.stream_check_ok === 'true'"><u>Codec:</u> {{result.stream_check_codec}}</li>
-                <li>
-                    <u>Favicon check done:</u>
-                    <span ng-show="result.favicon_check_done === 'true'" class="glyphicon glyphicon-ok" color="green"></span>
-                    <span ng-show="result.favicon_check_done !== 'true'" class="glyphicon glyphicon-remove" color="yellow"></span>
-                </li>
-                <li ng-show="result.favicon_check_done === 'true'">
-                    <u>Favicon found:</u>
-                    <span ng-show="result.favicon_check_ok === 'true'" class="glyphicon glyphicon-ok" color="green"></span>
-                    <span ng-show="result.favicon_check_ok !== 'true'" class="glyphicon glyphicon-remove" color="yellow"></span><br/>
-                    <img ng-src="{{result.favicon_check_url}}" ng-show="result.favicon_check_ok" width="100"/>
-                </li>
-            </ul>
-            <div ng-show="result.stream_check_ok === 'false'">
-              Please check the stream link with a media play (for example <a href="http://videolan.org/">VLC</a> (FREE)). If the stream works with your mediaplayer, please drop me a <a href="mailto:segler_alex@web.de">note</a> or create a bug report on <a href="https://github.com/segler-alex/radiobrowser/issues">github</a>.<br/><br/>
-              Thank you!
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-        </div>
-    </script>
-  <!-- <div class="page-header">
-    <H1>Community Radio Browser</H1>
-  </div> -->
-  <div>
-    <!-- Nav tabs -->
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#" ng-click="setTab('home')">Community Radio Browser</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li ng-class="{active: tab==='byclicks'}"><a href="#" ng-click="setTab('byclicks')">By clicks</a></li>
-            <li ng-class="{active: tab==='byvotes'}"><a href="#" ng-click="setTab('byvotes')">By vote</a></li>
-            <li ng-class="{active: tab==='bycountry'}"><a href="#" ng-click="setTab('bycountry')">By country</a></li>
-            <li ng-class="{active: tab==='bylanguage'}"><a href="#" ng-click="setTab('bylanguage')">By language</a></li>
-            <li ng-class="{active: tab==='bytag'}"><a href="#" ng-click="setTab('bytag')">By tag</a></li>
-            <li ng-class="{active: tab==='bycodec'}"><a href="#" ng-click="setTab('bycodec')">By codec</a></li>
-            <li ng-class="{active: tab==='broken'}"><a href="#" ng-click="setTab('broken')">Broken</a></li>
-            <li ng-class="{active: tab==='improve'}"><a href="#" ng-click="setTab('improve')">Improve</a></li>
-            <li ng-class="{active: tab==='deleted'}"><a href="#" ng-click="setTab('deleted')">Deleted</a></li>
-            <li ng-class="{active: tab==='latelychanged'}"><a href="#" ng-click="setTab('latelychanged')">Lately changed</a></li>
-            <li ng-class="{active: tab==='latelyplayed'}"><a href="#" ng-click="setTab('latelyplayed')">Lately played</a></li>
-            <li ng-class="{active: tab==='editstation'}"><a href="#" ng-click="setTab('editstation')">New station</a></li>
-            <li><a href="http://www.radio-browser.info/webservice">Developer API</a></li>
-          </ul>
-          <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search" ng-model="searchterm">
-            </div>
-            <button type="submit" class="btn btn-default" ng-click="doSearch(searchterm)"><span class="glyphicon glyphicon-ok" /></button>
-          </form>
-        </div>
-        <!-- /.navbar-collapse -->
-      </div>
-      <!-- /.container-fluid -->
-    </nav>
-
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <div role="tabpanel" id="home" ng-show="tab==='home'">
-        <div>
-          <p>This is a community approach to collect as many internet radio stations as possible. Any help is appreciated!</p>
-          <p><u>Statistics</u><br/>Station count at the moment: <b>{{stats.stations}}</b>
-            <br/> Station clicks last hour: <b>{{stats.clicks_last_hour}}</b>
-            <br/> Station clicks last day: <b>{{stats.clicks_last_day}}</b>
-            <br/> Distinct tags: <b>{{stats.tags}}</b>
-            <br/> Distinct countries: <b>{{stats.countries}}</b>
-            <br/> Distinct languages: <b>{{stats.languages}}</b>
-          </p>
-          <p><u>HELP!</u><br/>Please help by fixing stations in the tab "broken". The stations there do not work at the present time.<br/>If you do not know how to do that, please have a look at the tab "improve", and add more information to the stations like tags or country.</p>
-          <p>
-            <u>Free for ALL!</u><br/>
-            Everyone can use this station board in their software freely. Just have a look at the API documentation.<br/>
-            Everyone is free to use the collected data (station names, tags, links to stream, links to homepages, language, country, state) in their works.<br/>
-            I give all the rights I have at the acumulated data to the public domain.<br/>A daily backup of the MariaDB tables is at <a href="http://www.radio-browser.info/backups/">www.radio-browser.info/backups/</a>.
-          </p>
-          <p>To play the stations you need some media player software like:
-            <br/>
-            <ul>
-              <li><a href="http://www.winamp.com/">Winamp</a> (Windows, OS X)</li>
-              <li><a href="http://videolan.org">VLC</a> (Windows, Linux, Android, OS X)</li>
-              <li><a href="https://www.clementine-player.org/">Clementine</a> (Windows, Linux, OS X)</li>
-              <li>many many more....</li>
-              <li>yes maybe Windows Media Player works too :)</li>
-            </ul>
-          </p>
-          <p>It is used by the following projects:
-            <ul>
-              <li><a href="http://www.programmierecke.net/programmed/rhythmbox-radio-browser.html">Rhythmbox-Radio-Browser</a> - A plugin for <a href="http://projects.gnome.org/rhythmbox/">rhythmbox</a></li>
-              <li><a href="https://github.com/fossfreedom/radio-browser">Rhythmbox-Radio-Browser Fork for GTK 3.0</a></li>
-              <li><a href="http://milki.include-once.org/streamtuner2/">StreamTuner2 (Contrib-Plugin)</a></li>
-              <li>RadioDroid (Android: <a href="https://play.google.com/store/apps/details?id=net.programmierecke.radiodroid2">Google Play</a> / <a href="https://f-droid.org/repository/browse/?fdid=net.programmierecke.radiodroid2">F-Droid</a>) - <a href="https://github.com/segler-alex/RadioDroid">Source on GitHub</a></li>
-              <li><a href="http://www.dream-multimedia-tv.de/board/index.php?page=Thread&threadID=16645">DreamBox Plugin</a></li>
-              <li><a href="https://play.google.com/store/apps/details?id=com.humbergsoftware.musicbox.androidapp">Musicbox</a> (Android)</li>
-              <li><a href="https://github.com/haecker-felix/gradio">Gradio</a> (Linux/GTK/Gnome) - <a href="https://launchpad.net/~haecker-felix/+archive/ubuntu/gradio-daily">Ubuntu PPA</a></li>
-              <li>Kodi/XBMC Plugin <a href="http://addons.kodi.tv/show/plugin.audio.radiobrowser/">Official Kodi Addon Repository</a>, source: <a href="https://github.com/segler-alex/kodi-radio-browser">Github</a></li>
-              <li>.. and of course this little angular webpage too :) which can be forked on <a href="https://github.com/segler-alex/radiobrowser">github</a></li>
-            </ul>
-            If you know an app that is using this service which is not listed here please drop me a note.<br/>Thank you!
-          </p>
-          <p><u>Legal:</u>
-            <br/> I'm not in any way responsible for the entries on this webpage because this is a community driven effort (like Wikipedia for example). Nor am I responsible for the radio stations that can be found here themselves.
-          </p>
-          <p>Admin: <a href="mailto:segler_alex@web.de">Mail</a></p>
-        </div>
-      </div>
-
-      <div role="tabpanel" id="topclick"></div>
-      <div role="tabpanel" id="topvote"></div>
-      <div role="tabpanel" id="countries" ng-show="tab==='bycountry'">
-        <div class="container-fluid">
-          <div ng-show="countryList" class="col-md-3" ng-repeat="country in countryList">
-            <button class="btn btn-xs btn-link" ng-click="displayByCountry(country.name)">{{country.name}} ({{country.stationcount}})</button>
-          </div>
-        </div>
-      </div>
-      <div role="tabpanel" id="countries" ng-show="tab==='bylanguage'">
-        <div class="container-fluid">
-          <div ng-show="languageList" class="col-md-3" ng-repeat="language in languageList">
-            <button class="btn btn-xs btn-link" ng-click="displayByLanguage(language.name)">{{language.name}} ({{language.stationcount}})</button>
-          </div>
-        </div>
-      </div>
-      <div role="tabpanel" id="codecs" ng-show="tab==='bycodec'">
-        <div class="container-fluid">
-          <div ng-show="codecList" class="col-md-3" ng-repeat="codec in codecList">
-            <button class="btn btn-xs btn-link" ng-click="displayByCodec(codec.name)">{{codec.name}} ({{codec.stationcount}})</button>
-          </div>
-        </div>
-      </div>
-      <div role="tabpanel" id="tags" ng-show="tab==='bytag'">
-        <div ng-show="tagList.length > 0">
-          <H2>Very popular tags</H2>
-          <div class="container-fluid">
-            <div class="col-md-3" ng-repeat="tag in tagListVeryPopular">
-              <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
-            </div>
-          </div>
-          <H2>Popular tags</H2>
-          <div class="container-fluid">
-            <div class="col-md-3" ng-repeat="tag in tagListPopular">
-              <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
-            </div>
-          </div>
-          <H2>Used once</H2>
-          <div class="container-fluid">
-            <div class="col-md-3" ng-repeat="tag in tagListNotPopular">
-              <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div role="tabpanel" id="newstation" ng-show="tab==='editstation'">
-        The information provided here, will be released under the public domain.<br/>
-        Radio-browser.info only saves links. The content of the streams or the favicons or the homepages of the stations are property of the radio stations themselves.<br/>
-        <div style="float:left;width:600px;margin-left:50px">
-          <H2 ng-hide="editStation.id">Add new station</H2>
-          <H2 ng-show="editStation.id">Edit station</H2>
-          <form class="form-horizontal" name="FormInput">
-            <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationName.$valid,'has-error':!FormInput.StationName.$valid}">
-              <label for="StationName" class="col-sm-2 control-label">Name</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationName" placeholder="Name.." ng-model="editStation.name" required name="StationName" ng-disabled="activeSending" ng-change="updateSimiliar(editStation.name)"/>
-                <span class="help-block" ng-show="!FormInput.StationName.$valid">The name is required</span>
-                <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationName.$valid"></span>
-                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationName.$valid"></span>
-              </div>
-            </div>
-            <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationUrl.$valid,'has-error':!FormInput.StationUrl.$valid}">
-              <label for="StationUrl" class="col-sm-2 control-label">URL</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationUrl" placeholder="http://.." ng-model="editStation.url" name="StationUrl" required ng-pattern="/^https?:\/\/.+$/" ng-disabled="activeSending" />
-                <span class="help-block" ng-show="!FormInput.StationUrl.$valid">The streaming url is required, and needs to start with http:// or https://</span>
-                <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationUrl.$valid"></span>
-                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationUrl.$valid"></span>
-              </div>
-            </div>
-            <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationHomepage.$valid,'has-error':!FormInput.StationHomepage.$valid}">
-              <label for="StationHomepage" class="col-sm-2 control-label">Homepage</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationHomepage" placeholder="http://.." ng-change="updateImageList(editStation.homepage)" ng-model="editStation.homepage" name="StationHomepage" required ng-pattern="/^https?:\/\/.+$/" ng-disabled="activeSending" />
-                <span class="help-block" ng-show="!FormInput.StationHomepage.$valid">The homepage url is required, and needs to start with http:// or https://</span>
-                <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationHomepage.$valid"></span>
-                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationHomepage.$valid"></span>
-                <div ng-show="imageList.length > 0">
-                  <br/>
-                  <p>
-                    <u>Extracted images:</u>
-                    Please choose one image or input url yourself:<br/>
-                    <nobr>
-                      <button ng-repeat="image in imageList" ng-click="editStation.favicon=image;">
-                        <img ng-src="{{image}}" height="30"/>
-                      </button>
-                    </nobr>
-                  </p>
+    <script type="text/ng-template" id="myModalContent.html" src="modals/sendModal.html" > </script>
+    <div>
+        <!-- Nav tabs -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#" ng-click="setTab('home')">Community Radio Browser</a>
                 </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="StationIcon" class="col-sm-2 control-label">Favicon</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationIcon" placeholder="http://.." ng-model="editStation.favicon" ng-disabled="activeSending" />
-                <img ng-show="editStation && editStation.favicon !== ''" ng-src="{{editStation.favicon}}" height="40" /><br/>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="StationCountry" class="col-sm-2 control-label">Country</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationCountry" placeholder="Country.." ng-model="editStation.country" uib-typeahead="country.name for country in getCountries($viewValue)" ng-disabled="activeSending" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="StationState" class="col-sm-2 control-label">State</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationState" placeholder="State.." ng-model="editStation.state" uib-typeahead="state.name for state in getStates($viewValue)" typeahead-template-url="customTemplate.html" ng-disabled="activeSending"/>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="StationLanguage" class="col-sm-2 control-label">Language</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="StationLanguage" placeholder="Language.." ng-model="editStation.language" uib-typeahead="language.name for language in getLanguages($viewValue)" ng-disabled="activeSending" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="StationTags" class="col-sm-2 control-label">Tags</label>
-              <div class="col-sm-10">
-                <span ng-repeat="value in editStation.tags_arr">
-                  <span class="btn-group btn-group-xs">
-                    <button class="btn btn-xs btn-default">{{value}}</button>
-                    <button class="btn btn-xs btn-danger" ng-click="removeTag(value)"><span class="glyphicon glyphicon-remove"/></button>
-                  </span>
-                </span>
-                <div class="input-group">
-                  <input type="text" class="form-control" id="StationTags" placeholder="Tags.." ng-model="editStation.tag" uib-typeahead="tag.name for tag in getTags($viewValue)" ng-enter="addTag(editStation.tag)" ng-disabled="activeSending" />
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" ng-click="addTag(editStation.tag)" ng-disabled="activeSending"><span class="glyphicon glyphicon-ok"/></button>
-                  </span>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li ng-class="{active: tab==='byclicks'}"><a href="#" ng-click="setTab('byclicks')">By clicks</a></li>
+                        <li ng-class="{active: tab==='byvotes'}"><a href="#" ng-click="setTab('byvotes')">By vote</a></li>
+                        <li ng-class="{active: tab==='bycountry'}"><a href="#" ng-click="setTab('bycountry')">By country</a></li>
+                        <li ng-class="{active: tab==='bylanguage'}"><a href="#" ng-click="setTab('bylanguage')">By language</a></li>
+                        <li ng-class="{active: tab==='bytag'}"><a href="#" ng-click="setTab('bytag')">By tag</a></li>
+                        <li ng-class="{active: tab==='bycodec'}"><a href="#" ng-click="setTab('bycodec')">By codec</a></li>
+                        <li ng-class="{active: tab==='broken'}"><a href="#" ng-click="setTab('broken')">Broken</a></li>
+                        <li ng-class="{active: tab==='improve'}"><a href="#" ng-click="setTab('improve')">Improve</a></li>
+                        <li ng-class="{active: tab==='deleted'}"><a href="#" ng-click="setTab('deleted')">Deleted</a></li>
+                        <li ng-class="{active: tab==='latelychanged'}"><a href="#" ng-click="setTab('latelychanged')">Lately changed</a></li>
+                        <li ng-class="{active: tab==='latelyplayed'}"><a href="#" ng-click="setTab('latelyplayed')">Lately played</a></li>
+                        <li ng-class="{active: tab==='editstation'}"><a href="#" ng-click="setTab('editstation')">New station</a></li>
+                        <li><a href="http://www.radio-browser.info/webservice">Developer API</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search" ng-model="searchterm">
+                        </div>
+                        <button type="submit" class="btn btn-default" ng-click="doSearch(searchterm)"><span class="glyphicon glyphicon-ok" /></button>
+                    </form>
                 </div>
-              </div>
             </div>
-            <button class="btn btn-default" ng-click="sendStation()" ng-disabled="activeSending || !FormInput.$valid">Save</button>
-            <button class="btn btn-default" ng-click="deleteStation(editStation.id)" ng-disabled="activeSending" ng-show="editStation.id">Delete</button>
-          </form>
+        </nav>
+
+        <div class="tab-content" role="tabpanel">
+            <div ui-view></div>
         </div>
-        <div style="float:left;width:600px;margin-left:50px" ng-show="similiarStations.length > 0">
-          <H2>Similiar stations in database:</H2>
-          Please do not add stations, that are already in the database.
-          <ul>
-            <li ng-repeat="station in similiarStations">{{station.name}} (<a href="{{station.homepage}}" target="_blank">{{station.homepage}}</a>)</li>
-          </ul>
-        </div>
-      </div>
     </div>
 
-    <div role="tabpanel" id="newstation" ng-show="tab==='deleted'">
-      <H4>Stations in this list will be deleted completely after 30 days automatically.</H4>
+    <div class="player bg-success container-fluid" ng-class="{'player-active':playerItem}">
+        <div class="col-md-12"><u>Player active</u></div>
+        <div class="col-md-8">{{playerItem.name}}</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            <button class="btn btn-xs btn-link" ng-click="stopAudio()"><span class="glyphicon glyphicon-stop" /></button>
+        </div>
+        <div class="col-md-2 volumeslider">
+            <slider ng-model="audioVolume" min="0" step="0.02" max="1" value="audioVolume" on-stop-slide="setVolume(audioVolume)"></slider>
+        </div>
     </div>
-    <table class="table table-condensed table-hover" ng-show="bigTotalItems > 0">
-      <thead>
-        <th width="10"></th>
-        <th width="10"><span class="glyphicon glyphicon-thumbs-up" /></th>
-        <th>Name</th>
-        <th ng-show="tab!=='deleted'">Streaminfo</th>
-        <th>Tags</th>
-        <th>Country</th>
-        <th ng-show="tab!=='deleted'">Last online check (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)</th>
-        <th ng-show="tab==='broken'">Last contact (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)</th>
-        <th width="200"></th>
-      </thead>
-      <tbody>
-        <tr ng-repeat="station in resultList">
-          <td align="right"><img ng-src="{{station.favicon}}" height="20px" ng-show="station.favicon" /></td>
-          <td>{{station.votes}}</td>
-          <td>{{station.name}}</td>
-          <td ng-show="tab!=='deleted'">
-            <span class="btn btn-xs btn-info" ng-show="station.codec" ng-click="displayByCodec(station.codec)">{{station.codec}}</span>
-            <span class="btn btn-xs btn-info" ng-show="station.bitrate > 0">{{station.bitrate}} kbps</span>
-            <span class="btn btn-xs btn-danger" ng-show="station.lastcheckok==='0'">BROKEN</span>
-          </td>
-          <td>
-            <div class="btn btn-xs btn-info tagbutton" ng-repeat="value in getTagsArray(station.tags)" ng-click="displayByTag(value)">{{value}}</div>
-          </td>
-          <td><button class="btn btn-xs btn-info" ng-click="displayByCountry(station.country)" ng-show="station.country">{{station.country}}</button> <span ng-show="station.state">/ <button class="btn btn-xs btn-info" ng-click="displayByState(station.state)">{{station.state }}</button></span></td>
-          <td ng-show="tab!=='deleted'">{{station.lastchecktime || "never"}}</td>
-          <td ng-show="tab==='broken'">{{station.lastcheckoktime || "never"}}</td>
-          <td ng-show="tab!=='deleted'">
-            <button class="btn btn-link btn-xs" ng-click="play(station.id)"><span class="glyphicon glyphicon-play" /></button>
-            <a href="http://www.radio-browser.info/webservice/pls/url/{{station.id}}" class="btn btn-link btn-xs" ><span class="glyphicon glyphicon-floppy-disk" /></a>
-            <a href="{{station.homepage}}" ng-show="station.homepage" target="_blank"><span class="btn btn-link btn-xs glyphicon glyphicon-home" /></a>
-            <button class="btn btn-link btn-xs" ng-click="vote(station)"><span class="glyphicon glyphicon-thumbs-up" /></button>
-            <button class="btn btn-link btn-xs" ng-click="edit(station)"><span class="glyphicon glyphicon glyphicon-pencil" /></button>
-          </td>
-          <td ng-show="tab==='deleted'">
-            <button class="btn btn-link btn-xs" ng-click="revertStation(station.id, station.changeid)">Undelete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <center>
-      <uib-pagination ng-show="bigTotalItems > 0" total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="5" class="pagination-sm" boundary-links="true" num-pages="numPages" items-per-page="itemsPerPage" force-ellipses="true" ng-change="updateList()"></uib-pagination>
-    </center>
-  </div>
-
-  <div class="player bg-success container-fluid" ng-class="{'player-active':playerItem}">
-    <div class="col-md-12"><u>Player active</u></div>
-    <div class="col-md-8">{{playerItem.name}}</div>
-    <div class="col-md-1"></div>
-    <div class="col-md-1">
-      <button class="btn btn-xs btn-link" ng-click="stopAudio()"><span class="glyphicon glyphicon-stop" /></button>
-    </div>
-    <div class="col-md-2 volumeslider">
-      <slider ng-model="audioVolume" min="0" step="0.02" max="1" value="audioVolume" on-stop-slide="setVolume(audioVolume)"></slider>
-    </div>
-  </div>
-  <!--<a href="https://github.com/segler-alex/radiobrowser"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"
+    <!--<a href="https://github.com/segler-alex/radiobrowser"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"
       alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>-->
 </body>
 

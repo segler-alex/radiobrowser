@@ -1,0 +1,48 @@
+<div role="tabpanel" id="newstation" ng-show="tab==='deleted'">
+    <H4>Stations in this list will be deleted completely after 30 days automatically.</H4>
+</div>
+<table class="table table-condensed table-hover" ng-show="bigTotalItems > 0">
+    <thead>
+        <th width="10"></th>
+        <th width="10"><span class="glyphicon glyphicon-thumbs-up" /></th>
+        <th>Name</th>
+        <th ng-show="tab!=='deleted'">Streaminfo</th>
+        <th>Tags</th>
+        <th>Country</th>
+        <th ng-show="tab!=='deleted'">Last online check (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)</th>
+        <th ng-show="tab==='broken'">Last contact (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)</th>
+        <th width="200"></th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="station in resultList">
+            <td align="right"><img ng-src="{{station.favicon}}" height="20px" ng-show="station.favicon" /></td>
+            <td>{{station.votes}}</td>
+            <td>{{station.name}}</td>
+            <td ng-show="tab!=='deleted'">
+                <span class="btn btn-xs btn-info" ng-show="station.codec" ng-click="displayByCodec(station.codec)">{{station.codec}}</span>
+                <span class="btn btn-xs btn-info" ng-show="station.bitrate > 0">{{station.bitrate}} kbps</span>
+                <span class="btn btn-xs btn-danger" ng-show="station.lastcheckok==='0'">BROKEN</span>
+            </td>
+            <td>
+                <div class="btn btn-xs btn-info tagbutton" ng-repeat="value in getTagsArray(station.tags)" ng-click="displayByTag(value)">{{value}}</div>
+            </td>
+            <td>
+                <button class="btn btn-xs btn-info" ng-click="displayByCountry(station.country)" ng-show="station.country">{{station.country}}</button> <span ng-show="station.state">/ <button class="btn btn-xs btn-info" ng-click="displayByState(station.state)">{{station.state }}</button></span></td>
+            <td ng-show="tab!=='deleted'">{{station.lastchecktime || "never"}}</td>
+            <td ng-show="tab==='broken'">{{station.lastcheckoktime || "never"}}</td>
+            <td ng-show="tab!=='deleted'">
+                <button class="btn btn-link btn-xs" ng-click="play(station.id)"><span class="glyphicon glyphicon-play" /></button>
+                <a href="http://www.radio-browser.info/webservice/pls/url/{{station.id}}" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-floppy-disk" /></a>
+                <a href="{{station.homepage}}" ng-show="station.homepage" target="_blank"><span class="btn btn-link btn-xs glyphicon glyphicon-home" /></a>
+                <button class="btn btn-link btn-xs" ng-click="vote(station)"><span class="glyphicon glyphicon-thumbs-up" /></button>
+                <button class="btn btn-link btn-xs" ng-click="edit(station)"><span class="glyphicon glyphicon glyphicon-pencil" /></button>
+            </td>
+            <td ng-show="tab==='deleted'">
+                <button class="btn btn-link btn-xs" ng-click="revertStation(station.id, station.changeid)">Undelete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<center>
+    <uib-pagination ng-show="bigTotalItems > 0" total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="5" class="pagination-sm" boundary-links="true" num-pages="numPages" items-per-page="itemsPerPage" force-ellipses="true" ng-change="updateList()"></uib-pagination>
+</center>
