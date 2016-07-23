@@ -1,19 +1,5 @@
 var app = angular.module('RadioBrowserApp');
 
-app.directive('ngEnter', function() {
-  return function(scope, element, attrs) {
-    element.bind("keydown keypress", function(event) {
-      if (event.which === 13) {
-        scope.$apply(function() {
-          scope.$eval(attrs.ngEnter);
-        });
-
-        event.preventDefault();
-      }
-    });
-  };
-});
-
 app.controller('MainController', function($scope, $http, $sce, $httpParamSerializerJQLike, $uibModal) {
   $scope.bigTotalItems = 0;
   $scope.bigCurrentPage = 1;
@@ -29,16 +15,6 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   $scope.tab = "home";
   // const serverAdress = "http://localhost";
   const serverAdress = "http://www.radio-browser.info";
-
-  updateStats();
-
-  function updateStats(){
-    $http.get(serverAdress+'/webservice/json/stats').then(function(data) {
-      $scope.stats = data.data;
-    }, function(err) {
-      console.log("error:" + err);
-    });
-  }
 
   $scope.updateImageList = function(url){
     $http.post(serverAdress+'/webservice/json/extract_images',{'url':url}).then(function(data) {

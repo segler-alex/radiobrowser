@@ -1,12 +1,12 @@
-<div>
+<div ng-controller="InfoController as info">
     <p>This is a community approach to collect as many internet radio stations as possible. Any help is appreciated!</p>
     <p><u>Statistics</u>
-        <br/>Station count at the moment: <b>{{stats.stations}}</b>
-        <br/> Station clicks last hour: <b>{{stats.clicks_last_hour}}</b>
-        <br/> Station clicks last day: <b>{{stats.clicks_last_day}}</b>
-        <br/> Distinct tags: <b>{{stats.tags}}</b>
-        <br/> Distinct countries: <b>{{stats.countries}}</b>
-        <br/> Distinct languages: <b>{{stats.languages}}</b>
+        <br/>Station count at the moment: <b>{{info.stats.stations}}</b>
+        <br/> Station clicks last hour: <b>{{info.stats.clicks_last_hour}}</b>
+        <br/> Station clicks last day: <b>{{info.stats.clicks_last_day}}</b>
+        <br/> Distinct tags: <b>{{info.stats.tags}}</b>
+        <br/> Distinct countries: <b>{{info.stats.countries}}</b>
+        <br/> Distinct languages: <b>{{info.stats.languages}}</b>
     </p>
     <p><u>HELP!</u>
         <br/>Please help by fixing stations in the tab "broken". The stations there do not work at the present time.
