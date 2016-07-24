@@ -3,10 +3,7 @@ var app = angular.module('RadioBrowserApp');
 app.controller('MainController', function($scope, $http, $sce, $httpParamSerializerJQLike, $uibModal) {
 
     $scope.countryList = [];
-
     $scope.audioVolume = 1;
-
-    $scope.tab = "home";
 
     $scope.edit = function(station) {
         console.log(JSON.stringify(station));
@@ -45,106 +42,6 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
             }
         }
         return null;
-    }
-
-    $scope.setTab = function(tab) {
-        console.log("tab=" + tab);
-        $scope.tab = tab;
-
-        if (tab === "home") {
-            $scope.clearList();
-        }
-        if (tab === "editstation") {
-            $scope.clearList();
-            $scope.editStation = {};
-            $scope.editStation.homepage = "";
-            $scope.editStation.favicon = "";
-            $scope.editStation.country = "";
-            $scope.editStation.language = "";
-            $scope.editStation.tags = "";
-            $scope.editStation.subcountry = "";
-            $scope.editStation.tags_arr = [];
-            $scope.similiarStations = [];
-            $scope.imageList = [];
-        }
-        if (tab === "api") {
-            $scope.clearList();
-        }
-        if (tab !== 'editstation') {
-            $scope.editStation = null;
-        }
-    }
-
-    $scope.clearList = function() {
-        $scope.resultListFull = [];
-        $scope.bigCurrentPage = 1;
-        $scope.bigTotalItems = 0;
-        $scope.updateList();
-    }
-
-    $scope.displayByCountry = function(country) {
-        $http.get(serverAdress + '/webservice/json/stations/bycountryexact/' + encodeURIComponent(country)).then(function(data) {
-            $scope.tab = "bycountry";
-            $scope.countryList = [];
-            $scope.resultListFull = data.data;
-            $scope.bigCurrentPage = 1;
-            $scope.bigTotalItems = data.data.length;
-            $scope.updateList();
-        }, function(err) {
-            console.log("error:" + err);
-        });
-    }
-
-    $scope.displayByState = function(state) {
-        $http.get(serverAdress + '/webservice/json/stations/bystateexact/' + encodeURIComponent(state)).then(function(data) {
-            $scope.countryList = [];
-            $scope.resultListFull = data.data;
-            $scope.bigCurrentPage = 1;
-            $scope.bigTotalItems = data.data.length;
-            $scope.updateList();
-        }, function(err) {
-            console.log("error:" + err);
-        });
-    }
-
-    $scope.displayByLanguage = function(language) {
-        $http.get(serverAdress + '/webservice/json/stations/bylanguageexact/' + encodeURIComponent(language)).then(function(data) {
-            $scope.languageList = [];
-            $scope.resultListFull = data.data;
-            $scope.bigCurrentPage = 1;
-            $scope.bigTotalItems = data.data.length;
-            $scope.updateList();
-        }, function(err) {
-            console.log("error:" + err);
-        });
-    }
-
-    $scope.displayByCodec = function(codec) {
-        $http.get(serverAdress + '/webservice/json/stations/bycodecexact/' + encodeURIComponent(codec)).then(function(data) {
-            $scope.tab = "bycodec";
-            $scope.codecList = [];
-            $scope.resultListFull = data.data;
-            $scope.bigCurrentPage = 1;
-            $scope.bigTotalItems = data.data.length;
-            $scope.updateList();
-        }, function(err) {
-            console.log("error:" + err);
-        });
-    }
-
-    $scope.displayByTag = function(tag) {
-        $http.get(serverAdress + '/webservice/json/stations/bytagexact/' + encodeURIComponent(tag)).then(function(data) {
-            $scope.tab = "bytag";
-            $scope.tagList = [];
-            $scope.tagListPopular = [];
-            $scope.tagListNotPopular = [];
-            $scope.resultListFull = data.data;
-            $scope.bigCurrentPage = 1;
-            $scope.bigTotalItems = data.data.length;
-            $scope.updateList();
-        }, function(err) {
-            console.log("error:" + err);
-        });
     }
 
     $scope.setVolume = function(volume) {

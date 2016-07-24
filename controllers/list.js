@@ -1,6 +1,6 @@
 var app = angular.module('RadioBrowserApp');
 
-app.controller('ListController', function(radiobrowser, relLink) {
+app.controller('ListController', function(radiobrowser, relLink, $stateParams) {
     var vm = this;
 
     var resultListFull = [];
@@ -10,13 +10,61 @@ app.controller('ListController', function(radiobrowser, relLink) {
     var bigTotalItems = 0;
     var bigCurrentPage = 1;
 
+    var relLinkCorrected = relLink.value;
+
+    if ($stateParams.tag) {
+        relLinkCorrected = '/webservice/json/stations/bytagexact/' + encodeURIComponent($stateParams.tag);
+    } else if ($stateParams.state) {
+        relLinkCorrected = '/webservice/json/stations/bystateexact/' + encodeURIComponent($stateParams.state);
+    } else if ($stateParams.country) {
+        relLinkCorrected = '/webservice/json/stations/bycountryexact/' + encodeURIComponent($stateParams.country);
+    } else if ($stateParams.language) {
+        relLinkCorrected = '/webservice/json/stations/bylanguageexact/' + encodeURIComponent($stateParams.language);
+    } else if ($stateParams.codec) {
+        relLinkCorrected = '/webservice/json/stations/bycodecexact/' + encodeURIComponent($stateParams.codec);
+    }
+
+    // $scope.displayByLanguage = function(language) {
+    //     $http.get(serverAdress + '/webservice/json/stations/bylanguageexact/' + encodeURIComponent(language)).then(function(data) {
+    //         $scope.languageList = [];
+    //         $scope.resultListFull = data.data;
+    //         $scope.bigCurrentPage = 1;
+    //         $scope.bigTotalItems = data.data.length;
+    //         $scope.updateList();
+    //     }, function(err) {
+    //         console.log("error:" + err);
+    //     });
+    // }
+    //
+    // $scope.displayByTag = function(tag) {
+    //     $http.get(serverAdress + '/webservice/json/stations/bytagexact/' + encodeURIComponent(tag)).then(function(data) {
+    //         $scope.tab = "bytag";
+    //         $scope.tagList = [];
+    //         $scope.tagListPopular = [];
+    //         $scope.tagListNotPopular = [];
+    //         $scope.resultListFull = data.data;
+    //         $scope.bigCurrentPage = 1;
+    //         $scope.bigTotalItems = data.data.length;
+    //         $scope.updateList();
+    //     }, function(err) {
+    //         console.log("error:" + err);
+    //     });
+    // }
+
     function changeItemsPerPage(items) {
-      itemsPerPage = items;
-      updateList();
+        itemsPerPage = items;
+        updateList();
     }
 
     function updateList() {
         vm.resultList = resultListFull.slice((bigCurrentPage - 1) * itemsPerPage, (bigCurrentPage) * itemsPerPage);
+    }
+
+    function clearList() {
+        resultListFull = [];
+        bigCurrentPage = 1;
+        bigTotalItems = 0;
+        updateList();
     }
 
     function vote(station) {
@@ -33,7 +81,7 @@ app.controller('ListController', function(radiobrowser, relLink) {
     }
 
     function displayList() {
-        radiobrowser.get(relLink.value).then(function(data) {
+        radiobrowser.get(relLinkCorrected).then(function(data) {
             resultListFull = data.data;
             bigCurrentPage = 1;
             bigTotalItems = data.data.length;

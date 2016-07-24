@@ -2,19 +2,19 @@
     <H2>Very popular tags</H2>
     <div class="container-fluid">
         <div class="col-md-3" ng-repeat="tag in tags.tagListVeryPopular">
-            <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
+            <a ui-sref="bytag({'tag': tag.name})">{{tag.name}} ({{tag.stationcount}})</a>
         </div>
     </div>
     <H2>Popular tags</H2>
     <div class="container-fluid">
         <div class="col-md-3" ng-repeat="tag in tags.tagListPopular">
-            <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
+            <a ui-sref="bytag({'tag': tag.name})">{{tag.name}} ({{tag.stationcount}})</a>
         </div>
     </div>
     <H2>Used once</H2>
     <div class="container-fluid">
         <div class="col-md-3" ng-repeat="tag in tags.tagListNotPopular">
-            <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
+            <a ui-sref="bytag({'tag': tag.name})">{{tag.name}} ({{tag.stationcount}})</a>
         </div>
     </div>
 </div>
