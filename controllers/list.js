@@ -1,15 +1,9 @@
 var app = angular.module('RadioBrowserApp');
 
-app.controller('ListController', function(radiobrowser, relLink, $stateParams) {
+app.controller('ListController', function(radiobrowser, audioplayer, relLink, $stateParams) {
     var vm = this;
 
     var resultListFull = [];
-    var itemsPerPage = 20;
-    var audio = null;
-    var playerItem = null;
-    var bigTotalItems = 0;
-    var bigCurrentPage = 1;
-
     var relLinkCorrected = relLink.value;
 
     if ($stateParams.tag) {
@@ -24,46 +18,19 @@ app.controller('ListController', function(radiobrowser, relLink, $stateParams) {
         relLinkCorrected = '/webservice/json/stations/bycodecexact/' + encodeURIComponent($stateParams.codec);
     }
 
-    // $scope.displayByLanguage = function(language) {
-    //     $http.get(serverAdress + '/webservice/json/stations/bylanguageexact/' + encodeURIComponent(language)).then(function(data) {
-    //         $scope.languageList = [];
-    //         $scope.resultListFull = data.data;
-    //         $scope.bigCurrentPage = 1;
-    //         $scope.bigTotalItems = data.data.length;
-    //         $scope.updateList();
-    //     }, function(err) {
-    //         console.log("error:" + err);
-    //     });
-    // }
-    //
-    // $scope.displayByTag = function(tag) {
-    //     $http.get(serverAdress + '/webservice/json/stations/bytagexact/' + encodeURIComponent(tag)).then(function(data) {
-    //         $scope.tab = "bytag";
-    //         $scope.tagList = [];
-    //         $scope.tagListPopular = [];
-    //         $scope.tagListNotPopular = [];
-    //         $scope.resultListFull = data.data;
-    //         $scope.bigCurrentPage = 1;
-    //         $scope.bigTotalItems = data.data.length;
-    //         $scope.updateList();
-    //     }, function(err) {
-    //         console.log("error:" + err);
-    //     });
-    // }
-
     function changeItemsPerPage(items) {
-        itemsPerPage = items;
+        vm.itemsPerPage = items;
         updateList();
     }
 
     function updateList() {
-        vm.resultList = resultListFull.slice((bigCurrentPage - 1) * itemsPerPage, (bigCurrentPage) * itemsPerPage);
+        vm.resultList = resultListFull.slice((vm.bigCurrentPage - 1) * vm.itemsPerPage, (vm.bigCurrentPage) * vm.itemsPerPage);
     }
 
     function clearList() {
         resultListFull = [];
-        bigCurrentPage = 1;
-        bigTotalItems = 0;
+        vm.bigCurrentPage = 1;
+        vm.bigTotalItems = 0;
         updateList();
     }
 
@@ -83,8 +50,8 @@ app.controller('ListController', function(radiobrowser, relLink, $stateParams) {
     function displayList() {
         radiobrowser.get(relLinkCorrected).then(function(data) {
             resultListFull = data.data;
-            bigCurrentPage = 1;
-            bigTotalItems = data.data.length;
+            vm.bigCurrentPage = 1;
+            vm.bigTotalItems = data.data.length;
             updateList();
         }, function(err) {
             console.log("error:" + err);
@@ -111,8 +78,7 @@ app.controller('ListController', function(radiobrowser, relLink, $stateParams) {
             if (data.data.length > 0) {
                 var station = data.data[0];
                 if (station.ok === "true") {
-                    $scope.playerItem = station;
-                    PlayAudioStream(station.url);
+                    audioplayer.play(station.url, station.name);
                 }
             }
         }, function(err) {
@@ -121,35 +87,39 @@ app.controller('ListController', function(radiobrowser, relLink, $stateParams) {
         });
     }
 
-    function PlayAudioStream(url) {
-        // do play audio
-        if (audio !== null) {
-            audio.src = url;
-            audio.play();
+    function edit(station) {
+        console.log(JSON.stringify(station));
+        vm.editStation = station;
+        updateSimiliar(station.name);
+        updateImageList(station.homepage);
+        if (station.tags.trim() === "") {
+            vm.editStation.tags_arr = [];
         } else {
-            audio = new Audio(url);
-            audio.volume = 1;
-            audio.onplay = function() {
-                console.log("play ok");
-            };
-            audio.onerror = function() {
-                console.log("error on play");
-                $scope.$apply(function() {
-                    $scope.playerItem = null;
-                    audio.pause();
-                });
-                alert("browser is not able to play station. please try with external player.");
-            };
-            audio.play();
+            vm.editStation.tags_arr = station.tags.split(',');
         }
     }
 
+    function getTagsArray(tags_string) {
+        if (tags_string.trim() === "") {
+            return [];
+        }
+        console.log("tags:"+tags_string);
+        return tags_string.split(',');
+    };
+
+    vm.editStation = null;
     vm.resultList = [];
+    vm.itemsPerPage = 20;
+    vm.bigCurrentPage = 1;
+    vm.bigTotalItems = 0;
 
     vm.revertStation = revertStation;
     vm.vote = vote;
     vm.play = play;
+    vm.edit = edit;
     vm.changeItemsPerPage = changeItemsPerPage;
+    vm.getTagsArray = getTagsArray;
+    vm.updateList = updateList;
 
     displayList();
 });

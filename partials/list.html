@@ -25,7 +25,7 @@
                     <span class="btn btn-xs btn-danger" ng-show="station.lastcheckok==='0'">BROKEN</span>
                 </td>
                 <td>
-                    <a class="btn btn-xs btn-info tagbutton" ui-sref="bytag({'tag': value})" ng-repeat="value in getTagsArray(station.tags)">{{value}}</a>
+                    <a class="btn btn-xs btn-info tagbutton" ui-sref="bytag({'tag': value})" ng-repeat="value in list.getTagsArray(station.tags)">{{value}}</a>
                 </td>
                 <td>
                     <a class="btn btn-xs btn-info tagbutton" ng-show="station.country" ui-sref="bycountry({'country': station.country})">{{station.country}}</a>
@@ -36,11 +36,11 @@
                 <td ng-show="tab!=='deleted'">{{station.lastchecktime || "never"}}</td>
                 <td ng-show="tab==='broken'">{{station.lastcheckoktime || "never"}}</td>
                 <td ng-show="tab!=='deleted'">
-                    <button class="btn btn-link btn-xs" ng-click="play(station.id)"><span class="glyphicon glyphicon-play" /></button>
+                    <button class="btn btn-link btn-xs" ng-click="list.play(station.id)"><span class="glyphicon glyphicon-play" /></button>
                     <a href="http://www.radio-browser.info/webservice/pls/url/{{station.id}}" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-floppy-disk" /></a>
                     <a href="{{station.homepage}}" ng-show="station.homepage" target="_blank"><span class="btn btn-link btn-xs glyphicon glyphicon-home" /></a>
-                    <button class="btn btn-link btn-xs" ng-click="vote(station)"><span class="glyphicon glyphicon-thumbs-up" /></button>
-                    <button class="btn btn-link btn-xs" ng-click="edit(station)"><span class="glyphicon glyphicon glyphicon-pencil" /></button>
+                    <button class="btn btn-link btn-xs" ng-click="list.vote(station)"><span class="glyphicon glyphicon-thumbs-up" /></button>
+                    <button class="btn btn-link btn-xs" ng-click="list.edit(station)"><span class="glyphicon glyphicon glyphicon-pencil" /></button>
                 </td>
                 <td ng-show="tab==='deleted'">
                     <button class="btn btn-link btn-xs" ng-click="revertStation(station.id, station.changeid)">Undelete</button>
@@ -49,6 +49,6 @@
         </tbody>
     </table>
     <center>
-        <uib-pagination ng-show="bigTotalItems > 0" total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="5" class="pagination-sm" boundary-links="true" num-pages="numPages" items-per-page="itemsPerPage" force-ellipses="true" ng-change="updateList()"></uib-pagination>
+        <uib-pagination ng-show="list.bigTotalItems > 0" total-items="list.bigTotalItems" ng-model="list.bigCurrentPage" max-size="5" class="pagination-sm" boundary-links="true" num-pages="numPages" items-per-page="list.itemsPerPage" force-ellipses="true" ng-change="list.updateList()"></uib-pagination>
     </center>
 </div>

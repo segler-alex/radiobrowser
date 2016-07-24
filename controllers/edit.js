@@ -1,6 +1,6 @@
 var app = angular.module('RadioBrowserApp');
 
-app.controller('EditController', function(radiobrowser) {
+app.controller('EditController', function(radiobrowser, $uibModal) {
     var vm = this;
 
     vm.deleteStation = function(stationid) {
@@ -74,19 +74,19 @@ app.controller('EditController', function(radiobrowser) {
         });
     }
 
-    vm.addTag = function(tag) {
+    function addTag(tag) {
         vm.editStation.tags_arr.splice(0, 0, tag);
         vm.editStation.tag = "";
     }
 
-    vm.removeTag = function(tag) {
+    function removeTag(tag) {
         var index = vm.editStation.tags_arr.indexOf(tag);
         if (index !== -1) {
             vm.editStation.tags_arr.splice(index, 1);
         }
     }
 
-    vm.sendStation = function() {
+    function sendStation() {
         if (vm.editStation !== null) {
             vm.activeSending = true;
             console.log("---" + vm.editStation.id);
@@ -113,6 +113,51 @@ app.controller('EditController', function(radiobrowser) {
             });
         }
     }
+
+    function getCodecs(term) {
+        return $http.post(serverAdress + '/webservice/json/codecs/' + encodeURIComponent(term), {
+            "order": "stationcount",
+            "reverse": "true"
+        }).then(function(response) {
+            return response.data.slice(0, 5);
+        });
+    };
+
+    function getCountries(term) {
+        return $http.post(serverAdress + '/webservice/json/countries/' + encodeURIComponent(term), {
+            "order": "stationcount",
+            "reverse": "true"
+        }).then(function(response) {
+            return response.data.slice(0, 5);
+        });
+    };
+
+    function getStates(term) {
+        return $http.post(serverAdress + '/webservice/json/states/' + encodeURIComponent(term), {
+            "order": "stationcount",
+            "reverse": "true"
+        }).then(function(response) {
+            return response.data.slice(0, 5);
+        });
+    };
+
+    function getLanguages(term) {
+        return $http.post(serverAdress + '/webservice/json/languages/' + encodeURIComponent(term), {
+            "order": "stationcount",
+            "reverse": "true"
+        }).then(function(response) {
+            return response.data.slice(0, 5);
+        });
+    };
+
+    function getTags(term) {
+        return $http.post(serverAdress + '/webservice/json/tags/' + encodeURIComponent(term), {
+            "order": "stationcount",
+            "reverse": "true"
+        }).then(function(response) {
+            return response.data.slice(0, 5);
+        });
+    };
 
     vm.editStation = null;
     vm.activeSending = false;
