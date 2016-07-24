@@ -7,23 +7,109 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap", "ui.bootstrap-sl
                 url: "/",
                 templateUrl: "partials/info.html"
             })
-            .state('countries', {
+
+        // display categories
+        .state('countries', {
                 url: "/countries",
-                templateUrl: "partials/countries.html"
+                templateUrl: "partials/category.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/countries"
+                        };
+                    }
+                },
+                controller: "CategoryController as category"
             })
             .state('languages', {
                 url: "/languages",
-                templateUrl: "partials/languages.html"
+                templateUrl: "partials/category.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/languages"
+                        };
+                    }
+                },
+                controller: "CategoryController as category"
             })
             .state('tags', {
                 url: "/tags",
-                templateUrl: "partials/tags.html"
+                templateUrl: "partials/tags.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/tags"
+                        };
+                    }
+                },
+                controller: "TagController as tags"
             })
             .state('codecs', {
                 url: "/codecs",
-                templateUrl: "partials/codecs.html"
+                templateUrl: "partials/category.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/codecs"
+                        };
+                    }
+                },
+                controller: "CategoryController as category"
             })
-            .state('topclick', {
+
+        // display stations by category
+        .state('bylanguage', {
+                url: "/bylanguage/:language",
+                templateUrl: "partials/list.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/stations/topclick/100"
+                        };
+                    }
+                },
+                controller: "ListController as list"
+            })
+            .state('bycountry', {
+                url: "/bycountry/:country",
+                templateUrl: "partials/list.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/stations/topclick/100"
+                        };
+                    }
+                },
+                controller: "ListController as list"
+            })
+            .state('bytag', {
+                url: "/bytag/:tag",
+                templateUrl: "partials/list.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/stations/topclick/100"
+                        };
+                    }
+                },
+                controller: "ListController as list"
+            })
+            .state('bycodec', {
+                url: "/bycodec/:codec",
+                templateUrl: "partials/list.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/stations/topclick/100"
+                        };
+                    }
+                },
+                controller: "ListController as list"
+            })
+
+        // display specialized lists of stations
+        .state('topclick', {
                 url: "/topclick",
                 templateUrl: "partials/list.html",
                 resolve: {

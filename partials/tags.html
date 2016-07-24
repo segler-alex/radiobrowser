@@ -1,19 +1,19 @@
-<div ng-show="tagList.length > 0">
+<div ng-show="tags.tagList.length > 0">
     <H2>Very popular tags</H2>
     <div class="container-fluid">
-        <div class="col-md-3" ng-repeat="tag in tagListVeryPopular">
+        <div class="col-md-3" ng-repeat="tag in tags.tagListVeryPopular">
             <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
         </div>
     </div>
     <H2>Popular tags</H2>
     <div class="container-fluid">
-        <div class="col-md-3" ng-repeat="tag in tagListPopular">
+        <div class="col-md-3" ng-repeat="tag in tags.tagListPopular">
             <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
         </div>
     </div>
     <H2>Used once</H2>
     <div class="container-fluid">
-        <div class="col-md-3" ng-repeat="tag in tagListNotPopular">
+        <div class="col-md-3" ng-repeat="tag in tags.tagListNotPopular">
             <button class="btn btn-xs btn-link" ng-click="displayByTag(tag.name)">{{tag.name}} ({{tag.stationcount}})</button>
         </div>
     </div>
