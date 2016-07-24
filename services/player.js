@@ -32,10 +32,8 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', function audi
             };
             audio.onerror = function() {
                 console.log("error on play");
-                $scope.$apply(function() {
-                    playerItem = null;
-                    audio.pause();
-                });
+                playerItem = null;
+                audio.pause();
                 alert("browser is not able to play station. please try with external player.");
             };
             audio.play();

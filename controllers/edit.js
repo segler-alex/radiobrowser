@@ -103,11 +103,10 @@ app.controller('EditController', function(radiobrowser, $uibModal) {
             radiobrowser.post(url, vm.editStation).then(function(response) {
                 console.log("ok:" + JSON.stringify(response));
                 vm.editStation = null;
-                vm.clearList();
                 vm.activeSending = false;
                 vm.similiarStations = [];
                 vm.imageList = [];
-                vm.open(response);
+                open(response);
             }, function(err) {
                 console.log("error:" + err);
             });
@@ -163,6 +162,7 @@ app.controller('EditController', function(radiobrowser, $uibModal) {
     vm.activeSending = false;
     vm.similiarStations = [];
     vm.imageList = [];
+    vm.editStation = {};
 
     vm.open = open;
     vm.updateImageList = updateImageList;
