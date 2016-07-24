@@ -20,7 +20,7 @@
                 <td>{{station.votes}}</td>
                 <td>{{station.name}}</td>
                 <td ng-show="tab!=='deleted'">
-                    <span class="btn btn-xs btn-info" ng-show="station.codec" ng-click="displayByCodec(station.codec)">{{station.codec}}</span>
+                    <a class="btn btn-xs btn-info tagbutton" ng-show="station.codec" ui-sref="bycodec({'codec': station.codec})">{{station.codec}}</a>
                     <span class="btn btn-xs btn-info" ng-show="station.bitrate > 0">{{station.bitrate}} kbps</span>
                     <span class="btn btn-xs btn-danger" ng-show="station.lastcheckok==='0'">BROKEN</span>
                 </td>
@@ -28,7 +28,11 @@
                     <a class="btn btn-xs btn-info tagbutton" ui-sref="bytag({'tag': value})" ng-repeat="value in getTagsArray(station.tags)">{{value}}</a>
                 </td>
                 <td>
-                    <button class="btn btn-xs btn-info" ng-click="displayByCountry(station.country)" ng-show="station.country">{{station.country}}</button> <span ng-show="station.state">/ <button class="btn btn-xs btn-info" ng-click="displayByState(station.state)">{{station.state }}</button></span></td>
+                    <a class="btn btn-xs btn-info tagbutton" ng-show="station.country" ui-sref="bycountry({'country': station.country})">{{station.country}}</a>
+                    <span ng-show="station.state">
+                      <a class="btn btn-xs btn-info tagbutton" ng-show="station.state" ui-sref="bystate({'state': station.state})">{{station.state}}</a>
+                    </span>
+                </td>
                 <td ng-show="tab!=='deleted'">{{station.lastchecktime || "never"}}</td>
                 <td ng-show="tab==='broken'">{{station.lastcheckoktime || "never"}}</td>
                 <td ng-show="tab!=='deleted'">

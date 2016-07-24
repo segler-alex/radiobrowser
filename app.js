@@ -65,7 +65,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap", "ui.bootstrap-sl
                 resolve: {
                     relLink: function() {
                         return {
-                            value: "/webservice/json/stations/topclick/100"
+                            value: ""
                         };
                     }
                 },
@@ -77,7 +77,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap", "ui.bootstrap-sl
                 resolve: {
                     relLink: function() {
                         return {
-                            value: "/webservice/json/stations/topclick/100"
+                            value: ""
                         };
                     }
                 },
@@ -89,7 +89,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap", "ui.bootstrap-sl
                 resolve: {
                     relLink: function() {
                         return {
-                            value: "/webservice/json/stations/topclick/100"
+                            value: ""
                         };
                     }
                 },
@@ -101,7 +101,19 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap", "ui.bootstrap-sl
                 resolve: {
                     relLink: function() {
                         return {
-                            value: "/webservice/json/stations/topclick/100"
+                            value: ""
+                        };
+                    }
+                },
+                controller: "ListController as list"
+            })
+            .state('bystate', {
+                url: "/bystate/:state",
+                templateUrl: "partials/list.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: ""
                         };
                     }
                 },
