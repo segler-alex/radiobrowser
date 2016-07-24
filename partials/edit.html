@@ -57,40 +57,40 @@
             <div class="form-group">
                 <label for="StationCountry" class="col-sm-2 control-label">Country</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationCountry" placeholder="Country.." ng-model="edit.editStation.country" uib-typeahead="country.name for country in getCountries($viewValue)" ng-disabled="activeSending" />
+                    <input type="text" class="form-control" id="StationCountry" placeholder="Country.." ng-model="edit.editStation.country" uib-typeahead="country.name for country in edit.getCountries($viewValue)" ng-disabled="activeSending" />
                 </div>
             </div>
             <div class="form-group">
                 <label for="StationState" class="col-sm-2 control-label">State</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationState" placeholder="State.." ng-model="edit.editStation.state" uib-typeahead="state.name for state in getStates($viewValue)" typeahead-template-url="customTemplate.html" ng-disabled="activeSending" />
+                    <input type="text" class="form-control" id="StationState" placeholder="State.." ng-model="edit.editStation.state" uib-typeahead="state.name for state in edit.getStates($viewValue)" typeahead-template-url="customTemplate.html" ng-disabled="activeSending" />
                 </div>
             </div>
             <div class="form-group">
                 <label for="StationLanguage" class="col-sm-2 control-label">Language</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationLanguage" placeholder="Language.." ng-model="edit.editStation.language" uib-typeahead="language.name for language in getLanguages($viewValue)" ng-disabled="activeSending" />
+                    <input type="text" class="form-control" id="StationLanguage" placeholder="Language.." ng-model="edit.editStation.language" uib-typeahead="language.name for language in edit.getLanguages($viewValue)" ng-disabled="activeSending" />
                 </div>
             </div>
             <div class="form-group">
                 <label for="StationTags" class="col-sm-2 control-label">Tags</label>
                 <div class="col-sm-10">
-                    <span ng-repeat="value in editStation.tags_arr">
-          <span class="btn-group btn-group-xs">
-            <button class="btn btn-xs btn-default">{{value}}</button>
-            <button class="btn btn-xs btn-danger" ng-click="removeTag(value)"><span class="glyphicon glyphicon-remove"/></button>
-          </span>
+                    <span ng-repeat="value in edit.editStation.tags_arr">
+                        <span class="btn-group btn-group-xs">
+                            <button class="btn btn-xs btn-default">{{value}}</button>
+                            <button class="btn btn-xs btn-danger" ng-click="edit.removeTag(value)"><span class="glyphicon glyphicon-remove"/></button>
+                        </span>
                     </span>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="StationTags" placeholder="Tags.." ng-model="editStation.tag" uib-typeahead="tag.name for tag in getTags($viewValue)" ng-enter="addTag(editStation.tag)" ng-disabled="activeSending" />
+                        <input type="text" class="form-control" id="StationTags" placeholder="Tags.." ng-model="edit.editStation.tag" uib-typeahead="tag.name for tag in edit.getTags($viewValue)" ng-enter="edit.addTag(edit.editStation.tag)" ng-disabled="activeSending" />
                         <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ng-click="addTag(editStation.tag)" ng-disabled="activeSending"><span class="glyphicon glyphicon-ok"/></button>
-          </span>
+                            <button class="btn btn-default" type="button" ng-click="edit.addTag(edit.editStation.tag)" ng-disabled="activeSending"><span class="glyphicon glyphicon-ok"/></button>
+                        </span>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-default" ng-click="sendStation()" ng-disabled="activeSending || !FormInput.$valid">Save</button>
-            <button class="btn btn-default" ng-click="deleteStation(editStation.id)" ng-disabled="activeSending" ng-show="editStation.id">Delete</button>
+            <button class="btn btn-default" ng-click="edit.sendStation()" ng-disabled="activeSending || !FormInput.$valid">Save</button>
+            <button class="btn btn-default" ng-click="edit.deleteStation(editStation.id)" ng-disabled="activeSending" ng-show="edit.editStation.id">Delete</button>
         </form>
     </div>
     <div style="float:left;width:600px;margin-left:50px" ng-show="edit.similiarStations.length > 0">

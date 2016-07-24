@@ -75,6 +75,9 @@ app.controller('EditController', function(radiobrowser, $uibModal) {
     }
 
     function addTag(tag) {
+        if (!vm.editStation.tags_arr) {
+            vm.editStation.tags_arr = [];
+        }
         vm.editStation.tags_arr.splice(0, 0, tag);
         vm.editStation.tag = "";
     }
@@ -113,17 +116,8 @@ app.controller('EditController', function(radiobrowser, $uibModal) {
         }
     }
 
-    function getCodecs(term) {
-        return $http.post(serverAdress + '/webservice/json/codecs/' + encodeURIComponent(term), {
-            "order": "stationcount",
-            "reverse": "true"
-        }).then(function(response) {
-            return response.data.slice(0, 5);
-        });
-    };
-
     function getCountries(term) {
-        return $http.post(serverAdress + '/webservice/json/countries/' + encodeURIComponent(term), {
+        return radiobrowser.post('/webservice/json/countries/' + encodeURIComponent(term), {
             "order": "stationcount",
             "reverse": "true"
         }).then(function(response) {
@@ -132,7 +126,7 @@ app.controller('EditController', function(radiobrowser, $uibModal) {
     };
 
     function getStates(term) {
-        return $http.post(serverAdress + '/webservice/json/states/' + encodeURIComponent(term), {
+        return radiobrowser.post('/webservice/json/states/' + encodeURIComponent(term), {
             "order": "stationcount",
             "reverse": "true"
         }).then(function(response) {
@@ -141,7 +135,7 @@ app.controller('EditController', function(radiobrowser, $uibModal) {
     };
 
     function getLanguages(term) {
-        return $http.post(serverAdress + '/webservice/json/languages/' + encodeURIComponent(term), {
+        return radiobrowser.post('/webservice/json/languages/' + encodeURIComponent(term), {
             "order": "stationcount",
             "reverse": "true"
         }).then(function(response) {
@@ -150,7 +144,7 @@ app.controller('EditController', function(radiobrowser, $uibModal) {
     };
 
     function getTags(term) {
-        return $http.post(serverAdress + '/webservice/json/tags/' + encodeURIComponent(term), {
+        return radiobrowser.post('/webservice/json/tags/' + encodeURIComponent(term), {
             "order": "stationcount",
             "reverse": "true"
         }).then(function(response) {
@@ -167,4 +161,11 @@ app.controller('EditController', function(radiobrowser, $uibModal) {
     vm.open = open;
     vm.updateImageList = updateImageList;
     vm.updateSimiliar = updateSimiliar;
+    vm.addTag = addTag;
+    vm.removeTag = removeTag;
+
+    vm.getCountries = getCountries;
+    vm.getStates = getStates;
+    vm.getLanguages = getLanguages;
+    vm.getTags = getTags;
 });
