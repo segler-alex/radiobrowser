@@ -9,7 +9,7 @@
             <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationName.$valid,'has-error':!FormInput.StationName.$valid}">
                 <label for="StationName" class="col-sm-2 control-label">Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationName" placeholder="Name.." ng-model="editStation.name" required name="StationName" ng-disabled="activeSending" ng-change="edit.updateSimiliar(editStation.name)" />
+                    <input type="text" class="form-control" id="StationName" placeholder="Name.." ng-model="edit.editStation.name" required name="StationName" ng-disabled="activeSending" ng-change="edit.updateSimiliar(edit.editStation.name)" />
                     <span class="help-block" ng-show="!FormInput.StationName.$valid">The name is required</span>
                     <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationName.$valid"></span>
                     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationName.$valid"></span>
@@ -18,7 +18,7 @@
             <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationUrl.$valid,'has-error':!FormInput.StationUrl.$valid}">
                 <label for="StationUrl" class="col-sm-2 control-label">URL</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationUrl" placeholder="http://.." ng-model="editStation.url" name="StationUrl" required ng-pattern="/^https?:\/\/.+$/" ng-disabled="activeSending" />
+                    <input type="text" class="form-control" id="StationUrl" placeholder="http://.." ng-model="edit.editStation.url" name="StationUrl" required ng-pattern="/^https?:\/\/.+$/" ng-disabled="activeSending" />
                     <span class="help-block" ng-show="!FormInput.StationUrl.$valid">The streaming url is required, and needs to start with http:// or https://</span>
                     <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationUrl.$valid"></span>
                     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationUrl.$valid"></span>
@@ -27,18 +27,18 @@
             <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationHomepage.$valid,'has-error':!FormInput.StationHomepage.$valid}">
                 <label for="StationHomepage" class="col-sm-2 control-label">Homepage</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationHomepage" placeholder="http://.." ng-change="updateImageList(editStation.homepage)" ng-model="editStation.homepage" name="StationHomepage" required ng-pattern="/^https?:\/\/.+$/" ng-disabled="activeSending"
+                    <input type="text" class="form-control" id="StationHomepage" placeholder="http://.." ng-change="edit.updateImageList(edit.editStation.homepage)" ng-model="edit.editStation.homepage" name="StationHomepage" required ng-pattern="/^https?:\/\/.+$/" ng-disabled="activeSending"
                     />
                     <span class="help-block" ng-show="!FormInput.StationHomepage.$valid">The homepage url is required, and needs to start with http:// or https://</span>
                     <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationHomepage.$valid"></span>
                     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationHomepage.$valid"></span>
-                    <div ng-show="imageList.length > 0">
+                    <div ng-show="edit.imageList.length > 0">
                         <br/>
                         <p>
                             <u>Extracted images:</u> Please choose one image or input url yourself:
                             <br/>
                             <nobr>
-                                <button ng-repeat="image in imageList" ng-click="editStation.favicon=image;">
+                                <button ng-repeat="image in edit.imageList" ng-click="edit.editStation.favicon=image;">
                                     <img ng-src="{{image}}" height="30" />
                                 </button>
                             </nobr>
@@ -49,7 +49,7 @@
             <div class="form-group">
                 <label for="StationIcon" class="col-sm-2 control-label">Favicon</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationIcon" placeholder="http://.." ng-model="editStation.favicon" ng-disabled="activeSending" />
+                    <input type="text" class="form-control" id="StationIcon" placeholder="http://.." ng-model="edit.editStation.favicon" ng-disabled="activeSending" />
                     <img ng-show="editStation && editStation.favicon !== ''" ng-src="{{editStation.favicon}}" height="40" />
                     <br/>
                 </div>
@@ -57,19 +57,19 @@
             <div class="form-group">
                 <label for="StationCountry" class="col-sm-2 control-label">Country</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationCountry" placeholder="Country.." ng-model="editStation.country" uib-typeahead="country.name for country in getCountries($viewValue)" ng-disabled="activeSending" />
+                    <input type="text" class="form-control" id="StationCountry" placeholder="Country.." ng-model="edit.editStation.country" uib-typeahead="country.name for country in getCountries($viewValue)" ng-disabled="activeSending" />
                 </div>
             </div>
             <div class="form-group">
                 <label for="StationState" class="col-sm-2 control-label">State</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationState" placeholder="State.." ng-model="editStation.state" uib-typeahead="state.name for state in getStates($viewValue)" typeahead-template-url="customTemplate.html" ng-disabled="activeSending" />
+                    <input type="text" class="form-control" id="StationState" placeholder="State.." ng-model="edit.editStation.state" uib-typeahead="state.name for state in getStates($viewValue)" typeahead-template-url="customTemplate.html" ng-disabled="activeSending" />
                 </div>
             </div>
             <div class="form-group">
                 <label for="StationLanguage" class="col-sm-2 control-label">Language</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationLanguage" placeholder="Language.." ng-model="editStation.language" uib-typeahead="language.name for language in getLanguages($viewValue)" ng-disabled="activeSending" />
+                    <input type="text" class="form-control" id="StationLanguage" placeholder="Language.." ng-model="edit.editStation.language" uib-typeahead="language.name for language in getLanguages($viewValue)" ng-disabled="activeSending" />
                 </div>
             </div>
             <div class="form-group">
