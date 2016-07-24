@@ -5,7 +5,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap", "ui.bootstrap-sl
         $stateProvider
             .state('info', {
                 url: "/",
-                templateUrl: "partials/start.html"
+                templateUrl: "partials/info.html"
             })
             .state('countries', {
                 url: "/countries",
@@ -23,9 +23,89 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap", "ui.bootstrap-sl
                 url: "/codecs",
                 templateUrl: "partials/codecs.html"
             })
-            .state('list', {
-                url: "/list",
-                templateUrl: "partials/list.html"
+            .state('topclick', {
+                url: "/topclick",
+                templateUrl: "partials/list.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/stations/topclick/100"
+                        };
+                    }
+                },
+                controller: "ListController as list"
+            })
+            .state('topvote', {
+                url: "/topvote",
+                templateUrl: "partials/list.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/stations/topvote/100"
+                        };
+                    }
+                },
+                controller: "ListController as list"
+            })
+            .state('broken', {
+                url: "/broken",
+                templateUrl: "partials/list.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/stations/broken/100"
+                        };
+                    }
+                },
+                controller: "ListController as list"
+            })
+            .state('deleted', {
+                url: "/deleted",
+                templateUrl: "partials/list.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/stations/deleted"
+                        };
+                    }
+                },
+                controller: "ListController as list"
+            })
+            .state('improve', {
+                url: "/improve",
+                templateUrl: "partials/list.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/stations/improvable/10"
+                        };
+                    }
+                },
+                controller: "ListController as list"
+            })
+            .state('lastchange', {
+                url: "/lastchange",
+                templateUrl: "partials/list.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/stations/lastchange/100"
+                        };
+                    }
+                },
+                controller: "ListController as list"
+            })
+            .state('lastclick', {
+                url: "/lastclick",
+                templateUrl: "partials/list.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/stations/lastclick/100"
+                        };
+                    }
+                },
+                controller: "ListController as list"
             });
     })
     .directive('ngEnter', function() {

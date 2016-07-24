@@ -3,7 +3,6 @@ var app = angular.module('RadioBrowserApp');
 app.controller('MainController', function($scope, $http, $sce, $httpParamSerializerJQLike, $uibModal) {
   $scope.bigTotalItems = 0;
   $scope.bigCurrentPage = 1;
-  $scope.itemsPerPage = 20;
   $scope.countryList = [];
   $scope.playerItem = null;
   $scope.audioVolume = 1;
@@ -61,23 +60,17 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     $scope.tab = tab;
 
     if (tab === "home") {
-      updateStats();
       $scope.clearList();
     }
     if (tab === "byclicks") {
-      $scope.displayTopClick();
     }
     if (tab === "broken") {
-      $scope.displayBroken();
     }
     if (tab === "deleted") {
-      $scope.displayDeleted();
     }
     if (tab === "improve") {
-      $scope.displayImprove();
     }
     if (tab === "byvotes") {
-      $scope.displayTopVote();
     }
     if (tab === "bycountry") {
       $scope.displayCountries();
@@ -92,10 +85,8 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
       $scope.displayTags();
     }
     if (tab === "latelychanged") {
-      $scope.displayLastChanged();
     }
     if (tab === "latelyplayed") {
-      $scope.displayLastPlayed();
     }
     if (tab === "editstation") {
       $scope.clearList();
@@ -116,19 +107,6 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     if (tab !== 'editstation') {
       $scope.editStation = null;
     }
-  }
-
-  $scope.vote = function(station) {
-    $http.get(serverAdress+'/webservice/json/vote/' + station.id).then(function(data) {
-      if (data.data.ok === "true"){
-        station.votes = parseInt(station.votes) + 1;
-      }else{
-        alert("could not vote for station: "+data.data.message);
-      }
-      $scope.updateList();
-    }, function(err) {
-      console.log("error:" + err);
-    });
   }
 
   $scope.clearList = function() {
@@ -254,84 +232,7 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     });
   }
 
-  $scope.displayTopClick = function() {
-    $http.get(serverAdress+'/webservice/json/stations/topclick/100').then(function(data) {
-      $scope.resultListFull = data.data;
-      $scope.bigCurrentPage = 1;
-      $scope.bigTotalItems = data.data.length;
-      $scope.updateList();
-    }, function(err) {
-      console.log("error:" + err);
-    });
-  }
-
-  $scope.displayBroken = function() {
-    $http.get(serverAdress+'/webservice/json/stations/broken/100').then(function(data) {
-      $scope.resultListFull = data.data;
-      $scope.bigCurrentPage = 1;
-      $scope.bigTotalItems = data.data.length;
-      $scope.updateList();
-    }, function(err) {
-      console.log("error:" + err);
-    });
-  }
-
-  $scope.displayDeleted = function() {
-    $http.get(serverAdress+'/webservice/json/stations/deleted').then(function(data) {
-      $scope.resultListFull = data.data;
-      $scope.bigCurrentPage = 1;
-      $scope.bigTotalItems = data.data.length;
-      $scope.updateList();
-    }, function(err) {
-      console.log("error:" + err);
-    });
-  }
-
-  $scope.displayImprove = function() {
-    $http.get(serverAdress+'/webservice/json/stations/improvable/10').then(function(data) {
-      $scope.resultListFull = data.data;
-      $scope.bigCurrentPage = 1;
-      $scope.bigTotalItems = data.data.length;
-      $scope.updateList();
-    }, function(err) {
-      console.log("error:" + err);
-    });
-  }
-
-  $scope.displayTopVote = function() {
-    $http.get(serverAdress+'/webservice/json/stations/topvote/100').then(function(data) {
-      $scope.resultListFull = data.data;
-      $scope.bigCurrentPage = 1;
-      $scope.bigTotalItems = data.data.length;
-      $scope.updateList();
-    }, function(err) {
-      console.log("error:" + err);
-    });
-  }
-
-  $scope.displayLastChanged = function() {
-    $http.get(serverAdress+'/webservice/json/stations/lastchange/100').then(function(data) {
-      $scope.resultListFull = data.data;
-      $scope.bigCurrentPage = 1;
-      $scope.bigTotalItems = data.data.length;
-      $scope.updateList();
-    }, function(err) {
-      console.log("error:" + err);
-    });
-  }
-
-  $scope.displayLastPlayed = function() {
-    $http.get(serverAdress+'/webservice/json/stations/lastclick/100').then(function(data) {
-      $scope.resultListFull = data.data;
-      $scope.bigCurrentPage = 1;
-      $scope.bigTotalItems = data.data.length;
-      $scope.updateList();
-    }, function(err) {
-      console.log("error:" + err);
-    });
-  }
-
-  $scope.play = function(id) {
+    $scope.play = function(id) {
     // decode playlist
     var decodeUrl = serverAdress + "/webservice/json/url/" + id;
     $http.get(decodeUrl).then(function(data) {
@@ -396,10 +297,6 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
     });
   };
 
-  $scope.updateList = function() {
-    $scope.resultList = $scope.resultListFull.slice(($scope.bigCurrentPage - 1) * $scope.itemsPerPage, ($scope.bigCurrentPage) * $scope.itemsPerPage);
-  }
-
   $scope.getCodecs = function(term) {
     return $http.post(serverAdress+'/webservice/json/codecs/' + encodeURIComponent(term), {"order":"stationcount", "reverse":"true"}).then(function(response) {
       return response.data.slice(0, 5);
@@ -427,21 +324,6 @@ app.controller('MainController', function($scope, $http, $sce, $httpParamSeriali
   $scope.getTags = function(term) {
     return $http.post(serverAdress+'/webservice/json/tags/' + encodeURIComponent(term), {"order":"stationcount", "reverse":"true"}).then(function(response) {
       return response.data.slice(0, 5);
-    });
-  };
-
-  $scope.deleteStation = function(stationid) {
-    console.log("deletestation:"+stationid);
-    $http.get(serverAdress+'/webservice/json/delete/'+stationid).then(function(data) {
-      $scope.editStation = null;
-      $scope.clearList();
-      if (data.data.ok === "true"){
-          alert("delete ok");
-      }else{
-          alert("could not delete station:"+data.data.message);
-      }
-    }, function(err) {
-      console.log("error:" + err);
     });
   };
 

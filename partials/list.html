@@ -2,7 +2,7 @@
     <div role="tabpanel" id="newstation" ng-show="tab==='deleted'">
         <H4>Stations in this list will be deleted completely after 30 days automatically.</H4>
     </div>
-    <table class="table table-condensed table-hover" ng-show="bigTotalItems > 0">
+    <table class="table table-condensed table-hover">
         <thead>
             <th width="10"></th>
             <th width="10"><span class="glyphicon glyphicon-thumbs-up" /></th>
@@ -15,7 +15,7 @@
             <th width="200"></th>
         </thead>
         <tbody>
-            <tr ng-repeat="station in resultList">
+            <tr ng-repeat="station in list.resultList">
                 <td align="right"><img ng-src="{{station.favicon}}" height="20px" ng-show="station.favicon" /></td>
                 <td>{{station.votes}}</td>
                 <td>{{station.name}}</td>

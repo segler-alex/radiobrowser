@@ -3,6 +3,21 @@ var app = angular.module('RadioBrowserApp');
 app.controller('EditController', function(radiobrowser) {
     var vm = this;
 
+    vm.deleteStation = function(stationid) {
+        console.log("deletestation:" + stationid);
+        $http.get(serverAdress + '/webservice/json/delete/' + stationid).then(function(data) {
+            $scope.editStation = null;
+            $scope.clearList();
+            if (data.data.ok === "true") {
+                alert("delete ok");
+            } else {
+                alert("could not delete station:" + data.data.message);
+            }
+        }, function(err) {
+            console.log("error:" + err);
+        });
+    };
+
     function open(sth) {
         console.log("open");
         var modalInstance = $uibModal.open({

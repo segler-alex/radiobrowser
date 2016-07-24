@@ -1,6 +1,6 @@
 var app = angular.module('RadioBrowserApp');
 
-app.controller('InfoController', function($http, radiobrowser) {
+app.controller('InfoController', function(radiobrowser) {
     var vm = this;
 
     updateStats();

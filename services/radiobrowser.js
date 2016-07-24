@@ -10,8 +10,13 @@ angular.module('RadioBrowserApp').factory('radiobrowser', ['$http', function rad
         return $http.post(serverAdress + relLink, data);
     }
 
+    function get(relLink) {
+        return $http.get(serverAdress + relLink);
+    }
+
     return {
         'getStats': getStats,
+        'get': get,
         'post': post
     };
 }]);
