@@ -99,12 +99,21 @@ app.controller('ListController', function(radiobrowser, audioplayer, relLink, $s
         }
     }
 
+    function distinct(list) {
+        var result = [];
+        for (var i = 0; i < list.length; i++) {
+            if (result.indexOf(list[i]) < 0) {
+                result.push(list[i]);
+            }
+        }
+        return result;
+    }
+
     function getTagsArray(tags_string) {
         if (tags_string.trim() === "") {
             return [];
         }
-        console.log("tags:"+tags_string);
-        return tags_string.split(',');
+        return distinct(tags_string.split(','));
     };
 
     vm.editStation = null;
