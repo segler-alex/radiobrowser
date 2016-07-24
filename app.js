@@ -11,7 +11,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap", "ui.bootstrap-sl
         // display categories
         .state('countries', {
                 url: "/countries",
-                templateUrl: "partials/category.html",
+                templateUrl: "partials/countries.html",
                 resolve: {
                     relLink: function() {
                         return {
@@ -23,7 +23,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap", "ui.bootstrap-sl
             })
             .state('languages', {
                 url: "/languages",
-                templateUrl: "partials/category.html",
+                templateUrl: "partials/languages.html",
                 resolve: {
                     relLink: function() {
                         return {
@@ -47,7 +47,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap", "ui.bootstrap-sl
             })
             .state('codecs', {
                 url: "/codecs",
-                templateUrl: "partials/category.html",
+                templateUrl: "partials/codecs.html",
                 resolve: {
                     relLink: function() {
                         return {

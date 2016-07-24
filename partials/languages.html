@@ -1,0 +1,5 @@
+<div class="container-fluid">
+    <div class="col-md-3" ng-repeat="c in category.categories">
+        <a class="btn btn-xs btn-link" ui-sref="bylanguage({'language': c.name})">{{c.name}} ({{c.stationcount}})</a>
+    </div>
+</div>
