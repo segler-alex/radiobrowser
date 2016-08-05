@@ -123,7 +123,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
                 vm.activeSending = false;
                 vm.similiarStations = [];
                 vm.imageList = [];
-                open(response);
+                open(response.data);
                 $state.go("lastchange");
             }, function(err) {
                 console.log("error:" + err);
