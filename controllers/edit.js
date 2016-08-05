@@ -124,6 +124,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
                 vm.similiarStations = [];
                 vm.imageList = [];
                 open(response);
+                $state.go("lastchange");
             }, function(err) {
                 console.log("error:" + err);
             });
@@ -178,6 +179,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
     vm.addTag = addTag;
     vm.removeTag = removeTag;
     vm.deleteStation = deleteStation;
+    vm.sendStation = sendStation;
 
     vm.getCountries = getCountries;
     vm.getStates = getStates;
