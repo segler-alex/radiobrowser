@@ -40,10 +40,10 @@
                     <a href="http://www.radio-browser.info/webservice/pls/url/{{station.id}}" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-floppy-disk" /></a>
                     <a href="{{station.homepage}}" ng-show="station.homepage" target="_blank"><span class="btn btn-link btn-xs glyphicon glyphicon-home" /></a>
                     <button class="btn btn-link btn-xs" ng-click="list.vote(station)"><span class="glyphicon glyphicon-thumbs-up" /></button>
-                    <button class="btn btn-link btn-xs" ng-click="list.edit(station)"><span class="glyphicon glyphicon glyphicon-pencil" /></button>
+                    <button class="btn btn-link btn-xs" ui-sref="edit({'id': station.id})"><span class="glyphicon glyphicon glyphicon-pencil" /></button>
                 </td>
                 <td ng-show="tab==='deleted'">
-                    <button class="btn btn-link btn-xs" ng-click="revertStation(station.id, station.changeid)">Undelete</button>
+                    <button class="btn btn-link btn-xs" ng-click="list.revertStation(station.id, station.changeid)">Undelete</button>
                 </td>
             </tr>
         </tbody>

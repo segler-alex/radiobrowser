@@ -23,6 +23,7 @@
     <script src="controllers/main.js"></script>
     <script src="controllers/info.js"></script>
     <script src="controllers/list.js"></script>
+    <script src="controllers/player.js"></script>
     <script src="controllers/category.js"></script>
     <script src="controllers/tags.js"></script>
     <script src="controllers/edit.js"></script>
@@ -30,8 +31,49 @@
     <script src="services/player.js"></script>
     <script src="services/radiobrowser.js"></script>
 
-    <script type="text/ng-template" id="customTemplate.html" src="templates/countryItem.html"> </script>
-    <script type="text/ng-template" id="myModalContent.html" src="modals/sendModal.html"> </script>
+    <script type="text/ng-template" id="customTemplate.html">
+        <a>
+            <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span> ({{match.model.country}})
+        </a>
+    </script>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Result</h3>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li>
+                    <u>Connection check:</u>
+                    <span ng-show="result.stream_check_ok === 'true'" class="glyphicon glyphicon-ok" color="green"></span>
+                    <span ng-show="result.stream_check_ok !== 'true'" class="glyphicon glyphicon-remove" color="red"></span>
+                </li>
+                <li ng-show="result.stream_check_ok === 'true'"><u>Bitrate:</u> {{result.stream_check_bitrate}}</li>
+                <li ng-show="result.stream_check_ok === 'true'"><u>Codec:</u> {{result.stream_check_codec}}</li>
+                <li>
+                    <u>Favicon check done:</u>
+                    <span ng-show="result.favicon_check_done === 'true'" class="glyphicon glyphicon-ok" color="green"></span>
+                    <span ng-show="result.favicon_check_done !== 'true'" class="glyphicon glyphicon-remove" color="yellow"></span>
+                </li>
+                <li ng-show="result.favicon_check_done === 'true'">
+                    <u>Favicon found:</u>
+                    <span ng-show="result.favicon_check_ok === 'true'" class="glyphicon glyphicon-ok" color="green"></span>
+                    <span ng-show="result.favicon_check_ok !== 'true'" class="glyphicon glyphicon-remove" color="yellow"></span>
+                    <br/>
+                    <img ng-src="{{result.favicon_check_url}}" ng-show="result.favicon_check_ok" width="100" />
+                </li>
+            </ul>
+            <div ng-show="result.stream_check_ok === 'false'">
+                Please check the stream link with a media play (for example <a href="http://videolan.org/">VLC</a> (FREE)). If the stream works with your mediaplayer, please drop me a <a href="mailto:segler_alex@web.de">note</a> or create a bug report
+                on <a href="https://github.com/segler-alex/radiobrowser/issues">github</a>.
+                <br/>
+                <br/> Thank you!
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        </div>
+
+    </script>
 </head>
 
 <body ng-controller="MainController">
@@ -77,7 +119,7 @@
         <div ui-view></div>
     </div>
 
-    <div class="player bg-success container-fluid" ng-class="{'player-active':playerItem}">
+    <div class="player bg-success container-fluid" ng-class="{'player-active':player.audioplayer.getIsActive()}" ng-controller="PlayerController as player">
         <div class="col-md-12"><u>Player active</u></div>
         <div class="col-md-8">{{playerItem.name}}</div>
         <div class="col-md-1"></div>

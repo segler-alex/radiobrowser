@@ -9,11 +9,13 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap", "ui.bootstrap-sl
             })
             .state('add', {
                 url: "/add",
-                templateUrl: "partials/edit.html"
+                templateUrl: "partials/edit.html",
+                controller: "EditController as edit"
             })
             .state('edit', {
-                url: "/edit",
-                templateUrl: "partials/edit.html"
+                url: "/edit/:id",
+                templateUrl: "partials/edit.html",
+                controller: "EditController as edit"
             })
 
         // display categories

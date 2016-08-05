@@ -87,18 +87,6 @@ app.controller('ListController', function(radiobrowser, audioplayer, relLink, $s
         });
     }
 
-    function edit(station) {
-        console.log(JSON.stringify(station));
-        vm.editStation = station;
-        updateSimiliar(station.name);
-        updateImageList(station.homepage);
-        if (station.tags.trim() === "") {
-            vm.editStation.tags_arr = [];
-        } else {
-            vm.editStation.tags_arr = station.tags.split(',');
-        }
-    }
-
     function distinct(list) {
         var result = [];
         for (var i = 0; i < list.length; i++) {
@@ -125,7 +113,6 @@ app.controller('ListController', function(radiobrowser, audioplayer, relLink, $s
     vm.revertStation = revertStation;
     vm.vote = vote;
     vm.play = play;
-    vm.edit = edit;
     vm.changeItemsPerPage = changeItemsPerPage;
     vm.getTagsArray = getTagsArray;
     vm.updateList = updateList;

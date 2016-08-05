@@ -1,13 +1,25 @@
 var app = angular.module('RadioBrowserApp');
 
-app.controller('EditController', function(radiobrowser, $uibModal) {
+app.controller('EditController', function(radiobrowser, $uibModal, $stateParams) {
     var vm = this;
+
+    if ($stateParams.id) {
+        console.log("edit station:" + $stateParams.id);
+        radiobrowser.get('/webservice/json/stations/byid/' + $stateParams.id).then(function(data) {
+            if (data.data.length > 0) {
+                vm.editStation = data.data[0];
+                vm.editStation.tags_arr = vm.editStation.tags.split(',');
+                console.log("received station:" + JSON.stringify(vm.editStation));
+            }
+        });
+    }
+
 
     vm.deleteStation = function(stationid) {
         console.log("deletestation:" + stationid);
         $http.get(serverAdress + '/webservice/json/delete/' + stationid).then(function(data) {
-            $scope.editStation = null;
-            $scope.clearList();
+            vm.editStation = null;
+            clearList();
             if (data.data.ok === "true") {
                 alert("delete ok");
             } else {
