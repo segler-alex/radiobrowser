@@ -17,8 +17,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
         });
     }
 
-
-    vm.deleteStation = function(stationid) {
+    function deleteStation(stationid) {
         console.log("deletestation:" + stationid);
         radiobrowser.get('/webservice/json/delete/' + stationid).then(function(data) {
             vm.editStation = null;
@@ -31,7 +30,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
             console.log("error:" + err);
         });
         $state.go('deleted');
-    };
+    }
 
     function open(sth) {
         console.log("open");
@@ -178,6 +177,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
     vm.updateSimiliar = updateSimiliar;
     vm.addTag = addTag;
     vm.removeTag = removeTag;
+    vm.deleteStation = deleteStation;
 
     vm.getCountries = getCountries;
     vm.getStates = getStates;

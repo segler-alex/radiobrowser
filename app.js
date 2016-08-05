@@ -69,7 +69,19 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap", "ui.bootstrap-sl
             })
 
         // display stations by category
-        .state('bylanguage', {
+        .state('byname', {
+                url: "/byname/:name",
+                templateUrl: "partials/list.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: ""
+                        };
+                    }
+                },
+                controller: "ListController as list"
+            })
+            .state('bylanguage', {
                 url: "/bylanguage/:language",
                 templateUrl: "partials/list.html",
                 resolve: {

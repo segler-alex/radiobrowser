@@ -16,6 +16,8 @@ app.controller('ListController', function(radiobrowser, audioplayer, relLink, $s
         relLinkCorrected = '/webservice/json/stations/bylanguageexact/' + encodeURIComponent($stateParams.language);
     } else if ($stateParams.codec) {
         relLinkCorrected = '/webservice/json/stations/bycodecexact/' + encodeURIComponent($stateParams.codec);
+    } else if ($stateParams.name) {
+        relLinkCorrected = '/webservice/json/stations/byname/' + encodeURIComponent($stateParams.name);
     }
 
     function changeItemsPerPage(items) {
