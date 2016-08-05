@@ -36,7 +36,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
         console.log("open");
         var modalInstance = $uibModal.open({
             animation: vm.animationsEnabled,
-            templateUrl: 'myModalContent.html',
+            templateUrl: 'templates/sendModal.html',
             controller: 'ModalInstanceCtrl',
             resolve: {
                 items: function() {
