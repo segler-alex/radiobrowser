@@ -1,6 +1,6 @@
 var app = angular.module('RadioBrowserApp');
 
-app.controller('EditController', function(radiobrowser, $uibModal, $stateParams) {
+app.controller('EditController', function(radiobrowser, $uibModal, $stateParams, $state) {
     var vm = this;
 
     if ($stateParams.id) {
@@ -10,6 +10,9 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams)
                 vm.editStation = data.data[0];
                 vm.editStation.tags_arr = vm.editStation.tags.split(',');
                 console.log("received station:" + JSON.stringify(vm.editStation));
+
+                updateImageList(vm.editStation.favicon);
+                updateSimiliar(vm.editStation.name);
             }
         });
     }
@@ -17,9 +20,8 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams)
 
     vm.deleteStation = function(stationid) {
         console.log("deletestation:" + stationid);
-        $http.get(serverAdress + '/webservice/json/delete/' + stationid).then(function(data) {
+        radiobrowser.get('/webservice/json/delete/' + stationid).then(function(data) {
             vm.editStation = null;
-            clearList();
             if (data.data.ok === "true") {
                 alert("delete ok");
             } else {
@@ -28,6 +30,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams)
         }, function(err) {
             console.log("error:" + err);
         });
+        $state.go('deleted');
     };
 
     function open(sth) {
