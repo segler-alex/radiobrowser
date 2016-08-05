@@ -50,7 +50,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
         }, function() {
             console.log("dismissed");
         });
-    };
+    }
 
     function updateImageList(url) {
         radiobrowser.post('/webservice/json/extract_images', {

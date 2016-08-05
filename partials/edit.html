@@ -99,4 +99,13 @@
             <li ng-repeat="station in edit.similiarStations">{{station.name}} (<a href="{{station.homepage}}" target="_blank">{{station.homepage}}</a>)</li>
         </ul>
     </div>
+    <div class="fullscreen" ng-show="edit.activeSending">
+        <div class="mydialog">
+        <H1>SENDING..</H1>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+            </div>
+        </div>
+      </div>
+    </div>
 </div>
