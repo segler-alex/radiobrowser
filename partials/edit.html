@@ -50,7 +50,7 @@
                 <label for="StationIcon" class="col-sm-2 control-label">Favicon</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="StationIcon" placeholder="http://.." ng-model="edit.editStation.favicon" ng-disabled="activeSending" />
-                    <img ng-show="editStation && editStation.favicon !== ''" ng-src="{{editStation.favicon}}" height="40" />
+                    <img ng-show="edit.editStation && edit.editStation.favicon !== ''" ng-src="{{edit.editStation.favicon}}" height="40" />
                     <br/>
                 </div>
             </div>
