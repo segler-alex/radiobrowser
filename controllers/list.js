@@ -1,6 +1,6 @@
 var app = angular.module('RadioBrowserApp');
 
-app.controller('ListController', function(radiobrowser, audioplayer, relLink, $stateParams) {
+app.controller('ListController', function(radiobrowser, audioplayer, relLink, $stateParams, $state) {
     var vm = this;
 
     var resultListFull = [];
@@ -27,13 +27,6 @@ app.controller('ListController', function(radiobrowser, audioplayer, relLink, $s
 
     function updateList() {
         vm.resultList = resultListFull.slice((vm.bigCurrentPage - 1) * vm.itemsPerPage, (vm.bigCurrentPage) * vm.itemsPerPage);
-    }
-
-    function clearList() {
-        resultListFull = [];
-        vm.bigCurrentPage = 1;
-        vm.bigTotalItems = 0;
-        updateList();
     }
 
     function vote(station) {
@@ -63,7 +56,7 @@ app.controller('ListController', function(radiobrowser, audioplayer, relLink, $s
     function revertStation(stationid, changeid) {
         console.log("revertStation:" + stationid + "  " + changeid);
         radiobrowser.get('/webservice/json/revert/' + stationid + '/' + changeid).then(function(data) {
-            clearList();
+            $state.go('lastchange');
             if (data.data.ok === "true") {
                 alert("undelete ok");
             } else {
