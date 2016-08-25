@@ -81,15 +81,15 @@
         <div ui-view></div>
     </div>
 
-    <div class="player bg-success container-fluid" ng-class="{'player-active':player.audioplayer.getIsActive()}" ng-controller="PlayerController as player">
+    <div class="player bg-success container-fluid" ng-class="{'player-active':player.playerStatus.playerItem}" ng-controller="PlayerController as player">
         <div class="col-md-12"><u>Player active</u></div>
-        <div class="col-md-8">{{playerItem.name}}</div>
+        <div class="col-md-8">{{player.playerStatus.playerItem.name}}</div>
         <div class="col-md-1"></div>
         <div class="col-md-1">
-            <button class="btn btn-xs btn-link" ng-click="stopAudio()"><span class="glyphicon glyphicon-stop" /></button>
+            <button class="btn btn-xs btn-link" ng-click="player.stop()"><span class="glyphicon glyphicon-stop" /></button>
         </div>
         <div class="col-md-2 volumeslider">
-            <slider ng-model="audioVolume" min="0" step="0.02" max="1" value="audioVolume" on-stop-slide="setVolume(audioVolume)"></slider>
+            <slider ng-model="player.playerStatus.volume" min="0" step="0.02" max="1" value="player.playerStatus.volume" on-stop-slide="player.setVolume(player.playerStatus.volume)"></slider>
         </div>
     </div>
     <!--<a href="https://github.com/segler-alex/radiobrowser"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"

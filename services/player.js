@@ -2,10 +2,13 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', function audi
     var audioVolume = 1;
     var audio = null;
     var playerItem = null;
+    var statusObject = {};
 
     function setVolume(volume) {
         if (audio) {
             audio.volume = volume;
+            audioVolume = volume;
+            updateStatus();
         }
     }
 
@@ -13,6 +16,7 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', function audi
         if (audio) {
             playerItem = null;
             audio.pause();
+            updateStatus();
         }
     }
 
@@ -26,7 +30,7 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', function audi
             audio.play();
         } else {
             audio = new Audio(url);
-            audio.volume = 1;
+            audio.volume = audioVolume;
             audio.onplay = function() {
                 console.log("play ok");
             };
@@ -38,11 +42,27 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', function audi
             };
             audio.play();
         }
+        updateStatus();
+    }
+
+    function updateStatus(){
+      statusObject.volume = audioVolume;
+      statusObject.playerItem = playerItem;
+    }
+
+    function getStatusObject() {
+        return statusObject;
+    }
+
+    function getIsActive() {
+        return playerItem !== null;
     }
 
     return {
         'play': play,
         'setVolume': setVolume,
-        'stop': stop
+        'stop': stop,
+        'getIsActive': getIsActive,
+        'getStatusObject': getStatusObject
     };
 }]);
