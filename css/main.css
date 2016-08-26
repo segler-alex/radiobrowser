@@ -65,3 +65,12 @@ body {
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
 }
+
+dt{
+  margin-top: 10px;
+}
+
+dd {
+  width: 800px;
+  margin-left:10px;
+}
