@@ -53,6 +53,7 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
+                    <li ng-class="{active: tab==='faq'}"><a ui-sref="faq" ng-click="setTab('faq')">FAQ</a></li>
                     <li ng-class="{active: tab==='byclicks'}"><a ui-sref="topclick" ng-click="setTab('byclicks')">By clicks</a></li>
                     <li ng-class="{active: tab==='byvotes'}"><a ui-sref="topvote" ng-click="setTab('byvotes')">By vote</a></li>
                     <li ng-class="{active: tab==='bycountry'}"><a ui-sref="countries" ng-click="setTab('bycountry')">By country</a></li>

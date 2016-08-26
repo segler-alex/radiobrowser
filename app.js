@@ -7,6 +7,10 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap", "ui.bootstrap-sl
                 url: "/",
                 templateUrl: "partials/info.html"
             })
+            .state('faq', {
+                url: "/faq",
+                templateUrl: "partials/faq.html"
+            })
             .state('add', {
                 url: "/add",
                 templateUrl: "partials/edit.html",
