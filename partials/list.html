@@ -10,8 +10,9 @@
             <th ng-show="tab!=='deleted'">Streaminfo</th>
             <th>Tags</th>
             <th>Country</th>
-            <th ng-show="tab!=='deleted'">Last online check (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)</th>
-            <th ng-show="tab==='broken'">Last contact (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)</th>
+            <th>Last online check (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)</th>
+            <th>Last contact (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)</th>
+            <th>Last change (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)</th>
             <th width="200"></th>
         </thead>
         <tbody>
@@ -33,8 +34,9 @@
                       <a class="btn btn-xs btn-info tagbutton" ng-show="station.state" ui-sref="bystate({'state': station.state})">{{station.state}}</a>
                     </span>
                 </td>
-                <td ng-show="tab!=='deleted'">{{station.lastchecktime || "never"}}</td>
-                <td ng-show="tab==='broken'">{{station.lastcheckoktime || "never"}}</td>
+                <td>{{station.lastchecktime || "never"}}</td>
+                <td>{{station.lastcheckoktime || "never"}}</td>
+                <td>{{station.lastchangetime || "never"}}</td>
                 <td ng-show="tab!=='deleted'">
                     <button class="btn btn-link btn-xs" ng-click="list.play(station.id)"><span class="glyphicon glyphicon-play" /></button>
                     <a href="http://www.radio-browser.info/webservice/pls/url/{{station.id}}" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-floppy-disk" /></a>
