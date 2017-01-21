@@ -69,7 +69,7 @@ app.controller('ListController', function(radiobrowser, audioplayer, relLink, $s
 
     function play(id) {
         // decode playlist
-        radiobrowser.get("/webservice/json/url/" + id).then(function(data) {
+        radiobrowser.get("/webservice/v2/json/url/" + id).then(function(data) {
             if (data.data.length > 0) {
                 var station = data.data[0];
                 if (station.ok === "true") {
