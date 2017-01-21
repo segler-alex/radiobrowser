@@ -70,11 +70,9 @@ app.controller('ListController', function(radiobrowser, audioplayer, relLink, $s
     function play(id) {
         // decode playlist
         radiobrowser.get("/webservice/v2/json/url/" + id).then(function(data) {
-            if (data.data.length > 0) {
-                var station = data.data[0];
-                if (station.ok === "true") {
-                    audioplayer.play(station.url, station.name);
-                }
+            var station = data.data;
+            if (station.ok === "true") {
+                audioplayer.play(station.url, station.name);
             }
         }, function(err) {
             console.log("error:" + err);
