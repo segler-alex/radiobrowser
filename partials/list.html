@@ -23,6 +23,7 @@
                 <td ng-show="tab!=='deleted'">
                     <a class="btn btn-xs btn-info tagbutton" ng-show="station.codec" ui-sref="bycodec({'codec': station.codec})">{{station.codec}}</a>
                     <span class="btn btn-xs btn-info" ng-show="station.bitrate > 0">{{station.bitrate}} kbps</span>
+                    <a href="https://en.wikipedia.org/wiki/HTTP_Live_Streaming" target="_blank" class="btn btn-xs btn-info" ng-show="station.hls==='1'">HLS</a>
                     <span class="btn btn-xs btn-danger" ng-show="station.lastcheckok==='0'">BROKEN</span>
                 </td>
                 <td>
@@ -38,7 +39,7 @@
                 <td>{{station.lastcheckoktime || "never"}}</td>
                 <td>{{station.lastchangetime || "never"}}</td>
                 <td ng-show="tab!=='deleted'">
-                    <button class="btn btn-link btn-xs" ng-click="list.play(station.id)"><span class="glyphicon glyphicon-play" /></button>
+                    <button class="btn btn-link btn-xs" ng-click="list.play(station)"><span class="glyphicon glyphicon-play" /></button>
                     <a href="http://www.radio-browser.info/webservice/pls/url/{{station.id}}" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-floppy-disk" /></a>
                     <a href="{{station.homepage}}" ng-show="station.homepage" target="_blank"><span class="btn btn-link btn-xs glyphicon glyphicon-home" /></a>
                     <button class="btn btn-link btn-xs" ng-click="list.vote(station)"><span class="glyphicon glyphicon-thumbs-up" /></button>

@@ -65,11 +65,15 @@ app.controller('ListController', function(radiobrowser, audioplayer, relLink, $s
         }, function(err) {
             console.log("error:" + err);
         });
-    };
+    }
 
-    function play(id) {
+    function play(station) {
         // decode playlist
-        radiobrowser.get("/webservice/v2/json/url/" + id).then(function(data) {
+        if (station.hls === '1'){
+            alert('unable to play hls streams in the browser, please use an external player like VLC');
+            return;
+        }
+        radiobrowser.get("/webservice/v2/json/url/" + station.id).then(function(data) {
             var station = data.data;
             if (station.ok === "true") {
                 audioplayer.play(station.url, station.name);
@@ -95,7 +99,7 @@ app.controller('ListController', function(radiobrowser, audioplayer, relLink, $s
             return [];
         }
         return distinct(tags_string.split(','));
-    };
+    }
 
     vm.editStation = null;
     vm.resultList = [];
