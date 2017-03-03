@@ -74,9 +74,9 @@ app.controller('ListController', function(radiobrowser, audioplayer, relLink, $s
             return;
         }
         radiobrowser.get("/webservice/v2/json/url/" + station.id).then(function(data) {
-            var station = data.data;
-            if (station.ok === "true") {
-                audioplayer.play(station.url, station.name);
+            var stationReal = data.data;
+            if (stationReal.ok === "true") {
+                audioplayer.play(stationReal.url, stationReal.name);
             }
         }, function(err) {
             console.log("error:" + err);
