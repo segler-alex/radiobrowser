@@ -87,6 +87,9 @@ app.controller('ListController', function(radiobrowser, audioplayer, relLink, $s
     function distinct(list) {
         var result = [];
         for (var i = 0; i < list.length; i++) {
+            if (list[i].trim() === ""){
+                continue;
+            }
             if (result.indexOf(list[i]) < 0) {
                 result.push(list[i]);
             }
