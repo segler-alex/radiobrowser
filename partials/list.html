@@ -2,6 +2,11 @@
     <div role="tabpanel" id="newstation" ng-show="tab==='deleted'">
         <H4>Stations in this list will be deleted completely after 30 days automatically.</H4>
     </div>
+    <div>
+        <H4>Save current list as playlist for your audio player:
+          <a ng-href="{{list.playlistPLS}}">PLS</a>, <a ng-href="{{list.playlistM3U}}">M3U</a>, <a ng-href="{{list.playlistXSPF}}">XSPF</a>
+        </H4>
+    </div>
     <table class="table table-condensed table-hover">
         <thead>
             <th width="10"></th>
