@@ -1,10 +1,6 @@
 angular.module('RadioBrowserApp').factory('radiobrowser', ['$http', '$location', '$log', function radiobrowser($http, $location, $log) {
     // const serverAdress = "http://localhost";
-
-    var serverAdress = "http://www.radio-browser.info";
-    if ($location.protocol === 'https') {
-        serverAdress = "https://www.radio-browser.info";
-    }
+    var serverAdress = $location.protocol() + '://' + $location.host();
 
     $log.debug('Use serverAdress=' + serverAdress);
 
