@@ -1,6 +1,12 @@
-angular.module('RadioBrowserApp').factory('radiobrowser', ['$http', function radiobrowser($http) {
+angular.module('RadioBrowserApp').factory('radiobrowser', ['$http', '$location', '$log', function radiobrowser($http, $location, $log) {
     // const serverAdress = "http://localhost";
-    const serverAdress = "http://www.radio-browser.info";
+
+    var serverAdress = "http://www.radio-browser.info";
+    if ($location.protocol === 'https') {
+        serverAdress = "https://www.radio-browser.info";
+    }
+
+    $log.debug('Use serverAdress=' + serverAdress);
 
     function getStats() {
         return $http.get(serverAdress + '/webservice/json/stats');
@@ -14,9 +20,14 @@ angular.module('RadioBrowserApp').factory('radiobrowser', ['$http', function rad
         return $http.get(serverAdress + relLink);
     }
 
+    function getServer() {
+        return serverAdress;
+    }
+
     return {
         'getStats': getStats,
         'get': get,
-        'post': post
+        'post': post,
+        'getServer': getServer
     };
 }]);
