@@ -160,7 +160,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
     };
 
     function getTags(term) {
-        return radiobrowser.post('/webservice/json/tags/' + encodeURIComponent(term), {
+        return radiobrowser.post('/webservice/json/tags/' + encodeURIComponent(term.toLowerCase()), {
             "order": "stationcount",
             "reverse": "true"
         }).then(function(response) {
