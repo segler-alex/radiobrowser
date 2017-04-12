@@ -1,1 +1,3 @@
-bower_components/*
+.idea/
+bower_components/
+node_modules/

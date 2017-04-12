@@ -126,6 +126,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
                 open(response.data);
                 $state.go("lastchange");
             }, function(err) {
+                vm.activeSending = false;
                 console.log("error:" + err);
             });
         }
@@ -159,7 +160,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
     };
 
     function getTags(term) {
-        return radiobrowser.post('/webservice/json/tags/' + encodeURIComponent(term), {
+        return radiobrowser.post('/webservice/json/tags/' + encodeURIComponent(term.toLowerCase()), {
             "order": "stationcount",
             "reverse": "true"
         }).then(function(response) {
