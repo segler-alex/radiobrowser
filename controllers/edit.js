@@ -126,6 +126,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
                 open(response.data);
                 $state.go("lastchange");
             }, function(err) {
+                vm.activeSending = false;
                 console.log("error:" + err);
             });
         }
