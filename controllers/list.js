@@ -117,10 +117,9 @@ app.controller('ListController', function(radiobrowser, audioplayer, relLink, $s
     vm.getTagsArray = getTagsArray;
     vm.updateList = updateList;
 
-    var serverAdress = radiobrowser.getServer();
-    vm.playlistPLS = serverAdress + relLinkCorrected.replace(/webservice\/json/,'webservice/pls');
-    vm.playlistM3U = serverAdress + relLinkCorrected.replace(/webservice\/json/,'webservice/m3u');
-    vm.playlistXSPF = serverAdress + relLinkCorrected.replace(/webservice\/json/,'webservice/xspf');
+    vm.playlistPLS = relLinkCorrected.replace(/webservice\/json/,'webservice/pls');
+    vm.playlistM3U = relLinkCorrected.replace(/webservice\/json/,'webservice/m3u');
+    vm.playlistXSPF = relLinkCorrected.replace(/webservice\/json/,'webservice/xspf');
 
     displayList();
 });
