@@ -81,7 +81,12 @@
     <div class="tab-content" role="tabpanel">
         <div ui-view></div>
     </div>
-
+    <div>
+      <center>
+        <a href="https://github.com/segler-alex/radiobrowser">Bugtracker Webpage</a>, 
+        <a href="https://github.com/segler-alex/radiobrowser-api">Bugtracker API Server</a>
+      </center>
+    </div>
     <div class="player bg-success container-fluid" ng-class="{'player-active':player.playerStatus.playerItem}" ng-controller="PlayerController as player">
         <div class="col-md-12"><u>Player active</u></div>
         <div class="col-md-8">{{player.playerStatus.playerItem.name}}</div>
