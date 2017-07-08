@@ -1,0 +1,37 @@
+<div>
+    <div style="width:600px;margin-left:50px">
+        <form class="form-horizontal" name="FormInput">
+            <div class="form-group">
+                <label for="StationName" class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="StationName" placeholder="Name.." ng-model="search.search.name" name="StationName" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="StationCountry" class="col-sm-2 control-label">Country</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="StationCountry" placeholder="Country.." ng-model="search.search.country" uib-typeahead="country.name for country in search.search.getCountries($viewValue)" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="StationState" class="col-sm-2 control-label">State</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="StationState" placeholder="State.." ng-model="search.search.state" uib-typeahead="state.name for state in search.search.getStates($viewValue)" typeahead-template-url="customTemplate.html" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="StationLanguage" class="col-sm-2 control-label">Language</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="StationLanguage" placeholder="Language.." ng-model="search.search.language" uib-typeahead="language.name for language in search.search.getLanguages($viewValue)" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="StationTags" class="col-sm-2 control-label">Tags</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="StationTags" placeholder="Tags.." ng-model="search.search.tag" uib-typeahead="tag.name for tag in search.search.getTags($viewValue)" />
+                </div>
+            </div>
+            <button class="btn btn-default" ng-click="search.doComplexSearch()">Search</button>
+        </form>
+    </div>
+</div>

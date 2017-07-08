@@ -28,6 +28,7 @@
     <script src="controllers/tags.js"></script>
     <script src="controllers/edit.js"></script>
     <script src="controllers/modal.js"></script>
+    <script src="controllers/search.js"></script>
     <script src="services/player.js"></script>
     <script src="services/radiobrowser.js"></script>
 
@@ -54,17 +55,34 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li ng-class="{active: tab==='faq'}"><a ui-sref="faq" ng-click="setTab('faq')">FAQ</a></li>
-                    <li ng-class="{active: tab==='byclicks'}"><a ui-sref="topclick" ng-click="setTab('byclicks')">By clicks</a></li>
-                    <li ng-class="{active: tab==='byvotes'}"><a ui-sref="topvote" ng-click="setTab('byvotes')">By vote</a></li>
-                    <li ng-class="{active: tab==='bycountry'}"><a ui-sref="countries" ng-click="setTab('bycountry')">By country</a></li>
-                    <li ng-class="{active: tab==='bylanguage'}"><a ui-sref="languages" ng-click="setTab('bylanguage')">By language</a></li>
-                    <li ng-class="{active: tab==='bytag'}"><a ui-sref="tags" ng-click="setTab('bytag')">By tag</a></li>
-                    <li ng-class="{active: tab==='bycodec'}"><a ui-sref="codecs" ng-click="setTab('bycodec')">By codec</a></li>
-                    <li ng-class="{active: tab==='broken'}"><a ui-sref="broken" ng-click="setTab('broken')">Broken</a></li>
-                    <li ng-class="{active: tab==='improve'}"><a ui-sref="improve" ng-click="setTab('improve')">Improve</a></li>
-                    <li ng-class="{active: tab==='deleted'}"><a ui-sref="deleted" ng-click="setTab('deleted')">Deleted</a></li>
-                    <li ng-class="{active: tab==='latelychanged'}"><a ui-sref="lastchange" ng-click="setTab('latelychanged')">Lately changed</a></li>
-                    <li ng-class="{active: tab==='latelyplayed'}"><a ui-sref="lastclick" ng-click="setTab('latelyplayed')">Lately played</a></li>
+                    <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">By popularity <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li ng-class="{active: tab==='byclicks'}"><a ui-sref="topclick" ng-click="setTab('byclicks')">By clicks</a></li>
+                        <li ng-class="{active: tab==='byvotes'}"><a ui-sref="topvote" ng-click="setTab('byvotes')">By vote</a></li>
+                        <li ng-class="{active: tab==='latelyplayed'}"><a ui-sref="lastclick" ng-click="setTab('latelyplayed')">Lately played</a></li>
+                        <li ng-class="{active: tab==='latelychanged'}"><a ui-sref="lastchange" ng-click="setTab('latelychanged')">Lately changed</a></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">By category <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li ng-class="{active: tab==='bycountry'}"><a ui-sref="countries" ng-click="setTab('bycountry')">By country</a></li>
+                        <li ng-class="{active: tab==='bylanguage'}"><a ui-sref="languages" ng-click="setTab('bylanguage')">By language</a></li>
+                        <li ng-class="{active: tab==='bytag'}"><a ui-sref="tags" ng-click="setTab('bytag')">By tag</a></li>
+                        <li ng-class="{active: tab==='bycodec'}"><a ui-sref="codecs" ng-click="setTab('bycodec')">By codec</a></li>
+                      </ul>
+                    </li>
+
+                    <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Needs help <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li ng-class="{active: tab==='broken'}"><a ui-sref="broken" ng-click="setTab('broken')">Broken</a></li>
+                        <li ng-class="{active: tab==='improve'}"><a ui-sref="improve" ng-click="setTab('improve')">Improve</a></li>
+                        <li ng-class="{active: tab==='deleted'}"><a ui-sref="deleted" ng-click="setTab('deleted')">Deleted</a></li>
+                      </ul>
+                    </li>
+                    <li ng-class="{active: tab==='search'}"><a ui-sref="search" ng-click="setTab('search')">Search</a></li>
                     <li ng-class="{active: tab==='editstation'}"><a ui-sref="add" ng-click="setTab('editstation')">New station</a></li>
                     <li><a href="http://www.radio-browser.info/webservice">Developer API</a></li>
                 </ul>
@@ -83,7 +101,7 @@
     </div>
     <div>
       <center>
-        <a href="https://github.com/segler-alex/radiobrowser">Bugtracker Webpage</a>, 
+        <a href="https://github.com/segler-alex/radiobrowser">Bugtracker Webpage</a>,
         <a href="https://github.com/segler-alex/radiobrowser-api">Bugtracker API Server</a>
       </center>
     </div>

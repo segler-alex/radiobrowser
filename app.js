@@ -230,6 +230,31 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap", "ui.bootstrap-sl
                     }
                 },
                 controller: "ListController as list"
+            })
+            .state('search', {
+                url: "/search",
+                templateUrl: "partials/search.html",
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/stations/search"
+                        };
+                    }
+                },
+                controller: "SearchController as search"
+            })
+            .state('searchresult', {
+                url: "/searchresult",
+                templateUrl: "partials/list.html",
+                params: {'complex':'','name':'','state':'','country':'','tag':''},
+                resolve: {
+                    relLink: function() {
+                        return {
+                            value: "/webservice/json/stations/search"
+                        };
+                    }
+                },
+                controller: "ListController as list"
             });
     })
     .directive('ngEnter', function() {

@@ -6,7 +6,24 @@ app.controller('ListController', function(radiobrowser, audioplayer, relLink, $s
     var resultListFull = [];
     var relLinkCorrected = relLink.value;
 
-    if ($stateParams.tag) {
+    console.log($stateParams);
+    if ($stateParams.complex) {
+        var items = [];
+        if ($stateParams.name){
+            items.push('name='+encodeURIComponent($stateParams.name));
+        }
+        if ($stateParams.country){
+            items.push('country='+encodeURIComponent($stateParams.country));
+        }
+        if ($stateParams.state){
+            items.push('state='+encodeURIComponent($stateParams.state));
+        }
+        if ($stateParams.tag){
+            items.push('tag='+encodeURIComponent($stateParams.tag));
+        }
+        items.push('limit='+encodeURIComponent('100'));
+        relLinkCorrected = '/webservice/json/stations/search?' + items.join('&');
+    } else if ($stateParams.tag) {
         relLinkCorrected = '/webservice/json/stations/bytagexact/' + encodeURIComponent($stateParams.tag);
     } else if ($stateParams.state) {
         relLinkCorrected = '/webservice/json/stations/bystateexact/' + encodeURIComponent($stateParams.state);
@@ -49,7 +66,7 @@ app.controller('ListController', function(radiobrowser, audioplayer, relLink, $s
             vm.bigTotalItems = data.data.length;
             updateList();
         }, function(err) {
-            console.log("error:" + err);
+            console.error(err);
         });
     }
 

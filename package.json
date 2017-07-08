@@ -1,0 +1,24 @@
+{
+  "name": "radiobrowser",
+  "version": "1.0.0",
+  "description": "website frontend with angular 1.x for [radio-browser api](https://github.com/segler-alex/radiobrowser-api)",
+  "main": "app.js",
+  "dependencies": {
+    "gulp-connect": "^5.0.0",
+    "http-proxy-middleware": "^0.17.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/segler-alex/radiobrowser.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/segler-alex/radiobrowser/issues"
+  },
+  "homepage": "https://github.com/segler-alex/radiobrowser#readme"
+}
