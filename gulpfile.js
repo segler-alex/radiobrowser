@@ -7,7 +7,7 @@ gulp.task('connect', function () {
     port: 4200,
     livereload: true,
     middleware: function (connect, opt) {
-      return [ proxy('http://www.radio-browser.info/webservice', { changeOrigin: true }) ]
+      return [ proxy('http://www.radio-browser.info/webservice', { changeOrigin: true }) ];
     }
   });
 });

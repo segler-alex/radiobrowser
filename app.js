@@ -21,6 +21,11 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap", "ui.bootstrap-sl
                 templateUrl: "partials/edit.html",
                 controller: "EditController as edit"
             })
+            .state('history', {
+                url: "/history/:id",
+                templateUrl: "partials/history.html",
+                controller: "HistoryController as ctrl"
+            })
 
         // display categories
         .state('countries', {

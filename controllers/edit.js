@@ -139,7 +139,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
         }).then(function(response) {
             return response.data.slice(0, 5);
         });
-    };
+    }
 
     function getStates(term) {
         return radiobrowser.post('/webservice/json/states/' + encodeURIComponent(term), {
@@ -148,7 +148,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
         }).then(function(response) {
             return response.data.slice(0, 5);
         });
-    };
+    }
 
     function getLanguages(term) {
         return radiobrowser.post('/webservice/json/languages/' + encodeURIComponent(term), {
@@ -157,7 +157,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
         }).then(function(response) {
             return response.data.slice(0, 5);
         });
-    };
+    }
 
     function getTags(term) {
         return radiobrowser.post('/webservice/json/tags/' + encodeURIComponent(term.toLowerCase()), {
@@ -166,7 +166,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
         }).then(function(response) {
             return response.data.slice(0, 5);
         });
-    };
+    }
 
     vm.editStation = null;
     vm.activeSending = false;
