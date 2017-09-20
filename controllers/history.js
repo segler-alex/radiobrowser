@@ -7,15 +7,13 @@ app.controller('HistoryController', function(radiobrowser, $stateParams) {
 
     if ($stateParams.id) {
         radiobrowser.get('/webservice/json/stations/changed/' + $stateParams.id).then(function(data) {
-            if (data.data.length > 0) {
-                vm.list = data.data;
-                radiobrowser.get('/webservice/json/stations/byid/' + $stateParams.id).then(function(result) {
-                    var item = result.data[0];
-                    vm.list.sort(listSorter);
-                    vm.list.push(item);
-                    computeDiffs();
-                });
-            }
+            vm.list = data.data;
+            radiobrowser.get('/webservice/json/stations/byid/' + $stateParams.id).then(function(result) {
+                var item = result.data[0];
+                vm.list.sort(listSorter);
+                vm.list.push(item);
+                computeDiffs();
+            });
         });
     }
 
