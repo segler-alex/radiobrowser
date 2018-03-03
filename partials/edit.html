@@ -91,7 +91,7 @@
                 </div>
             </div>
             <button class="btn btn-default" ng-click="edit.sendStation()" ng-disabled="edit.activeSending || !FormInput.$valid">Save</button>
-            <!--<button class="btn btn-default" ng-click="edit.deleteStation(edit.editStation.id)" ng-disabled="edit.activeSending" ng-show="edit.editStation.id">Delete</button>-->
+            <button class="btn btn-default" ng-click="edit.deleteStation(edit.editStation.stationuuid)" ng-disabled="edit.activeSending" ng-show="edit.editStation.id">Delete</button>
         </form>
     </div>
     <div style="float:left;width:600px;margin-left:50px" ng-show="edit.similiarStations.length > 0">

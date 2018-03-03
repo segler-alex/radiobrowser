@@ -18,18 +18,21 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
     }
 
     function deleteStation(stationid) {
-        console.log("deletestation:" + stationid);
-        radiobrowser.get('/webservice/json/delete/' + stationid).then(function(data) {
-            vm.editStation = null;
-            if (data.data.ok === "true") {
-                alert("delete ok");
-            } else {
-                alert("could not delete station:" + data.data.message);
-            }
-        }, function(err) {
-            console.log("error:" + err);
-        });
-        $state.go('deleted');
+        var r = confirm("Really delete station?");
+        if (r == true) {
+            console.log("deletestation:" + stationid);
+            radiobrowser.get('/webservice/json/delete/' + stationid).then(function(data) {
+                vm.editStation = null;
+                if (data.data.ok === "true") {
+                    alert("delete ok: " + stationid);
+                } else {
+                    alert("could not delete station:" + data.data.message);
+                }
+            }, function(err) {
+                console.log("error:" + err);
+            });
+            $state.go('info');
+        }
     }
 
     function open(sth) {
