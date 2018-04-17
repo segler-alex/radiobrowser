@@ -8,7 +8,6 @@
 
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
@@ -17,8 +16,6 @@
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.js"></script>
-    <script src="bower_components/angular-bootstrap-slider/slider.js"></script>
 
     <script src="app.js"></script>
     <script src="controllers/main.js"></script>
@@ -115,7 +112,7 @@
             <button class="btn btn-xs btn-link" ng-click="player.stop()"><span class="glyphicon glyphicon-stop" /></button>
         </div>
         <div class="col-md-2 volumeslider">
-            <slider ng-model="player.playerStatus.volume" min="0" step="0.02" max="1" value="player.playerStatus.volume" on-stop-slide="player.setVolume(player.playerStatus.volume)"></slider>
+            <input type="range" min="0" max="1" step="0.02" ng-model="player.playerStatus.volume" ng-change="player.setVolume(player.playerStatus.volume)">
         </div>
     </div>
     

@@ -1,4 +1,4 @@
-angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap", "ui.bootstrap-slider"])
+angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
     .config(function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/");
 
