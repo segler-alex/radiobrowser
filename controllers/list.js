@@ -86,14 +86,10 @@ app.controller('ListController', function(radiobrowser, audioplayer, relLink, $s
 
     function play(station) {
         // decode playlist
-        if (station.hls === '1'){
-            alert('unable to play hls streams in the browser, please use an external player like VLC');
-            return;
-        }
         radiobrowser.get("/webservice/v2/json/url/" + station.id).then(function(data) {
             var stationReal = data.data;
             if (stationReal.ok === "true") {
-                audioplayer.play(stationReal.url, stationReal.name);
+                audioplayer.play(stationReal.url, stationReal.name, parseInt(station.hls));
             }
         }, function(err) {
             console.log("error:" + err);
