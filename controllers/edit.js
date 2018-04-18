@@ -1,11 +1,11 @@
 var app = angular.module('RadioBrowserApp');
 
-app.controller('EditController', function(radiobrowser, $uibModal, $stateParams, $state) {
+app.controller('EditController', function (radiobrowser, $uibModal, $stateParams, $state) {
     var vm = this;
 
     if ($stateParams.id) {
         console.log("edit station:" + $stateParams.id);
-        radiobrowser.get('/webservice/json/stations/byid/' + $stateParams.id).then(function(data) {
+        radiobrowser.get('/webservice/json/stations/byid/' + $stateParams.id).then(function (data) {
             if (data.data.length > 0) {
                 vm.editStation = data.data[0];
                 vm.editStation.tags_arr = vm.editStation.tags.split(',');
@@ -21,14 +21,14 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
         var r = confirm("Really delete station?");
         if (r == true) {
             console.log("deletestation:" + stationid);
-            radiobrowser.get('/webservice/json/delete/' + stationid).then(function(data) {
+            radiobrowser.get('/webservice/json/delete/' + stationid).then(function (data) {
                 vm.editStation = null;
                 if (data.data.ok === "true") {
                     alert("delete ok: " + stationid);
                 } else {
                     alert("could not delete station:" + data.data.message);
                 }
-            }, function(err) {
+            }, function (err) {
                 console.log("error:" + err);
             });
             $state.go('info');
@@ -42,15 +42,15 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
             templateUrl: 'templates/sendModal.html',
             controller: 'ModalInstanceCtrl',
             resolve: {
-                items: function() {
+                items: function () {
                     return sth;
                 }
             }
         });
 
-        modalInstance.result.then(function() {
+        modalInstance.result.then(function () {
             console.log("closed");
-        }, function() {
+        }, function () {
             console.log("dismissed");
         });
     }
@@ -58,14 +58,14 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
     function updateImageList(url) {
         radiobrowser.post('/webservice/json/extract_images', {
             'url': url
-        }).then(function(data) {
+        }).then(function (data) {
             vm.imageList = data.data;
             if (data.data.ok === "true") {
                 vm.imageList = data.data.images;
             } else {
                 vm.imageList = [];
             }
-        }, function(err) {
+        }, function (err) {
             console.log("error:" + JSON.stringify(err));
         });
     }
@@ -73,7 +73,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
     function updateSimiliar(name) {
         radiobrowser.post('/webservice/json/stations/byname/' + name, {
             limit: 20
-        }).then(function(data) {
+        }).then(function (data) {
             if (vm.editStation.id) {
                 var stations = [];
                 for (var i = 0; i < data.data.length; i++) {
@@ -86,7 +86,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
             } else {
                 vm.similiarStations = data.data;
             }
-        }, function(err) {
+        }, function (err) {
             console.log("error:" + err);
         });
     }
@@ -120,7 +120,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
                 url = '/webservice/json/edit/' + vm.editStation.id;
                 vm.editStation.stationid = vm.editStation.id;
             }
-            radiobrowser.post(url, vm.editStation).then(function(response) {
+            radiobrowser.post(url, vm.editStation).then(function (response) {
                 console.log("ok:" + JSON.stringify(response));
                 vm.editStation = null;
                 vm.activeSending = false;
@@ -128,7 +128,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
                 vm.imageList = [];
                 open(response.data);
                 $state.go("lastchange");
-            }, function(err) {
+            }, function (err) {
                 vm.activeSending = false;
                 console.log("error:" + err);
             });
@@ -139,7 +139,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
         return radiobrowser.post('/webservice/json/countries/' + encodeURIComponent(term), {
             "order": "stationcount",
             "reverse": "true"
-        }).then(function(response) {
+        }).then(function (response) {
             return response.data.slice(0, 5);
         });
     }
@@ -148,7 +148,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
         return radiobrowser.post('/webservice/json/states/' + encodeURIComponent(term), {
             "order": "stationcount",
             "reverse": "true"
-        }).then(function(response) {
+        }).then(function (response) {
             return response.data.slice(0, 5);
         });
     }
@@ -157,7 +157,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
         return radiobrowser.post('/webservice/json/languages/' + encodeURIComponent(term), {
             "order": "stationcount",
             "reverse": "true"
-        }).then(function(response) {
+        }).then(function (response) {
             return response.data.slice(0, 5);
         });
     }
@@ -166,7 +166,7 @@ app.controller('EditController', function(radiobrowser, $uibModal, $stateParams,
         return radiobrowser.post('/webservice/json/tags/' + encodeURIComponent(term.toLowerCase()), {
             "order": "stationcount",
             "reverse": "true"
-        }).then(function(response) {
+        }).then(function (response) {
             return response.data.slice(0, 5);
         });
     }

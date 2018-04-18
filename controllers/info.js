@@ -1,14 +1,14 @@
 var app = angular.module('RadioBrowserApp');
 
-app.controller('InfoController', function(radiobrowser) {
+app.controller('InfoController', function (radiobrowser) {
     var vm = this;
 
     updateStats();
 
     function updateStats() {
-        radiobrowser.getStats().then(function(data) {
+        radiobrowser.getStats().then(function (data) {
             vm.stats = data.data;
-        }, function(err) {
+        }, function (err) {
             console.log("error:" + err);
         });
     }

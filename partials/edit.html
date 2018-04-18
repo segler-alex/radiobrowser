@@ -1,37 +1,54 @@
 <div>
     The information provided here, will be released under the public domain.
-    <br/> Radio-browser.info only saves links. The content of the streams or the favicons or the homepages of the stations are property of the radio stations themselves.
+    <br/> Radio-browser.info only saves links. The content of the streams or the favicons or the homepages of the
+    stations are property of the radio stations themselves.
     <br/>
     <div style="float:left;width:600px;margin-left:50px">
         <H2 ng-hide="editStation.id">Add new station</H2>
         <H2 ng-show="editStation.id">Edit station</H2>
         <form class="form-horizontal" name="FormInput">
-            <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationName.$valid,'has-error':!FormInput.StationName.$valid}">
+            <div class="form-group has-feedback"
+                 ng-class="{'has-success':FormInput.StationName.$valid,'has-error':!FormInput.StationName.$valid}">
                 <label for="StationName" class="col-sm-2 control-label">Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationName" placeholder="Name.." ng-model="edit.editStation.name" required name="StationName" ng-disabled="edit.activeSending" ng-change="edit.updateSimiliar(edit.editStation.name)" />
+                    <input type="text" class="form-control" id="StationName" placeholder="Name.."
+                           ng-model="edit.editStation.name" required name="StationName" ng-disabled="edit.activeSending"
+                           ng-change="edit.updateSimiliar(edit.editStation.name)"/>
                     <span class="help-block" ng-show="!FormInput.StationName.$valid">The name is required</span>
-                    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationName.$valid"></span>
-                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationName.$valid"></span>
+                    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"
+                          ng-show="FormInput.StationName.$valid"></span>
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"
+                          ng-show="!FormInput.StationName.$valid"></span>
                 </div>
             </div>
-            <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationUrl.$valid,'has-error':!FormInput.StationUrl.$valid}">
+            <div class="form-group has-feedback"
+                 ng-class="{'has-success':FormInput.StationUrl.$valid,'has-error':!FormInput.StationUrl.$valid}">
                 <label for="StationUrl" class="col-sm-2 control-label">URL</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationUrl" placeholder="http://.." ng-model="edit.editStation.url" name="StationUrl" required ng-pattern="/^https?:\/\/.+$/" ng-disabled="edit.activeSending" />
+                    <input type="text" class="form-control" id="StationUrl" placeholder="http://.."
+                           ng-model="edit.editStation.url" name="StationUrl" required ng-pattern="/^https?:\/\/.+$/"
+                           ng-disabled="edit.activeSending"/>
                     <span class="help-block" ng-show="!FormInput.StationUrl.$valid">The streaming url is required, and needs to start with http:// or https://</span>
-                    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationUrl.$valid"></span>
-                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationUrl.$valid"></span>
+                    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"
+                          ng-show="FormInput.StationUrl.$valid"></span>
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"
+                          ng-show="!FormInput.StationUrl.$valid"></span>
                 </div>
             </div>
-            <div class="form-group has-feedback" ng-class="{'has-success':FormInput.StationHomepage.$valid,'has-error':!FormInput.StationHomepage.$valid}">
+            <div class="form-group has-feedback"
+                 ng-class="{'has-success':FormInput.StationHomepage.$valid,'has-error':!FormInput.StationHomepage.$valid}">
                 <label for="StationHomepage" class="col-sm-2 control-label">Homepage</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationHomepage" placeholder="http://.." ng-change="edit.updateImageList(edit.editStation.homepage)" ng-model="edit.editStation.homepage" name="StationHomepage" required ng-pattern="/^https?:\/\/.+$/" ng-disabled="edit.activeSending"
+                    <input type="text" class="form-control" id="StationHomepage" placeholder="http://.."
+                           ng-change="edit.updateImageList(edit.editStation.homepage)"
+                           ng-model="edit.editStation.homepage" name="StationHomepage" required
+                           ng-pattern="/^https?:\/\/.+$/" ng-disabled="edit.activeSending"
                     />
                     <span class="help-block" ng-show="!FormInput.StationHomepage.$valid">The homepage url is required, and needs to start with http:// or https://</span>
-                    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-show="FormInput.StationHomepage.$valid"></span>
-                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="!FormInput.StationHomepage.$valid"></span>
+                    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"
+                          ng-show="FormInput.StationHomepage.$valid"></span>
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"
+                          ng-show="!FormInput.StationHomepage.$valid"></span>
                     <div ng-show="edit.imageList.length > 0">
                         <br/>
                         <p>
@@ -39,7 +56,7 @@
                             <br/>
                             <nobr>
                                 <button ng-repeat="image in edit.imageList" ng-click="edit.editStation.favicon=image;">
-                                    <img ng-src="{{image}}" height="30" />
+                                    <img ng-src="{{image}}" height="30"/>
                                 </button>
                             </nobr>
                         </p>
@@ -49,27 +66,38 @@
             <div class="form-group">
                 <label for="StationIcon" class="col-sm-2 control-label">Favicon</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationIcon" placeholder="http://.." ng-model="edit.editStation.favicon" ng-disabled="edit.activeSending" />
-                    <img ng-show="edit.editStation && edit.editStation.favicon !== ''" ng-src="{{edit.editStation.favicon}}" height="40" />
+                    <input type="text" class="form-control" id="StationIcon" placeholder="http://.."
+                           ng-model="edit.editStation.favicon" ng-disabled="edit.activeSending"/>
+                    <img ng-show="edit.editStation && edit.editStation.favicon !== ''"
+                         ng-src="{{edit.editStation.favicon}}" height="40"/>
                     <br/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="StationCountry" class="col-sm-2 control-label">Country</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationCountry" placeholder="Country.." ng-model="edit.editStation.country" uib-typeahead="country.name for country in edit.getCountries($viewValue)" ng-disabled="edit.activeSending" />
+                    <input type="text" class="form-control" id="StationCountry" placeholder="Country.."
+                           ng-model="edit.editStation.country"
+                           uib-typeahead="country.name for country in edit.getCountries($viewValue)"
+                           ng-disabled="edit.activeSending"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="StationState" class="col-sm-2 control-label">State</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationState" placeholder="State.." ng-model="edit.editStation.state" uib-typeahead="state.name for state in edit.getStates($viewValue)" typeahead-template-url="customTemplate.html" ng-disabled="edit.activeSending" />
+                    <input type="text" class="form-control" id="StationState" placeholder="State.."
+                           ng-model="edit.editStation.state"
+                           uib-typeahead="state.name for state in edit.getStates($viewValue)"
+                           typeahead-template-url="customTemplate.html" ng-disabled="edit.activeSending"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="StationLanguage" class="col-sm-2 control-label">Language</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="StationLanguage" placeholder="Language.." ng-model="edit.editStation.language" uib-typeahead="language.name for language in edit.getLanguages($viewValue)" ng-disabled="edit.activeSending" />
+                    <input type="text" class="form-control" id="StationLanguage" placeholder="Language.."
+                           ng-model="edit.editStation.language"
+                           uib-typeahead="language.name for language in edit.getLanguages($viewValue)"
+                           ng-disabled="edit.activeSending"/>
                 </div>
             </div>
             <div class="form-group">
@@ -78,35 +106,47 @@
                     <span ng-repeat="value in edit.editStation.tags_arr">
                         <span class="btn-group btn-group-xs">
                             <button class="btn btn-xs btn-default">{{value}}</button>
-                            <button class="btn btn-xs btn-danger" ng-click="edit.removeTag(value)"><span class="glyphicon glyphicon-remove"/></button>
+                            <button class="btn btn-xs btn-danger" ng-click="edit.removeTag(value)"><span
+                                    class="glyphicon glyphicon-remove"/></button>
                         </span>
                     </span>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="StationTags" placeholder="Tags.." ng-model="edit.editStation.tag" uib-typeahead="tag.name for tag in edit.getTags($viewValue)" ng-enter="edit.addTag(edit.editStation.tag)" ng-disabled="edit.activeSending" />
+                        <input type="text" class="form-control" id="StationTags" placeholder="Tags.."
+                               ng-model="edit.editStation.tag"
+                               uib-typeahead="tag.name for tag in edit.getTags($viewValue)"
+                               ng-enter="edit.addTag(edit.editStation.tag)" ng-disabled="edit.activeSending"/>
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" ng-click="edit.addTag(edit.editStation.tag)" ng-disabled="edit.activeSending"><span class="glyphicon glyphicon-ok"/></button>
+                            <button class="btn btn-default" type="button" ng-click="edit.addTag(edit.editStation.tag)"
+                                    ng-disabled="edit.activeSending"><span class="glyphicon glyphicon-ok"/></button>
                         </span>
                     </div>
                     <span class="help-block">Please press ENTER or click <span class="glyphicon glyphicon-ok"></span> after every single tag to add them!</span>
                 </div>
             </div>
-            <button class="btn btn-default" ng-click="edit.sendStation()" ng-disabled="edit.activeSending || !FormInput.$valid">Save</button>
-            <button class="btn btn-default" ng-click="edit.deleteStation(edit.editStation.stationuuid)" ng-disabled="edit.activeSending" ng-show="edit.editStation.id">Delete</button>
+            <button class="btn btn-default" ng-click="edit.sendStation()"
+                    ng-disabled="edit.activeSending || !FormInput.$valid">Save
+            </button>
+            <button class="btn btn-default" ng-click="edit.deleteStation(edit.editStation.stationuuid)"
+                    ng-disabled="edit.activeSending" ng-show="edit.editStation.id">Delete
+            </button>
         </form>
     </div>
     <div style="float:left;width:600px;margin-left:50px" ng-show="edit.similiarStations.length > 0">
         <H2>Similiar stations in database:</H2> Please do not add stations, that are already in the database.
         <ul>
-            <li ng-repeat="station in edit.similiarStations">{{station.name}} (<a href="{{station.homepage}}" target="_blank">{{station.homepage}}</a>)</li>
+            <li ng-repeat="station in edit.similiarStations">{{station.name}} (<a href="{{station.homepage}}"
+                                                                                  target="_blank">{{station.homepage}}</a>)
+            </li>
         </ul>
     </div>
     <div class="fullscreen" ng-show="edit.activeSending">
         <div class="mydialog">
-        <H1>SENDING..</H1>
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+            <H1>SENDING..</H1>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40"
+                     aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                </div>
             </div>
         </div>
-      </div>
     </div>
 </div>

@@ -1,18 +1,22 @@
 <div>
-  <table class="table table-condensed table-hover">
-    <thead>
-      <th width="200">Change time (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)</th>
-      <th>IP</th>
-      <th>Changes</th>
-      <th>Actions</th>
-    </thead>
-    <tbody>
-      <tr ng-repeat="change in ctrl.list">
-        <td>{{change.lastchangetime}}</td>
-        <td>{{change.ip}}</td>
-        <td><pre>{{change.diff}}</pre></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+    <table class="table table-condensed table-hover">
+        <thead>
+        <th width="200">Change time (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time"
+                                        target="_blank">CEST</a>)
+        </th>
+        <th>IP</th>
+        <th>Changes</th>
+        <th>Actions</th>
+        </thead>
+        <tbody>
+        <tr ng-repeat="change in ctrl.list">
+            <td>{{change.lastchangetime}}</td>
+            <td>{{change.ip}}</td>
+            <td>
+                <pre>{{change.diff}}</pre>
+            </td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
 </div>

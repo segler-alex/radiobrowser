@@ -26,7 +26,7 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', function audi
             audio.pause();
             updateStatus();
         }
-        if (hlsObject){
+        if (hlsObject) {
             playerItem = null;
             hlsObject.destroy();
             hlsObject = null;
@@ -40,9 +40,9 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', function audi
             'hls': hls
         };
         console.log(JSON.stringify(playerItem));
-        if (hls){
+        if (hls) {
             if (Hls.isSupported()) {
-                if (!hlsObject){
+                if (!hlsObject) {
                     video = document.getElementById('video');
                     hlsObject = new Hls();
                     // bind them together
@@ -58,17 +58,17 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', function audi
                     });
                 }
             }
-        }else{
+        } else {
             if (audio !== null) {
                 audio.src = url;
                 audio.play();
             } else {
                 audio = new Audio(url);
                 audio.volume = audioVolume;
-                audio.onplay = function() {
+                audio.onplay = function () {
                     console.log("play ok");
                 };
-                audio.onerror = function() {
+                audio.onerror = function () {
                     console.log("error on play");
                     playerItem = null;
                     audio.pause();
@@ -80,9 +80,9 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', function audi
         updateStatus();
     }
 
-    function updateStatus(){
-      statusObject.volume = audioVolume;
-      statusObject.playerItem = playerItem;
+    function updateStatus() {
+        statusObject.volume = audioVolume;
+        statusObject.playerItem = playerItem;
     }
 
     function getStatusObject() {

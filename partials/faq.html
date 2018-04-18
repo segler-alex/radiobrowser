@@ -3,35 +3,52 @@
     <H3>Automatic station check</H3>
     <dl>
         <dt>Why is my click not counted?</dt>
-        <dd>I count only one click per ip address per station a day. Some people were clicking their favourite station 100s of times every day by using the programmers API.</dd>
+        <dd>I count only one click per ip address per station a day. Some people were clicking their favourite station
+            100s of times every day by using the programmers API.
+        </dd>
         <dt>How often is every station checked?</dt>
-        <dd>It depends on the overall number of stations in the database and if the station is currently marked as broken. Currently a cron job is run every 10 minutes which checks 50 working stations and 10 broken stations.</dd>
+        <dd>It depends on the overall number of stations in the database and if the station is currently marked as
+            broken. Currently a cron job is run every 10 minutes which checks 50 working stations and 10 broken
+            stations.
+        </dd>
         <dt>In what order are the stations checked?</dt>
         <dd>The stations, that were not checked for the longest time are checked first.</dd>
         <dt>Why are some stations marked as broken even when they are not?</dt>
         <dd>This can have multiple causes:
             <ul>
                 <li>Legal restrictions:
-                    <br/> There may be some countries which have legal restrictions, that prohibit your favourite station to broadcast worldwide. It has to be possible to connect to it from my server which is located in Germany.
+                    <br/> There may be some countries which have legal restrictions, that prohibit your favourite
+                    station to broadcast worldwide. It has to be possible to connect to it from my server which is
+                    located in Germany.
                 </li>
                 <li>High Costs:
-                    <br/> Some others would allow global broadcast but let the stations pay huge amounts of money to copyright owners if they want to do that. Please talk to your station or your local political representative to ensure the freedom of global
+                    <br/> Some others would allow global broadcast but let the stations pay huge amounts of money to
+                    copyright owners if they want to do that. Please talk to your station or your local political
+                    representative to ensure the freedom of global
                     broadcasting.
                 </li>
                 <li>Status not up to date:<br/>
-                  Sometimes streams go down for some time. If the automatic check happens to be there at this exact time it will marked as broken. It will take some time that this station is checked again and marked as usable.
+                    Sometimes streams go down for some time. If the automatic check happens to be there at this exact
+                    time it will marked as broken. It will take some time that this station is checked again and marked
+                    as usable.
                 </li>
                 <li>Bugs:
-                    <br/> My program has a BUG :) If you think that is the case, please drop me a note or if you are a programmer fix it on github.
+                    <br/> My program has a BUG :) If you think that is the case, please drop me a note or if you are a
+                    programmer fix it on github.
                 </li>
             </ul>
         </dd>
         <dt>When will stations get deleted?</dt>
         <dd>There are 2 cases in which stations will get deleted automatically:
-          <ul>
-            <li>New stations that never worked will get deleted after 5 days. They will not even get moved to the "Deleted" list.</li>
-            <li>Stations that did work at some point, but have not been working for at least 60 days now, will get moved to the "Deleted" list. They will stay there for additional 30 days until they will be removed entirely.</li>
-          </ul>
+            <ul>
+                <li>New stations that never worked will get deleted after 5 days. They will not even get moved to the
+                    "Deleted" list.
+                </li>
+                <li>Stations that did work at some point, but have not been working for at least 60 days now, will get
+                    moved to the "Deleted" list. They will stay there for additional 30 days until they will be removed
+                    entirely.
+                </li>
+            </ul>
         </dd>
     </dl>
 </div>
