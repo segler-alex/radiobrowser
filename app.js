@@ -1,5 +1,5 @@
 angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
-    .config(function($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/");
 
         $stateProvider
@@ -27,12 +27,12 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 controller: "HistoryController as ctrl"
             })
 
-        // display categories
-        .state('countries', {
+            // display categories
+            .state('countries', {
                 url: "/countries",
                 templateUrl: "partials/countries.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: "/webservice/json/countries"
                         };
@@ -44,7 +44,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 url: "/languages",
                 templateUrl: "partials/languages.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: "/webservice/json/languages"
                         };
@@ -56,7 +56,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 url: "/tags",
                 templateUrl: "partials/tags.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: "/webservice/json/tags"
                         };
@@ -68,7 +68,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 url: "/codecs",
                 templateUrl: "partials/codecs.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: "/webservice/json/codecs"
                         };
@@ -77,12 +77,12 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 controller: "CategoryController as category"
             })
 
-        // display stations by category
-        .state('byname', {
+            // display stations by category
+            .state('byname', {
                 url: "/byname/:name",
                 templateUrl: "partials/list.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: ""
                         };
@@ -94,7 +94,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 url: "/bylanguage/:language",
                 templateUrl: "partials/list.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: ""
                         };
@@ -106,7 +106,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 url: "/bycountry/:country",
                 templateUrl: "partials/list.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: ""
                         };
@@ -118,7 +118,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 url: "/bytag/:tag",
                 templateUrl: "partials/list.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: ""
                         };
@@ -130,7 +130,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 url: "/bycodec/:codec",
                 templateUrl: "partials/list.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: ""
                         };
@@ -142,7 +142,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 url: "/bystate/:state",
                 templateUrl: "partials/list.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: ""
                         };
@@ -151,12 +151,12 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 controller: "ListController as list"
             })
 
-        // display specialized lists of stations
-        .state('topclick', {
+            // display specialized lists of stations
+            .state('topclick', {
                 url: "/topclick",
                 templateUrl: "partials/list.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: "/webservice/json/stations/topclick/100"
                         };
@@ -168,7 +168,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 url: "/topvote",
                 templateUrl: "partials/list.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: "/webservice/json/stations/topvote/100"
                         };
@@ -180,7 +180,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 url: "/broken",
                 templateUrl: "partials/list.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: "/webservice/json/stations/broken/100"
                         };
@@ -192,7 +192,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 url: "/deleted",
                 templateUrl: "partials/list.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: "/webservice/json/stations/deleted"
                         };
@@ -204,7 +204,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 url: "/improve",
                 templateUrl: "partials/list.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: "/webservice/json/stations/improvable/10"
                         };
@@ -216,7 +216,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 url: "/lastchange",
                 templateUrl: "partials/list.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: "/webservice/json/stations/lastchange/100"
                         };
@@ -228,7 +228,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 url: "/lastclick",
                 templateUrl: "partials/list.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: "/webservice/json/stations/lastclick/100"
                         };
@@ -240,7 +240,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 url: "/search",
                 templateUrl: "partials/search.html",
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: "/webservice/json/stations/search"
                         };
@@ -251,9 +251,9 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
             .state('searchresult', {
                 url: "/searchresult",
                 templateUrl: "partials/list.html",
-                params: {'complex':'','name':'','state':'','country':'','tag':''},
+                params: {'complex': '', 'name': '', 'state': '', 'country': '', 'tag': ''},
                 resolve: {
-                    relLink: function() {
+                    relLink: function () {
                         return {
                             value: "/webservice/json/stations/search"
                         };
@@ -262,11 +262,11 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 controller: "ListController as list"
             });
     })
-    .directive('ngEnter', function() {
-        return function(scope, element, attrs) {
-            element.bind("keydown keypress", function(event) {
+    .directive('ngEnter', function () {
+        return function (scope, element, attrs) {
+            element.bind("keydown keypress", function (event) {
                 if (event.which === 13) {
-                    scope.$apply(function() {
+                    scope.$apply(function () {
                         scope.$eval(attrs.ngEnter);
                     });
 

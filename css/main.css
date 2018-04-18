@@ -1,76 +1,77 @@
 body {
-  margin: 30px;
+    margin: 30px;
 }
+
 .header_sub {
-  text-decoration: underline;
-  font-style: italic;
-  margin-top: 12px;
+    text-decoration: underline;
+    font-style: italic;
+    margin-top: 12px;
 }
 
-.player{
-  padding:10px;
-  border-radius: 5px;
-  border: black solid 1px;
-  position:fixed;
-  bottom: -80px;
-  height: 80px;
-  width:80%;
-  max-width: 600px;
-  transition: bottom 1s ease-in-out;
+.player {
+    padding: 10px;
+    border-radius: 5px;
+    border: black solid 1px;
+    position: fixed;
+    bottom: -80px;
+    height: 80px;
+    width: 80%;
+    max-width: 600px;
+    transition: bottom 1s ease-in-out;
 }
 
-.player-active{
-  bottom: -10px;
+.player-active {
+    bottom: -10px;
 }
 
-.volumeslider{
+.volumeslider {
 }
 
-.tagbutton{
-  margin-right:10px;
+.tagbutton {
+    margin-right: 10px;
 }
 
-.stationContainer{
-  float:left;
-  width: 200px;
-  height: 200px;
-  background-color: #74AFAD;
-  border: 1px black solid;
-  border-radius: 10px;
-  margin: 10px;
-  padding: 10px;
+.stationContainer {
+    float: left;
+    width: 200px;
+    height: 200px;
+    background-color: #74AFAD;
+    border: 1px black solid;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
 }
 
-.fullscreen{
-  position:fixed;
-  left:0px;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
+.fullscreen {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
 
-  background-color: rgba(50, 50, 50, 0.5);
+    background-color: rgba(50, 50, 50, 0.5);
 }
 
-.mydialog{
-  padding: 10px;
-  border-radius: 5px;
-  border: black solid 1px;
-  background-color: white;
-  width: 500px;
-  height:200px;
+.mydialog {
+    padding: 10px;
+    border-radius: 5px;
+    border: black solid 1px;
+    background-color: white;
+    width: 500px;
+    height: 200px;
 
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
 }
 
-dt{
-  margin-top: 10px;
+dt {
+    margin-top: 10px;
 }
 
 dd {
-  width: 800px;
-  margin-left:10px;
+    width: 800px;
+    margin-left: 10px;
 }

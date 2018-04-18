@@ -4,60 +4,81 @@
     </div>
     <div>
         <H4>Save current list as playlist for your audio player:
-          <a ng-href="{{list.playlistPLS}}">PLS</a>, <a ng-href="{{list.playlistM3U}}">M3U</a>, <a ng-href="{{list.playlistXSPF}}">XSPF</a>
+            <a ng-href="{{list.playlistPLS}}">PLS</a>, <a ng-href="{{list.playlistM3U}}">M3U</a>, <a
+                    ng-href="{{list.playlistXSPF}}">XSPF</a>
         </H4>
     </div>
     <table class="table table-condensed table-hover">
         <thead>
-            <th width="10"></th>
-            <th width="10"><span class="glyphicon glyphicon-thumbs-up" /></th>
-            <th>Name</th>
-            <th ng-show="tab!=='deleted'">Streaminfo</th>
-            <th>Tags</th>
-            <th>Country</th>
-            <th>Last online check (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)</th>
-            <th>Last contact (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)</th>
-            <th>Last change (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)</th>
-            <th width="200"></th>
+        <th width="10"></th>
+        <th width="10"><span class="glyphicon glyphicon-thumbs-up"/></th>
+        <th>Name</th>
+        <th ng-show="tab!=='deleted'">Streaminfo</th>
+        <th>Tags</th>
+        <th>Country</th>
+        <th>Last online check (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time"
+                                  target="_blank">CEST</a>)
+        </th>
+        <th>Last contact (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)
+        </th>
+        <th>Last change (<a href="https://en.wikipedia.org/wiki/Central_European_Summer_Time" target="_blank">CEST</a>)
+        </th>
+        <th width="200"></th>
         </thead>
         <tbody>
-            <tr ng-repeat="station in list.resultList">
-                <td align="right"><img ng-src="{{station.favicon}}" height="20px" ng-show="station.favicon" /></td>
-                <td>{{station.votes}}</td>
-                <td>{{station.name}}</td>
-                <td ng-show="tab!=='deleted'">
-                    <a class="btn btn-xs btn-info tagbutton" ng-show="station.codec" ui-sref="bycodec({'codec': station.codec})">{{station.codec}}</a>
-                    <span class="btn btn-xs btn-info" ng-show="station.bitrate > 0">{{station.bitrate}} kbps</span>
-                    <a href="https://en.wikipedia.org/wiki/HTTP_Live_Streaming" target="_blank" class="btn btn-xs btn-info" ng-show="station.hls==='1'">HLS</a>
-                    <span class="btn btn-xs btn-danger" ng-show="station.lastcheckok==='0'">BROKEN</span>
-                </td>
-                <td>
-                    <a class="btn btn-xs btn-info tagbutton" ui-sref="bytag({'tag': value})" ng-repeat="value in list.getTagsArray(station.tags)">{{value}}</a>
-                </td>
-                <td>
-                    <a class="btn btn-xs btn-info tagbutton" ng-show="station.country" ui-sref="bycountry({'country': station.country})">{{station.country}}</a>
-                    <span ng-show="station.state">
-                      <a class="btn btn-xs btn-info tagbutton" ng-show="station.state" ui-sref="bystate({'state': station.state})">{{station.state}}</a>
+        <tr ng-repeat="station in list.resultList">
+            <td align="right"><img ng-src="{{station.favicon}}" height="20px" ng-show="station.favicon"/></td>
+            <td>{{station.votes}}</td>
+            <td>{{station.name}}</td>
+            <td ng-show="tab!=='deleted'">
+                <a class="btn btn-xs btn-info tagbutton" ng-show="station.codec"
+                   ui-sref="bycodec({'codec': station.codec})">{{station.codec}}</a>
+                <span class="btn btn-xs btn-info" ng-show="station.bitrate > 0">{{station.bitrate}} kbps</span>
+                <a href="https://en.wikipedia.org/wiki/HTTP_Live_Streaming" target="_blank" class="btn btn-xs btn-info"
+                   ng-show="station.hls==='1'">HLS</a>
+                <span class="btn btn-xs btn-danger" ng-show="station.lastcheckok==='0'">BROKEN</span>
+            </td>
+            <td>
+                <a class="btn btn-xs btn-info tagbutton" ui-sref="bytag({'tag': value})"
+                   ng-repeat="value in list.getTagsArray(station.tags)">{{value}}</a>
+            </td>
+            <td>
+                <a class="btn btn-xs btn-info tagbutton" ng-show="station.country"
+                   ui-sref="bycountry({'country': station.country})">{{station.country}}</a>
+                <span ng-show="station.state">
+                      <a class="btn btn-xs btn-info tagbutton" ng-show="station.state"
+                         ui-sref="bystate({'state': station.state})">{{station.state}}</a>
                     </span>
-                </td>
-                <td>{{station.lastchecktime || "never"}}</td>
-                <td>{{station.lastcheckoktime || "never"}}</td>
-                <td>{{station.lastchangetime || "never"}}</td>
-                <td ng-show="tab!=='deleted'">
-                    <button class="btn btn-link btn-xs" ng-click="list.play(station)"><span class="glyphicon glyphicon-play" /></button>
-                    <a href="http://www.radio-browser.info/webservice/pls/url/{{station.id}}" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-floppy-disk" /></a>
-                    <a href="{{station.homepage}}" ng-show="station.homepage" target="_blank"><span class="btn btn-link btn-xs glyphicon glyphicon-home" /></a>
-                    <button class="btn btn-link btn-xs" ng-click="list.vote(station)"><span class="glyphicon glyphicon-thumbs-up" /></button>
-                    <button class="btn btn-link btn-xs" ui-sref="edit({'id': station.id})"><span class="glyphicon glyphicon glyphicon-pencil" /></button>
-                    <button class="btn btn-link btn-xs" ui-sref="history({'id': station.stationuuid})"><span class="glyphicon glyphicon glyphicon-step-backward" /></button>
-                </td>
-                <td ng-show="tab==='deleted'">
-                    <button class="btn btn-link btn-xs" ng-click="list.revertStation(station.id, station.changeid)">Undelete</button>
-                </td>
-            </tr>
+            </td>
+            <td>{{station.lastchecktime || "never"}}</td>
+            <td>{{station.lastcheckoktime || "never"}}</td>
+            <td>{{station.lastchangetime || "never"}}</td>
+            <td ng-show="tab!=='deleted'">
+                <button class="btn btn-link btn-xs" ng-click="list.play(station)"><span
+                        class="glyphicon glyphicon-play"/></button>
+                <a href="http://www.radio-browser.info/webservice/pls/url/{{station.id}}"
+                   class="btn btn-link btn-xs"><span class="glyphicon glyphicon-floppy-disk"/></a>
+                <a href="{{station.homepage}}" ng-show="station.homepage" target="_blank"><span
+                        class="btn btn-link btn-xs glyphicon glyphicon-home"/></a>
+                <button class="btn btn-link btn-xs" ng-click="list.vote(station)"><span
+                        class="glyphicon glyphicon-thumbs-up"/></button>
+                <button class="btn btn-link btn-xs" ui-sref="edit({'id': station.id})"><span
+                        class="glyphicon glyphicon glyphicon-pencil"/></button>
+                <button class="btn btn-link btn-xs" ui-sref="history({'id': station.stationuuid})"><span
+                        class="glyphicon glyphicon glyphicon-step-backward"/></button>
+            </td>
+            <td ng-show="tab==='deleted'">
+                <button class="btn btn-link btn-xs" ng-click="list.revertStation(station.id, station.changeid)">
+                    Undelete
+                </button>
+            </td>
+        </tr>
         </tbody>
     </table>
     <center>
-        <uib-pagination ng-show="list.bigTotalItems > 0" total-items="list.bigTotalItems" ng-model="list.bigCurrentPage" max-size="5" class="pagination-sm" boundary-links="true" num-pages="numPages" items-per-page="list.itemsPerPage" force-ellipses="true" ng-change="list.updateList()"></uib-pagination>
+        <uib-pagination ng-show="list.bigTotalItems > 0" total-items="list.bigTotalItems" ng-model="list.bigCurrentPage"
+                        max-size="5" class="pagination-sm" boundary-links="true" num-pages="numPages"
+                        items-per-page="list.itemsPerPage" force-ellipses="true"
+                        ng-change="list.updateList()"></uib-pagination>
     </center>
 </div>

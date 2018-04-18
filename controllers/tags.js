@@ -1,6 +1,6 @@
 var app = angular.module('RadioBrowserApp');
 
-app.controller('TagController', function(radiobrowser, relLink) {
+app.controller('TagController', function (radiobrowser, relLink) {
     var vm = this;
 
     vm.tags = [];
@@ -8,7 +8,7 @@ app.controller('TagController', function(radiobrowser, relLink) {
     function displayTags() {
         radiobrowser.post(relLink.value, {
             "order": "value"
-        }).then(function(data) {
+        }).then(function (data) {
             vm.tagList = data.data;
             vm.tagListVeryPopular = [];
             vm.tagListPopular = [];
@@ -24,7 +24,7 @@ app.controller('TagController', function(radiobrowser, relLink) {
                     vm.tagListNotPopular.push(tag);
                 }
             }
-        }, function(err) {
+        }, function (err) {
             console.log("error:" + err);
         });
     }

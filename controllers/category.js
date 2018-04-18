@@ -1,6 +1,6 @@
 var app = angular.module('RadioBrowserApp');
 
-app.controller('CategoryController', function(radiobrowser, relLink) {
+app.controller('CategoryController', function (radiobrowser, relLink) {
     var vm = this;
 
     vm.categories = [];
@@ -8,9 +8,9 @@ app.controller('CategoryController', function(radiobrowser, relLink) {
     function displayCategories() {
         radiobrowser.post(relLink.value, {
             "order": "value"
-        }).then(function(data) {
+        }).then(function (data) {
             vm.categories = data.data;
-        }, function(err) {
+        }, function (err) {
             console.log("error:" + err);
         });
     }

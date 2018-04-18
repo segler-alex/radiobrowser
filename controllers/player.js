@@ -1,6 +1,6 @@
 var app = angular.module('RadioBrowserApp');
 
-app.controller('PlayerController', function(audioplayer) {
+app.controller('PlayerController', function (audioplayer) {
     var vm = this;
 
     vm.playerStatus = audioplayer.getStatusObject();
