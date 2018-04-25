@@ -68,11 +68,15 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', function audi
                 audio.onplay = function () {
                     console.log("play ok");
                 };
-                audio.onerror = function () {
-                    console.log("error on play");
-                    playerItem = null;
-                    audio.pause();
-                    alert("browser is not able to play station. please try with external player.");
+                audio.onerror = function (err) {
+                    console.log("error on play: " + err);
+                    stop();
+                    if (audio.src === url){
+                        audio.src = url + ";";
+                        audio.play();
+                    }else{
+                        alert("browser is not able to play station. please try with external player.");
+                    }
                 };
                 audio.play();
             }
