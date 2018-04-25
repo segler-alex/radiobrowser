@@ -72,10 +72,10 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', function audi
                     console.log("error on play");
                     console.error(err);
                     
-                    if (audio.src == url){
+                    if (!audio.src.endsWith(";")){
                         setTimeout(function(){
                             audio.pause();
-                            audio.src = url + ";";
+                            audio.src = url + "/;";
                             audio.play();
                         },1);
                     }else{
