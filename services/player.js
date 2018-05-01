@@ -49,12 +49,7 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', '$uibModal', 
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'templates/video.html',
-                    controller: 'ModalVideoInstanceCtrl',
-                    resolve: {
-                        video: function() {
-                            return url;
-                        }
-                    }
+                    controller: 'ModalVideoInstanceCtrl'
                 });
         
                 modalInstance.result.then(function () {
@@ -63,6 +58,10 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', '$uibModal', 
                 }, function () {
                     console.log("dismissed");
                     stop();
+                });
+                modalInstance.rendered.then(function() {
+                    var player = new Clappr.Player({parentId: "#player_clappr", autoPlay: true, source: video});
+                    player.resize({height: 500, width: 450});
                 });
             }else if (Hls.isSupported()) {
                 if (!hlsObject) {
