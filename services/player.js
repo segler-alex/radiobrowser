@@ -69,6 +69,10 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', '$uibModal', 
                     clappr.resize({height: 500, width: 568});
                 });
             }else if (Hls.isSupported()) {
+                if (hlsObject){
+                    hlsObject.destroy();
+                    hlsObject = null;
+                }
                 if (!hlsObject) {
                     video = document.getElementById('video');
                     hlsObject = new Hls();
@@ -83,8 +87,6 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', '$uibModal', 
                             video.play();
                         });
                     });
-                }else{
-                    hlsObject.loadSource(url);
                 }
             }
         } else {
