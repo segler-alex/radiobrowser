@@ -47,7 +47,7 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', '$uibModal', 
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'templates/video.html',
-                    controller: 'ModalInstanceCtrl',
+                    controller: 'ModalVideoInstanceCtrl',
                     resolve: {
                         video: function() {
                             return url;
