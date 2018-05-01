@@ -60,7 +60,7 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', '$uibModal', 
                     stop();
                 });
                 modalInstance.rendered.then(function() {
-                    var player = new Clappr.Player({parentId: "#player_clappr", autoPlay: true, source: video});
+                    var player = new Clappr.Player({parentId: "#player_clappr", autoPlay: true, source: url});
                     player.resize({height: 500, width: 450});
                 });
             }else if (Hls.isSupported()) {
