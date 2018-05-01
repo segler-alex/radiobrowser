@@ -35,11 +35,13 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', '$uibModal', 
     }
 
     function play(url, name, hls, video) {
-        playerItem = {
-            'name': name,
-            'hls': hls,
-            'video': video
-        };
+        if (!video){
+            playerItem = {
+                'name': name,
+                'hls': hls,
+                'video': video
+            };
+        }
         console.log(JSON.stringify(playerItem));
         if (hls) {
             if (video){
@@ -57,8 +59,10 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', '$uibModal', 
         
                 modalInstance.result.then(function () {
                     console.log("closed");
+                    stop();
                 }, function () {
                     console.log("dismissed");
+                    stop();
                 });
             }else if (Hls.isSupported()) {
                 if (!hlsObject) {
