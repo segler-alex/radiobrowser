@@ -45,6 +45,7 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', '$uibModal', 
         console.log(JSON.stringify(playerItem));
         if (hls) {
             if (video){
+                var clappr;
                 console.log("open");
                 var modalInstance = $uibModal.open({
                     animation: true,
@@ -55,13 +56,17 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', '$uibModal', 
                 modalInstance.result.then(function () {
                     console.log("closed");
                     stop();
+                    clappr.stop();
+                    clappr.destroy();
                 }, function () {
                     console.log("dismissed");
                     stop();
+                    clappr.stop();
+                    clappr.destroy();
                 });
                 modalInstance.rendered.then(function() {
-                    var player = new Clappr.Player({parentId: "#player_clappr", autoPlay: true, source: url});
-                    player.resize({height: 500, width: 568});
+                    clappr = new Clappr.Player({parentId: "#player_clappr", autoPlay: true, source: url});
+                    clappr.resize({height: 500, width: 568});
                 });
             }else if (Hls.isSupported()) {
                 if (!hlsObject) {
