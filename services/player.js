@@ -1,4 +1,4 @@
-angular.module('RadioBrowserApp').factory('audioplayer', ['$http', function audioplayer($http) {
+angular.module('RadioBrowserApp').factory('audioplayer', ['$http', '$uibModal', function audioplayer($http, $uibModal) {
     var audioVolume = 1;
     var audio = null;
     var playerItem = null;
@@ -34,14 +34,33 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', function audi
         }
     }
 
-    function play(url, name, hls) {
+    function play(url, name, hls, video) {
         playerItem = {
             'name': name,
-            'hls': hls
+            'hls': hls,
+            'video': video
         };
         console.log(JSON.stringify(playerItem));
         if (hls) {
-            if (Hls.isSupported()) {
+            if (video){
+                console.log("open");
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'templates/video.html',
+                    controller: 'ModalInstanceCtrl',
+                    resolve: {
+                        video: function() {
+                            return url;
+                        }
+                    }
+                });
+        
+                modalInstance.result.then(function () {
+                    console.log("closed");
+                }, function () {
+                    console.log("dismissed");
+                });
+            }else if (Hls.isSupported()) {
                 if (!hlsObject) {
                     video = document.getElementById('video');
                     hlsObject = new Hls();

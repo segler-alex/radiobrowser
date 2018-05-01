@@ -89,7 +89,8 @@ app.controller('ListController', function (radiobrowser, audioplayer, relLink, $
         radiobrowser.get("/webservice/v2/json/url/" + station.id).then(function (data) {
             var stationReal = data.data;
             if (stationReal.ok === "true") {
-                audioplayer.play(stationReal.url, stationReal.name, parseInt(station.hls));
+                var video = station.codec.indexOf(',') >= 0;
+                audioplayer.play(stationReal.url, stationReal.name, parseInt(station.hls), video);
             }
         }, function (err) {
             console.log("error:" + err);
