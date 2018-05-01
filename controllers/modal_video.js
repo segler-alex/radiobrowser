@@ -2,7 +2,7 @@ angular.module('RadioBrowserApp').controller('ModalVideoInstanceCtrl', function 
     console.log("PARAM:" + JSON.stringify(video));
     $scope.result = video;
     
-    var player = new Clappr.Player({source: video, parentId: "#player"});
+    var player = new Clappr.Player({source: video, parentId: "#player_clappr"});
 
     $scope.ok = function () {
         $uibModalInstance.close();
