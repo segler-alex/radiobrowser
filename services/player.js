@@ -83,6 +83,8 @@ angular.module('RadioBrowserApp').factory('audioplayer', ['$http', '$uibModal', 
                             video.play();
                         });
                     });
+                }else{
+                    hlsObject.loadSource(url);
                 }
             }
         } else {
