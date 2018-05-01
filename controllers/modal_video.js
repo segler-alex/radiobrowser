@@ -2,7 +2,8 @@ angular.module('RadioBrowserApp').controller('ModalVideoInstanceCtrl', function 
     console.log("PARAM:" + JSON.stringify(video));
     $scope.result = video;
     
-    var player = new Clappr.Player({source: video, parentId: "#player_clappr"});
+    var player = new Clappr.Player({parentId: "#player_clappr"});
+    player.load(video, 'application/vnd.apple.mpegurl', true);
 
     $scope.ok = function () {
         $uibModalInstance.close();
