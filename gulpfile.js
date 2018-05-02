@@ -5,6 +5,7 @@ var gulp = require('gulp'),
 gulp.task('connect', function () {
   connect.server({
     port: 4200,
+    host: "0.0.0.0",
     livereload: true,
     middleware: function (connect, opt) {
       return [ proxy('http://www.radio-browser.info/webservice', { changeOrigin: true }) ];
