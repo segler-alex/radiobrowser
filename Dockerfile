@@ -1,7 +1,7 @@
 FROM node:8.11.1
  
-RUN git clone https://github.com/rogersachan/radiobrowser.git
-WORKDIR /radiobrowser
+ADD . /root
+WORKDIR /root
 RUN ls
 RUN npm install -g bower gulp
 RUN bower install --allow-root
