@@ -4,8 +4,13 @@
   "description": "website frontend with angular 1.x for [radio-browser api](https://github.com/segler-alex/radiobrowser-api)",
   "main": "app.js",
   "dependencies": {
+    "angular": "~1.4.8",
+    "angular-ui-bootstrap": "^2.5.6",
+    "angular-ui-router": "^0.3.1",
+    "bootstrap": "~3.3.6",
     "gulp-connect": "^5.0.0",
-    "http-proxy-middleware": "^0.17.4"
+    "http-proxy-middleware": "^0.17.4",
+    "jquery": "^3.3.1"
   },
   "devDependencies": {},
   "scripts": {
