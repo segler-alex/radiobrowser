@@ -6,7 +6,7 @@ website frontend with angular 1.x for [radio-browser api](https://github.com/seg
 
 - `git clone <repository-url>` this repository
 - change into the new directory
-- `bower install`
+- `npm install`
 
 ## Running / Development
 
@@ -15,3 +15,5 @@ Please note: API calls are proxied to **production environment** at http://www.r
 - `npm install gulp-connect http-proxy-middleware`
 - `gulp`
 - Visit your app at http://localhost:4200/
+
+There is also a Dockerfile
