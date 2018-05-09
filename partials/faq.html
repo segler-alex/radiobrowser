@@ -46,4 +46,54 @@
             </ul>
         </dd>
     </dl>
+    <H3>Caches</H3>
+    <dl>
+        <dt>What is cached?</dt>
+        <dd>The list of tags and the list of languages are calculated from the data. They are refreshed every 60 seconds.
+        </dd>
+    </dl>
+    <H3>Project structure</H3>
+    <dl>
+        <dt><a href="https://github.com/segler-alex/radiobrowser-api">radiobrowser-api</a></dt>
+        <dd>Language: PHP<br/>
+            Provides API documented at <a href="/webservice">docs page</a>
+        </dd>
+    </dl>
+    <dl>
+        <dt><a href="https://github.com/segler-alex/radiobrowser">radiobrowser</a></dt>
+        <dd>Language: HTML, Javascript, Angular 1<br/>
+            Basic web page to list, play and add stations. Communicates to radiobrowser-api through REST requests.
+        </dd>
+    </dl>
+    <dl>
+        <dt><a href="https://github.com/segler-alex/stream-check-rust">stream-check</a></dt>
+        <dd>Language: Rust<br/>
+            Depends on: av-stream-info<br/>
+            Checks streams every 24 hours for metadata and if they are still online. Saves this data to the database.<br/>
+            Remove broken stations after some time.
+        </dd>
+    </dl>
+    <dl>
+        <dt><a href="https://github.com/segler-alex/radiobrowser-cleanup-tasks-rust">radiobrowser-cleanup-tasks</a></dt>
+        <dd>Language: Rust<br/>
+            Refresh the caches.
+        </dd>
+    </dl>
+    <dl>
+        <dt><a href="https://github.com/segler-alex/av-stream-info-rust">av-stream-check</a></dt>
+        <dd>Language: Rust<br/>
+            Type: Library<br/>
+            Repository: <a href="https://crates.io/crates/av-stream-info-rust">crates.io</a><br/>
+            Depends on: playlist-decoder<br/>
+            Library that checks audio and video streams and extracts metadata.
+        </dd>
+    </dl>
+    <dl>
+        <dt><a href="https://github.com/segler-alex/playlist-decoder-rust">playlist-decoder</a></dt>
+        <dd>Language: Rust<br/>
+            Type: Library<br/>
+            Repository: <a href="https://crates.io/crates/playlist-decoder">crates.io</a><br/>
+            Library that decodes various playlist formats (M3U,PLS,XSPF,)
+        </dd>
+    </dl>
 </div>
