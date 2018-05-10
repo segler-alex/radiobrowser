@@ -4,12 +4,8 @@ ADD . /root
 
 WORKDIR /root
 
-RUN apk update && \
-    apk add git && \
-    npm config set unsafe-perm true && \
-    npm i && \
-    npm install -g gulp && \
-    npm install gulp gulp-connect http-proxy-middleware
+RUN yarn global add gulp && \
+    yarn
 
 EXPOSE 4200
  
