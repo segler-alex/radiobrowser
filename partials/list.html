@@ -78,9 +78,9 @@
         </tbody>
     </table>
     <center>
-        <uib-pagination ng-show="list.bigTotalItems > 0" total-items="list.bigTotalItems" ng-model="list.bigCurrentPage"
+        <ul uib-pagination ng-show="list.bigTotalItems > 0" total-items="list.bigTotalItems" ng-model="list.bigCurrentPage"
                         max-size="5" class="pagination-sm" boundary-links="true" num-pages="numPages"
                         items-per-page="list.itemsPerPage" force-ellipses="true"
-                        ng-change="list.updateList()"></uib-pagination>
+                        ng-change="list.updateList()"></ul>
     </center>
 </div>
