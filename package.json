@@ -9,8 +9,8 @@
     "angular-ui-bootstrap": "^2.5.6",
     "bootstrap": "~3.3.6",
     "gulp": "^3.9.1",
-    "gulp-connect": "^5.0.0",
-    "http-proxy-middleware": "^0.17.4",
+    "gulp-connect": "^5.5.0",
+    "http-proxy-middleware": "^0.18.0",
     "jquery": "^3.3.1"
   },
   "devDependencies": {},
