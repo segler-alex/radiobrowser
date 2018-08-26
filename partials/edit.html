@@ -28,7 +28,7 @@
                     <input type="text" class="form-control" id="StationUrl" placeholder="http://.."
                            ng-model="edit.editStation.url" name="StationUrl" required ng-pattern="/^https?:\/\/.+$/"
                            ng-disabled="edit.activeSending"/>
-                    <span class="help-block" ng-show="!FormInput.StationUrl.$valid">The streaming url is required, and needs to start with http:// or https://</span>
+                    <span class="help-block" ng-show="!FormInput.StationUrl.$valid">The streaming URL is required, and needs to start with http:// or https://</span>
                     <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"
                           ng-show="FormInput.StationUrl.$valid"></span>
                     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"
@@ -44,7 +44,7 @@
                            ng-model="edit.editStation.homepage" name="StationHomepage" required
                            ng-pattern="/^https?:\/\/.+$/" ng-disabled="edit.activeSending"
                     />
-                    <span class="help-block" ng-show="!FormInput.StationHomepage.$valid">The homepage url is required, and needs to start with http:// or https://</span>
+                    <span class="help-block" ng-show="!FormInput.StationHomepage.$valid">The homepage URL is required, and needs to start with http:// or https://</span>
                     <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"
                           ng-show="FormInput.StationHomepage.$valid"></span>
                     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"
@@ -52,7 +52,7 @@
                     <div ng-show="edit.imageList.length > 0">
                         <br/>
                         <p>
-                            <u>Extracted images:</u> Please choose one image or input url yourself:
+                            <u>Extracted images:</u> Please choose one image or input URL yourself:
                             <br/>
                             <nobr>
                                 <button ng-repeat="image in edit.imageList" ng-click="edit.editStation.favicon=image;">
@@ -120,7 +120,7 @@
                                     ng-disabled="edit.activeSending"><span class="glyphicon glyphicon-ok"/></button>
                         </span>
                     </div>
-                    <span class="help-block">Please press ENTER or click <span class="glyphicon glyphicon-ok"></span> after every single tag to add them!</span>
+                    <span class="help-block">Please press ENTER or click <span class="glyphicon glyphicon-ok"></span> after every single tag to add it!</span>
                 </div>
             </div>
             <button class="btn btn-default" ng-click="edit.sendStation()"
