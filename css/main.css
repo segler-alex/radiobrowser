@@ -1,5 +1,43 @@
 body {
     margin: 30px;
+    background: #DBE1E8;
+}
+
+.btn-default {
+  color: black !important;
+ background-image: linear-gradient(#FFF0A8, #F9B421);
+ border: 1px solid #FF9933;
+ display: inline-block;
+ padding: .5em 1em;
+ margin-bottom: 0;
+ font-weight: 400;
+ line-height: 1.2;
+ text-align: center;
+ white-space: nowrap;
+ vertical-align: middle;
+ cursor: pointer;
+ border: 1px solid transparent;
+ border-radius: .2em;
+ text-decoration: none;
+ box-shadow: 0 0 5px #333;
+}
+.btn-default:hover {
+  color: black !important;
+ background-image: linear-gradient(#F9B421, #FFF0A8);
+ border: 1px solid #FF9933;
+ display: inline-block;
+ padding: .5em 1em;
+ margin-bottom: 0;
+ font-weight: 400;
+ line-height: 1.2;
+ text-align: center;
+ white-space: nowrap;
+ vertical-align: middle;
+ cursor: pointer;
+ border: 1px solid transparent;
+ border-radius: .2em;
+ text-decoration: none;
+ box-shadow: 0 0 5px #333;
 }
 
 .header_sub {
