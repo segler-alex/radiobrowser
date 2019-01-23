@@ -103,7 +103,7 @@
         </ul>
         <form class="navbar-form navbar-right" role="search">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search" ng-model="searchterm">
+            <input required="required" autocomplete="off" autofocus readonly onfocus="this.removeAttribute('readonly');" type="text" class="form-control" placeholder="Search" ng-model="searchterm">
           </div>
           <button type="submit" class="btn btn-default" ng-click="doSearch(searchterm)"><span class="glyphicon glyphicon-search" aria-label="Search" /></button>
         </form>
