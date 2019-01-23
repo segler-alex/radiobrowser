@@ -2,138 +2,145 @@
 <html ng-app="RadioBrowserApp">
 
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel='dns-prefetch' href='//cdn.jsdelivr.net'>
-  <link rel='dns-prefetch' href='//gitlab.com'>
-  <link rel='dns-prefetch' href='//radio-browser.info'>
+    <meta charset="UTF-8">
 
-  <title>Community Radio Station Board</title>
+    <title>Community Radio Station Board</title>
 
-  <link rel="stylesheet" rel="subresource" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css" media="none" onload="if(media!='all')media='all'">
-  <link rel="stylesheet" rel="subresource" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css" media="none" onload="if(media!='all')media='all'">
-  <link rel="stylesheet" rel="subresource" type="text/css" href="css/main.css" media="none" onload="if(media!='all')media='all'">
-  <script async src="https://cdn.jsdelivr.net/npm/hls.js@latest" charset="utf-8"></script>
-  <script async src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
 
-  <script async src="node_modules/jquery/dist/jquery.min.js" charset="utf-8"></script>
-  <script async src="node_modules/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
-  <script async src="node_modules/angular/angular.min.js"></script>
-  <script async src="node_modules/@uirouter/angularjs/release/angular-ui-router.min.js" charset="utf-8"></script>
-  <script async src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js" charset="utf-8"></script>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
+    <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
 
-  <script async src="app.js" charset="utf-8"></script>
-  <script async src="controllers/main.js" charset="utf-8"></script>
-  <script async src="controllers/info.js" charset="utf-8"></script>
-  <script async src="controllers/list.js" charset="utf-8"></script>
-  <script async src="controllers/player.js" charset="utf-8"></script>
-  <script async src="controllers/category.js" charset="utf-8"></script>
-  <script async src="controllers/tags.js" charset="utf-8"></script>
-  <script async src="controllers/edit.js" charset="utf-8"></script>
-  <script async src="controllers/history.js" charset="utf-8"></script>
-  <script async src="controllers/modal.js" charset="utf-8"></script>
-  <script async src="controllers/modal_video.js" charset="utf-8"></script>
-  <script async src="controllers/search.js" charset="utf-8"></script>
-  <script async src="services/player.js" charset="utf-8"></script>
-  <script async src="services/radiobrowser.js" charset="utf-8"></script>
+    <script src="app.js"></script>
+    <script src="controllers/main.js"></script>
+    <script src="controllers/info.js"></script>
+    <script src="controllers/list.js"></script>
+    <script src="controllers/player.js"></script>
+    <script src="controllers/category.js"></script>
+    <script src="controllers/tags.js"></script>
+    <script src="controllers/edit.js"></script>
+    <script src="controllers/history.js"></script>
+    <script src="controllers/modal.js"></script>
+    <script src="controllers/modal_video.js"></script>
+    <script src="controllers/search.js"></script>
+    <script src="services/player.js"></script>
+    <script src="services/radiobrowser.js"></script>
 
-  <script type="text/ng-template" id="customTemplate.html">
-    <a>
+    <script type="text/ng-template" id="customTemplate.html">
+        <a>
             <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span> ({{match.model.country}})
         </a>
     </script>
 </head>
 
 <body ng-controller="MainController">
-  <nav class="navbar navbar-default">
+<nav class="navbar navbar-default">
     <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" ui-sref="info" ng-click="setTab('home')">Community Radio Browser</a>
-      </div>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" ui-sref="info" ng-click="setTab('home')">Community Radio Browser</a>
+        </div>
 
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li ng-class="{active: tab==='faq'}"><a ui-sref="faq" ng-click="setTab('faq')">FAQ</a></li>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" tabIndex="0">By popularity <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li ng-class="{active: tab==='byclicks'}"><a ui-sref="topclick" ng-click="setTab('byclicks')">By
-                  clicks</a></li>
-              <li ng-class="{active: tab==='byvotes'}"><a ui-sref="topvote" ng-click="setTab('byvotes')">By
-                  vote</a></li>
-              <li ng-class="{active: tab==='latelyplayed'}"><a ui-sref="lastclick" ng-click="setTab('latelyplayed')">Lately
-                  played</a></li>
-              <li ng-class="{active: tab==='latelychanged'}"><a ui-sref="lastchange" ng-click="setTab('latelychanged')">Lately
-                  changed</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" tabIndex="0">By category <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li ng-class="{active: tab==='bycountry'}"><a ui-sref="countries" ng-click="setTab('bycountry')">By country</a></li>
-              <li ng-class="{active: tab==='bylanguage'}"><a ui-sref="languages" ng-click="setTab('bylanguage')">By language</a>
-              </li>
-              <li ng-class="{active: tab==='bytag'}"><a ui-sref="tags" ng-click="setTab('bytag')">By tag</a>
-              </li>
-              <li ng-class="{active: tab==='bycodec'}"><a ui-sref="codecs" ng-click="setTab('bycodec')">By
-                  codec</a></li>
-            </ul>
-          </li>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li ng-class="{active: tab==='faq'}"><a ui-sref="faq" ng-click="setTab('faq')">FAQ</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false" tabIndex="0">By popularity <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li ng-class="{active: tab==='byclicks'}"><a ui-sref="topclick" ng-click="setTab('byclicks')">By
+                            clicks</a></li>
+                        <li ng-class="{active: tab==='byvotes'}"><a ui-sref="topvote" ng-click="setTab('byvotes')">By
+                            vote</a></li>
+                        <li ng-class="{active: tab==='latelyplayed'}"><a ui-sref="lastclick"
+                                                                         ng-click="setTab('latelyplayed')">Lately
+                            played</a></li>
+                        <li ng-class="{active: tab==='latelychanged'}"><a ui-sref="lastchange"
+                                                                          ng-click="setTab('latelychanged')">Lately
+                            changed</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false" tabIndex="0">By category <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li ng-class="{active: tab==='bycountry'}"><a ui-sref="countries"
+                                                                      ng-click="setTab('bycountry')">By country</a></li>
+                        <li ng-class="{active: tab==='bylanguage'}"><a ui-sref="languages"
+                                                                       ng-click="setTab('bylanguage')">By language</a>
+                        </li>
+                        <li ng-class="{active: tab==='bytag'}"><a ui-sref="tags" ng-click="setTab('bytag')">By tag</a>
+                        </li>
+                        <li ng-class="{active: tab==='bycodec'}"><a ui-sref="codecs" ng-click="setTab('bycodec')">By
+                            codec</a></li>
+                    </ul>
+                </li>
 
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" tabIndex="0">Needs help <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li ng-class="{active: tab==='broken'}"><a ui-sref="broken" ng-click="setTab('broken')">Broken</a></li>
-              <li ng-class="{active: tab==='improve'}"><a ui-sref="improve" ng-click="setTab('improve')">Improve</a>
-              </li>
-              <!--<li ng-class="{active: tab==='deleted'}"><a ui-sref="deleted" ng-click="setTab('deleted')">Deleted</a></li>-->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false" tabIndex="0">Needs help <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li ng-class="{active: tab==='broken'}"><a ui-sref="broken"
+                                                                   ng-click="setTab('broken')">Broken</a></li>
+                        <li ng-class="{active: tab==='improve'}"><a ui-sref="improve" ng-click="setTab('improve')">Improve</a>
+                        </li>
+                        <!--<li ng-class="{active: tab==='deleted'}"><a ui-sref="deleted" ng-click="setTab('deleted')">Deleted</a></li>-->
+                    </ul>
+                </li>
+                <li ng-class="{active: tab==='search'}"><a ui-sref="search" ng-click="setTab('search')">Search</a></li>
+                <li ng-class="{active: tab==='editstation'}"><a ui-sref="add" ng-click="setTab('editstation')">New
+                    station</a></li>
+                <li><a href="http://www.radio-browser.info/webservice">Developer API</a></li>
             </ul>
-          </li>
-          <li ng-class="{active: tab==='search'}"><a ui-sref="search" ng-click="setTab('search')">Search</a></li>
-          <li ng-class="{active: tab==='editstation'}"><a ui-sref="add" ng-click="setTab('editstation')">New
-              station</a></li>
-          <li><a href="http://www.radio-browser.info/webservice">Developer API</a></li>
-        </ul>
-        <form class="navbar-form navbar-right" role="search">
-          <div class="form-group">
-            <input required="required" autocomplete="off" autofocus readonly onfocus="this.removeAttribute('readonly');" type="text" class="form-control" placeholder="Search" ng-model="searchterm">
-          </div>
-          <button type="submit" class="btn btn-default" ng-click="doSearch(searchterm)"><span class="glyphicon glyphicon-search" aria-label="Search" /></button>
-        </form>
-      </div>
+            <form class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search" ng-model="searchterm">
+                </div>
+                <button type="submit" class="btn btn-default" ng-click="doSearch(searchterm)"><span
+                        class="glyphicon glyphicon-search" aria-label="Search"/></button>
+            </form>
+        </div>
     </div>
-  </nav>
+</nav>
 
-  <div class="tab-content" role="tabpanel">
+<div class="tab-content" role="tabpanel">
     <div ui-view></div>
-  </div>
-  <div>
+</div>
+<div>
     <center>
-      <a href="https://github.com/segler-alex/radiobrowser">Bugtracker Webpage</a>,
-      <a href="https://github.com/segler-alex/radiobrowser-api">Bugtracker API Server</a>
+        <a href="https://github.com/segler-alex/radiobrowser">Bugtracker Webpage</a>,
+        <a href="https://github.com/segler-alex/radiobrowser-api">Bugtracker API Server</a>
     </center>
-  </div>
-  <div class="player bg-success container-fluid" ng-class="{'player-active':player.playerStatus.playerItem}" ng-controller="PlayerController as player">
+</div>
+<div class="player bg-success container-fluid" ng-class="{'player-active':player.playerStatus.playerItem}"
+     ng-controller="PlayerController as player">
     <div class="col-md-12"><u>Player active</u></div>
     <div class="col-md-8">{{player.playerStatus.playerItem.name}}</div>
     <div class="col-md-1"></div>
     <div class="col-md-1">
-      <button class="btn btn-xs btn-link" ng-click="player.stop()"><span class="glyphicon glyphicon-stop" aria-label="Stop" /></button>
+        <button class="btn btn-xs btn-link" ng-click="player.stop()"><span class="glyphicon glyphicon-stop" aria-label="Stop"/></button>
     </div>
     <div class="col-md-2 volumeslider">
-      <input type="range" min="0" max="1" step="0.02" ng-model="player.playerStatus.volume" ng-change="player.setVolume(player.playerStatus.volume)">
+        <input type="range" min="0" max="1" step="0.02" ng-model="player.playerStatus.volume"
+               ng-change="player.setVolume(player.playerStatus.volume)">
     </div>
-  </div>
+</div>
 
-  <video id="video"></video>
-  <!--<a href="https://github.com/segler-alex/radiobrowser"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"
+<video id="video"></video>
+<!--<a href="https://github.com/segler-alex/radiobrowser"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"
   alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>-->
 </body>
 
