@@ -5,24 +5,24 @@
     <div class="modal-body">
         <ul>
             <li>
-                <u>Connection check:</u>
-                <span ng-show="result.stream_check_ok === 'true'" class="glyphicon glyphicon-ok" color="green"></span>
-                <span ng-show="result.stream_check_ok !== 'true'" class="glyphicon glyphicon-remove" color="red"></span>
+                <u>Connection Check</u>
+                <span ng-show="result.stream_check_ok === 'true'" class="glyphicon glyphicon-ok" style="color:green"></span>
+                <span ng-show="result.stream_check_ok !== 'true'" class="glyphicon glyphicon-remove" style="color:red"></span>
             </li>
-            <li ng-show="result.stream_check_ok === 'true'"><u>Bitrate:</u> {{result.stream_check_bitrate}}</li>
-            <li ng-show="result.stream_check_ok === 'true'"><u>Codec:</u> {{result.stream_check_codec}}</li>
+            <li ng-show="result.stream_check_ok === 'true'"><u>Bitrate</u> {{result.stream_check_bitrate}}</li>
+            <li ng-show="result.stream_check_ok === 'true'"><u>Codec</u> {{result.stream_check_codec}}</li>
             <li>
-                <u>Favicon check done:</u>
+                <u>Favicon Check</u>
                 <span ng-show="result.favicon_check_done === 'true'" class="glyphicon glyphicon-ok"
-                      color="green"></span>
+                      style="color:green"></span>
                 <span ng-show="result.favicon_check_done !== 'true'" class="glyphicon glyphicon-remove"
-                      color="yellow"></span>
+                      style="color:yellow"></span>
             </li>
             <li ng-show="result.favicon_check_done === 'true'">
-                <u>Favicon found:</u>
-                <span ng-show="result.favicon_check_ok === 'true'" class="glyphicon glyphicon-ok" color="green"></span>
+                <u>Favicon Extraction</u>
+                <span ng-show="result.favicon_check_ok === 'true'" class="glyphicon glyphicon-ok" style="color:green"></span>
                 <span ng-show="result.favicon_check_ok !== 'true'" class="glyphicon glyphicon-remove"
-                      color="yellow"></span>
+                      style="color:yellow"></span>
                 <br/>
                 <img ng-src="{{result.favicon_check_url}}" ng-show="result.favicon_check_ok" width="100"/>
             </li>
