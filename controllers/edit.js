@@ -114,6 +114,10 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
             if (vm.editStation.tags_arr) {
                 vm.editStation.tags = vm.editStation.tags_arr.join(',');
             }
+            if (vm.editStation.country){
+                vm.editStation.countrycode = vm.editStation.country.alpha2Code;
+                vm.editStation.country = vm.editStation.country.name;
+            }
             if (undefined === vm.editStation.id) {
                 url = '/webservice/json/add';
             } else {
