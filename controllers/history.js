@@ -17,7 +17,7 @@ app.controller('HistoryController', function (radiobrowser, $stateParams) {
         return new Date(item1.lastchangetime) - new Date(item2.lastchangetime);
     }
 
-    var keys = ["name", "url", "homepage", "favicon", "tags", "country", "state", "language"];
+    var keys = ["name", "url", "homepage", "favicon", "tags", "countrycode", "country", "state", "language"];
 
     function computeDiff(before, after) {
         var diff = {};
