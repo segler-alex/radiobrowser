@@ -95,14 +95,35 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
         if (!vm.editStation.tags_arr) {
             vm.editStation.tags_arr = [];
         }
-        vm.editStation.tags_arr.splice(0, 0, tag);
-        vm.editStation.tag = "";
+        tag = (""+tag).trim();
+        if (tag !== ""){
+            vm.editStation.tags_arr.splice(0, 0, tag);
+            vm.editStation.tag = "";
+        }
     }
 
     function removeTag(tag) {
         var index = vm.editStation.tags_arr.indexOf(tag);
         if (index !== -1) {
             vm.editStation.tags_arr.splice(index, 1);
+        }
+    }
+
+    function addLanguage(language) {
+        if (!vm.editStation.languages_arr) {
+            vm.editStation.languages_arr = [];
+        }
+        language = (""+language).trim();
+        if (language !== ""){
+            vm.editStation.languages_arr.splice(0, 0, language);
+            vm.editStation.language = "";
+        }
+    }
+
+    function removeLanguage(language) {
+        var index = vm.editStation.languages_arr.indexOf(language);
+        if (index !== -1) {
+            vm.editStation.languages_arr.splice(index, 1);
         }
     }
 
@@ -113,6 +134,9 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
             vm.editStation.tags = "";
             if (vm.editStation.tags_arr) {
                 vm.editStation.tags = vm.editStation.tags_arr.join(',');
+            }
+            if (vm.editStation.languages_arr) {
+                vm.editStation.language = vm.editStation.languages_arr.join(',');
             }
             if (vm.editStation.country){
                 vm.editStation.countrycode = vm.editStation.country.alpha2Code;
@@ -191,6 +215,8 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
     vm.updateSimiliar = updateSimiliar;
     vm.addTag = addTag;
     vm.removeTag = removeTag;
+    vm.addLanguage = addLanguage;
+    vm.removeLanguage = removeLanguage;
     vm.deleteStation = deleteStation;
     vm.sendStation = sendStation;
 
