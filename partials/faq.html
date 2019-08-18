@@ -56,18 +56,32 @@
     <dl>
         <dt>I want to use the radio-browser api in my own app/program.</dt>
         <dd>
-            You have 2 possibilies:
+            You have the following possibilies:
             <ul>
-                <li>
-                    Use the old variant which is for now in use at www.radio-browser.info:<br/>
-                    There is a README at <a href="https://github.com/segler-alex/radiobrowser-api">radiobrowser-api</a>.
-                </li>
-                <li>
-                    Use the new system at <a href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a> which
-                    powers the new second level servers. It will automatically mirror the main server because it supports federation. This
-                    is probably your easiest bet.
-                </li>
+                <li>Use the old variant which is for now in use at <a href="https://www.radio-browser.info/webservice">www.radio-browser.info</a>.</li>
+                <li>Use the new system the following link which hands out redirects to second level servers: <a href="https://api.radio-browser.info">api.radio-browser.info</a></li>
+                <li>Present your user with a list of second level servers, so that he can choose himself the one that is nearest/fastest.</li>
             </ul>
+        </dd>
+    </dl>
+    <dl>
+        <dt>How do I get a list of second level servers?</dt>
+        <dd>
+            You have to do the following steps:
+            <ol>
+                <li>Do a dns lookup of all.api.radio-browser.info for all ip addresses. It will always return all available second level servers.</li>
+                <li>Filter out doubles</li>
+                <li>Do a reverse lookup for all remaining ips.</li>
+                <li>Add "https://" in front of each of them.</li>
+            </ol>
+            There are example implementations for <a href="serverlist.js">NodeJs</a> and <a href="serverlist.py">Python</a>.
+        </dd>
+    </dl>
+    <dl>
+        <dt>Do all radio-browser server support IPv6?</dt>
+        <dd>
+            In short: YES.<br/>
+            If you have any problems, please contact me.
         </dd>
     </dl>
     <dl>
@@ -100,7 +114,8 @@
             <u>Current State</u><br/>
             At the moment www.radio-browser.info/webservice is the only first level server handling most users.<br/>
             There are some second level servers which already use the new style api and use federation to mirror the content of the first level server.<br/>
-            For now stations are distributed from the first level server to the second level servers and NOT in the other direction. That means stations added to second level servers will not get distributed and will be deleted eventually.
+            For now stations are distributed from the first level server to the second level servers and NOT in the other direction.
+            That means stations added to second level servers will not get distributed and will be deleted eventually.<br/><br/>
             <u>Future</u><br/>
             The server at www.radio-browser.info/webservice will be shut down eventually and the current second level servers
             will become the first level servers for other people to use and mirror.<br/>
@@ -122,7 +137,7 @@
     <dl>
         <dt><a href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a></dt>
         <dd>Language: RUST<br/>
-            Provides API documented at multiple second level servers at
+            Provides API for multiple second level servers at
             <ul>
                 <li><a href="https://de1.api.radio-browser.info">de1.api.radio-browser.info</a></li>
                 <li><a href="https://de2.api.radio-browser.info">de2.api.radio-browser.info</a></li>
