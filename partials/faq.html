@@ -54,13 +54,109 @@
     </dl>
     <H3>Project structure</H3>
     <dl>
+        <dt>I want to use the radio-browser api in my own app/program.</dt>
+        <dd>
+            You have the following possibilies:
+            <ul>
+                <li>Use the old variant which is for now in use at <a href="https://www.radio-browser.info/webservice">www.radio-browser.info</a>.</li>
+                <li>Use the new system the following link which hands out redirects to second level servers: <a href="https://api.radio-browser.info">api.radio-browser.info</a></li>
+                <li>Present your user with a list of second level servers, so that he can choose himself the one that is nearest/fastest.</li>
+            </ul>
+        </dd>
+    </dl>
+    <dl>
+        <dt>How do I get a list of second level servers?</dt>
+        <dd>
+            You have to do the following steps:
+            <ol>
+                <li>Do a dns lookup of all.api.radio-browser.info for all ip addresses. It will always return all available second level servers.</li>
+                <li>Filter out doubles</li>
+                <li>Do a reverse lookup for all remaining ips.</li>
+                <li>Add "https://" in front of each of them.</li>
+            </ol>
+            There are example implementations for <a href="serverlist.js">NodeJs</a> and <a href="serverlist.py">Python</a>.
+        </dd>
+    </dl>
+    <dl>
+        <dt>Do all radio-browser server support IPv6?</dt>
+        <dd>
+            In short: YES.<br/>
+            If you have any problems, please contact me.
+        </dd>
+    </dl>
+    <dl>
         <dt>I want to setup my own radiobrowser API server. How do I do that?</dt>
-        <dd>For now just look at the README at <a href="https://github.com/segler-alex/radiobrowser-api">radiobrowser-api</a>.</dd>
+        <dd>
+            You have 2 possibilies:
+            <ul>
+                <li>
+                    Use the old variant which is for now in use at www.radio-browser.info:<br/>
+                    There is a README at <a href="https://github.com/segler-alex/radiobrowser-api">radiobrowser-api</a>.
+                </li>
+                <li>
+                    Use the new system at <a href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a> which
+                    powers the new second level servers. It will automatically mirror the main server because it supports federation. This
+                    is probably your easiest bet.
+                </li>
+            </ul>
+        </dd>
+    </dl>
+    <dl>
+        <dt>Does radio-browser have some kind of federation network?</dt>
+        <dd>
+            The new api <a href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a> does have federation.<br/>
+            The old one <a href="https://github.com/segler-alex/radiobrowser-api">radiobrowser-api</a> does not.
+        </dd>
+    </dl>
+    <dl>
+        <dt>What is the future plan for www.radio-browser.info?</dt>
+        <dd>
+            <u>Current State</u><br/>
+            At the moment www.radio-browser.info/webservice is the only first level server handling most users.<br/>
+            There are some second level servers which already use the new style api and use federation to mirror the content of the first level server.<br/>
+            For now stations are distributed from the first level server to the second level servers and NOT in the other direction.
+            That means stations added to second level servers will not get distributed and will be deleted eventually.<br/><br/>
+            <u>Future</u><br/>
+            The server at www.radio-browser.info/webservice will be shut down eventually and the current second level servers
+            will become the first level servers for other people to use and mirror.<br/>
+            Stations can be added to any one of the new first level servers and will be distributed among them.
+        </dd>
+    </dl>
+    <dl>
+        <dt>How does federation work?</dt>
+        <dd>
+            Every server does keep a station change history which does keep all additions and changes.
+            This can be pulled from other servers as a full version or as a differential from the state they already have.
+            Each server also does keep a history of station checks, which can also be pulled in a similiar fashion.<br/><br/>
+            <u>TO BE DONE:</u><br/>
+            <ul>
+                <li>combine station checks fetched from multiple servers to an ultimate station online/offline state.</li>
+            </ul>
+        </dd>
+    </dl>
+    <dl>
+        <dt><a href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a></dt>
+        <dd>Language: RUST<br/>
+            Provides API for multiple second level servers at
+            <ul>
+                <li><a href="https://de1.api.radio-browser.info">de1.api.radio-browser.info</a></li>
+                <li><a href="https://de2.api.radio-browser.info">de2.api.radio-browser.info</a></li>
+                <li><a href="https://nl1.api.radio-browser.info">nl1.api.radio-browser.info</a></li>
+            </ul>
+        </dd>
+    </dl>
+    <dl>
+        <dt><a href="https://github.com/segler-alex/http-distribute-requests">http-distribute-requests</a></dt>
+        <dd>Language: NodeJs<br/>
+            Acts as a central point for handing out redirects to the other second level servers<br/>
+            Available at: <a href="https://api.radio-browser.info">api.radio-browser.info</a> (this only gives out redirects to the others)
+        </dd>
     </dl>
     <dl>
         <dt><a href="https://github.com/segler-alex/radiobrowser-api">radiobrowser-api</a></dt>
         <dd>Language: PHP<br/>
-            Provides API documented at <a href="/webservice">docs page</a>
+            DEPRECATED, will only live until api.radio-browser.info has all features.<br/>
+            Provides the API at <a href="http://www.radio-browser.info/webservice/">http://www.radio-browser.info/webservice/</a>.
         </dd>
     </dl>
     <dl>
@@ -73,6 +169,8 @@
         <dt><a href="https://github.com/segler-alex/stream-check-rust">stream-check</a></dt>
         <dd>Language: Rust<br/>
             Depends on: av-stream-info<br/>
+            DEPRECATED, will only live until api.radio-browser.info has all features.<br/>
+            Provides stream check at www.radio-browser.info<br/>
             Check streams every 24 hours for metadata and if they are still online. Save the data to the database.<br/>
             Remove broken stations after some time.
         </dd>
@@ -80,6 +178,8 @@
     <dl>
         <dt><a href="https://github.com/segler-alex/radiobrowser-cleanup-tasks-rust">radiobrowser-cleanup-tasks</a></dt>
         <dd>Language: Rust<br/>
+            DEPRECATED, will only live until api.radio-browser.info has all features.<br/>
+            Provides database cleanup at www.radio-browser.info<br/>
             Refresh the caches.
         </dd>
     </dl>
