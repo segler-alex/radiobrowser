@@ -164,7 +164,7 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
     }
 
     function getCountries(term) {
-        return radiobrowser.get('https://restcountries.eu/rest/v2/name/' + encodeURIComponent(term)).then(function (response) {
+        return radiobrowser.get('http://restcountries.eu/rest/v2/name/' + encodeURIComponent(term)).then(function (response) {
             return response.data.slice(0, 5);
         });
         /*
