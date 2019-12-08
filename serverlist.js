@@ -25,7 +25,7 @@ function get_radiobrowser_base_urls() {
  */
 function get_radiobrowser_base_url_random() {
     return get_radiobrowser_base_urls().then(hosts => {
-        var item = hosts[Math.floor(Math.random()*hosts.length)];
+        var item = hosts[Math.floor(Math.random() * hosts.length)];
         return item;
     });
 }
@@ -39,7 +39,7 @@ get_radiobrowser_base_urls().then(hosts => {
     console.log();
 
     return get_radiobrowser_base_url_random();
-}).then(random_host=>{
+}).then(random_host => {
     console.log("Random base url")
     console.log("------------------")
     console.log(random_host);
