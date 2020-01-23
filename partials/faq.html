@@ -4,12 +4,11 @@
     <dl>
         <dt>Why is my click not counted?</dt>
         <dd>Only one click per IP address per station a day is counted. Some people click their favorite stations
-            hundreds of times every day by using the programmers API.
+            hundreds of times every day by using the programmers API, so I had to add this restriction.
+            IP addresses that did the click are kept for this purpose for 24 hours.
         </dd>
         <dt>How often is every station checked?</dt>
-        <dd>It depends on the overall number of stations in the database and if the station is currently marked as
-            broken. Currently a cron job is run every 10 minutes checking 50 working stations and 10 broken
-            stations.
+        <dd>Every station is checked once every 24 hours. 
         </dd>
         <dt>In what order are the stations checked?</dt>
         <dd>The stations not checked for the longest time are checked first.</dd>
@@ -56,12 +55,8 @@
     <dl>
         <dt>I want to use the radio-browser API in my own app/program.</dt>
         <dd>
-            You have the following ways:
-            <ul>
-                <li>Use the old variant which is for now in use at <a href="https://www.radio-browser.info/webservice">www.radio-browser.info</a>.</li>
-                <li>Use the new system which hands out redirects to second level servers: <a href="https://api.radio-browser.info">api.radio-browser.info</a></li>
-                <li>Present your users with a list of second level servers, so that they can choose the nearest or fastest one by themselves.</li>
-            </ul>
+            It is completely free. Free as in Beer/chocolate :)<br/>
+            Just go to <a href="https://www.radio-browser.info/webservice">www.radio-browser.info</a></li> and read the docs. It is easy and has examples.
         </dd>
     </dl>
     <dl>
@@ -85,11 +80,19 @@
         </dd>
     </dl>
     <dl>
+        <dt>Do all radio-browser servers support HTTP/2?</dt>
+        <dd>
+            In short: YES.<br/>
+            If you have any problems, please contact me.
+        </dd>
+    </dl>
+    <dl>
         <dt>I want to set up my own radiobrowser API server. How do I do that?</dt>
         <dd>
             You have two ways:
             <ul>
                 <li>
+                    DEPRECATED:
                     Use the old variant which is for now in use at www.radio-browser.info:<br/>
                     There is a README at <a href="https://github.com/segler-alex/radiobrowser-api">radiobrowser-api</a>.
                 </li>
@@ -140,7 +143,7 @@
             Provide API for multiple second level servers at
             <ul>
                 <li><a href="https://de1.api.radio-browser.info">de1.api.radio-browser.info</a></li>
-                <li><a href="https://de2.api.radio-browser.info">de2.api.radio-browser.info</a></li>
+                <li><a href="https://fr1.api.radio-browser.info">fr1.api.radio-browser.info</a></li>
                 <li><a href="https://nl1.api.radio-browser.info">nl1.api.radio-browser.info</a></li>
             </ul>
         </dd>
