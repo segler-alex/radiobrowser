@@ -131,10 +131,8 @@
             Every server keeps a station change history including all additions and changes.
             This can be pulled from other servers as a full version or as a differential from the state they already have.
             Each server also keeps a history of station checks, which can also be pulled in a similiar fashion.<br/><br/>
-            <u>TO BE DONE:</u><br/>
-            <ul>
-                <li>Combine station checks fetched from multiple servers to an ultimate station online/offline state.</li>
-            </ul>
+            Some servers do checks themselves, so there are multiple sources of checks from different countries. Checks from multiple sources
+            for one station are combined into a majority vote (offline/online) state.
         </dd>
     </dl>
     <dl>
