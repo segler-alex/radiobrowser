@@ -21,6 +21,10 @@ body {
     transition: bottom 1s ease-in-out;
 }
 
+.warning {
+    color: red;
+}
+
 .player-active {
     bottom: -10px;
 }
