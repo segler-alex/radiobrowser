@@ -23,6 +23,7 @@ body {
 
 .warning {
     color: red;
+    max-width: 600px;
 }
 
 .player-active {
