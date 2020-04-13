@@ -131,9 +131,11 @@ app.controller('ListController', function (radiobrowser, audioplayer, relLink, $
     vm.getTagsArray = getTagsArray;
     vm.updateList = updateList;
 
-    vm.playlistPLS = relLinkCorrected.replace(/webservice\/json/, 'webservice/pls');
-    vm.playlistM3U = relLinkCorrected.replace(/webservice\/json/, 'webservice/m3u');
-    vm.playlistXSPF = relLinkCorrected.replace(/webservice\/json/, 'webservice/xspf');
+    var SERVER = "https://de1.api.radio-browser.info";
+    
+    vm.playlistPLS = SERVER + relLinkCorrected.replace(/json/, 'pls');
+    vm.playlistM3U = SERVER + relLinkCorrected.replace(/json/, 'm3u');
+    vm.playlistXSPF = SERVER + relLinkCorrected.replace(/json/, 'xspf');
 
     displayList();
 });
