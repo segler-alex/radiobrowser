@@ -7,7 +7,7 @@ app.controller('CategoryController', function (radiobrowser, relLink) {
 
     function displayCategories() {
         radiobrowser.post(relLink.value, {
-            "order": "value"
+            "order": "stationcount"
         }).then(function (data) {
             vm.categories = data.data;
         }, function (err) {

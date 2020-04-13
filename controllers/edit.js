@@ -5,7 +5,7 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
 
     if ($stateParams.id) {
         console.log("edit station:" + $stateParams.id);
-        radiobrowser.get('/webservice/json/stations/byid/' + $stateParams.id).then(function (data) {
+        radiobrowser.get('/json/stations/byid/' + $stateParams.id).then(function (data) {
             if (data.data.length > 0) {
                 vm.editStation = data.data[0];
                 vm.editStation.tags_arr = vm.editStation.tags.split(',');
@@ -21,7 +21,7 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
         var r = confirm("Really delete station?");
         if (r == true) {
             console.log("deletestation:" + stationid);
-            radiobrowser.get('/webservice/json/delete/' + stationid).then(function (data) {
+            radiobrowser.get('/json/delete/' + stationid).then(function (data) {
                 vm.editStation = null;
                 if (data.data.ok === "true") {
                     alert("delete ok: " + stationid);
@@ -56,7 +56,7 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
     }
 
     function updateImageList(url) {
-        radiobrowser.post('/webservice/json/extract_images', {
+        radiobrowser.post('/json/extract_images', {
             'url': url
         }).then(function (data) {
             vm.imageList = data.data;
@@ -71,7 +71,7 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
     }
 
     function updateSimiliar(name) {
-        radiobrowser.post('/webservice/json/stations/byname/' + name, {
+        radiobrowser.post('/json/stations/byname/' + name, {
             limit: 20
         }).then(function (data) {
             if (vm.editStation.id) {
@@ -143,9 +143,9 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
                 vm.editStation.country = vm.editStation.country.name;
             }
             if (undefined === vm.editStation.id) {
-                url = '/webservice/json/add';
+                url = '/json/add';
             } else {
-                url = '/webservice/json/edit/' + vm.editStation.id;
+                url = '/json/edit/' + vm.editStation.id;
                 vm.editStation.stationid = vm.editStation.id;
             }
             radiobrowser.post(url, vm.editStation).then(function (response) {
@@ -168,7 +168,7 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
             return response.data.slice(0, 5);
         });
         /*
-        return radiobrowser.post('/webservice/json/countries/' + encodeURIComponent(term), {
+        return radiobrowser.post('/json/countries/' + encodeURIComponent(term), {
             "order": "stationcount",
             "reverse": "true"
         }).then(function (response) {
@@ -178,7 +178,7 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
     }
 
     function getStates(term) {
-        return radiobrowser.post('/webservice/json/states/' + encodeURIComponent(term), {
+        return radiobrowser.post('/json/states/' + encodeURIComponent(term), {
             "order": "stationcount",
             "reverse": "true"
         }).then(function (response) {
@@ -187,7 +187,7 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
     }
 
     function getLanguages(term) {
-        return radiobrowser.post('/webservice/json/languages/' + encodeURIComponent(term), {
+        return radiobrowser.post('/json/languages/' + encodeURIComponent(term), {
             "order": "stationcount",
             "reverse": "true"
         }).then(function (response) {
@@ -196,7 +196,7 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
     }
 
     function getTags(term) {
-        return radiobrowser.post('/webservice/json/tags/' + encodeURIComponent(term.toLowerCase()), {
+        return radiobrowser.post('/json/tags/' + encodeURIComponent(term.toLowerCase()), {
             "order": "stationcount",
             "reverse": "true"
         }).then(function (response) {

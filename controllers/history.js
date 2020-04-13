@@ -6,7 +6,7 @@ app.controller('HistoryController', function (radiobrowser, $stateParams) {
     vm.list = [];
 
     if ($stateParams.id) {
-        radiobrowser.get('/webservice/json/stations/changed/' + $stateParams.id).then(function (data) {
+        radiobrowser.get('/json/stations/changed/' + $stateParams.id).then(function (data) {
             vm.list = data.data;
             vm.list.sort(listSorter);
             computeDiffs();

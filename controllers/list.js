@@ -22,19 +22,19 @@ app.controller('ListController', function (radiobrowser, audioplayer, relLink, $
             items.push('tag=' + encodeURIComponent($stateParams.tag));
         }
         items.push('limit=' + encodeURIComponent('100'));
-        relLinkCorrected = '/webservice/json/stations/search?' + items.join('&');
+        relLinkCorrected = '/json/stations/search?' + items.join('&');
     } else if ($stateParams.tag) {
-        relLinkCorrected = '/webservice/json/stations/bytagexact/' + encodeURIComponent($stateParams.tag);
+        relLinkCorrected = '/json/stations/bytagexact/' + encodeURIComponent($stateParams.tag);
     } else if ($stateParams.state) {
-        relLinkCorrected = '/webservice/json/stations/bystateexact/' + encodeURIComponent($stateParams.state);
+        relLinkCorrected = '/json/stations/bystateexact/' + encodeURIComponent($stateParams.state);
     } else if ($stateParams.country) {
-        relLinkCorrected = '/webservice/json/stations/bycountryexact/' + encodeURIComponent($stateParams.country);
+        relLinkCorrected = '/json/stations/bycountryexact/' + encodeURIComponent($stateParams.country);
     } else if ($stateParams.language) {
-        relLinkCorrected = '/webservice/json/stations/bylanguageexact/' + encodeURIComponent($stateParams.language);
+        relLinkCorrected = '/json/stations/bylanguageexact/' + encodeURIComponent($stateParams.language);
     } else if ($stateParams.codec) {
-        relLinkCorrected = '/webservice/json/stations/bycodecexact/' + encodeURIComponent($stateParams.codec);
+        relLinkCorrected = '/json/stations/bycodecexact/' + encodeURIComponent($stateParams.codec);
     } else if ($stateParams.name) {
-        relLinkCorrected = '/webservice/json/stations/byname/' + encodeURIComponent($stateParams.name);
+        relLinkCorrected = '/json/stations/byname/' + encodeURIComponent($stateParams.name);
     }
 
     function changeItemsPerPage(items) {
@@ -47,7 +47,7 @@ app.controller('ListController', function (radiobrowser, audioplayer, relLink, $
     }
 
     function vote(station) {
-        radiobrowser.get('/webservice/json/vote/' + station.id).then(function (data) {
+        radiobrowser.get('/json/vote/' + station.id).then(function (data) {
             if (data.data.ok === "true") {
                 station.votes = parseInt(station.votes) + 1;
             } else {
@@ -72,7 +72,7 @@ app.controller('ListController', function (radiobrowser, audioplayer, relLink, $
 
     function revertStation(stationid, changeid) {
         console.log("revertStation:" + stationid + "  " + changeid);
-        radiobrowser.get('/webservice/json/revert/' + stationid + '/' + changeid).then(function (data) {
+        radiobrowser.get('/json/revert/' + stationid + '/' + changeid).then(function (data) {
             $state.go('lastchange');
             if (data.data.ok === "true") {
                 alert("undelete ok");
@@ -86,9 +86,9 @@ app.controller('ListController', function (radiobrowser, audioplayer, relLink, $
 
     function play(station) {
         // decode playlist
-        radiobrowser.get("/webservice/v2/json/url/" + station.id).then(function (data) {
+        radiobrowser.get("/json/url/" + station.stationuuid).then(function (data) {
             var stationReal = data.data;
-            if (stationReal.ok === "true") {
+            if (stationReal.ok === true) {
                 var video = station.codec.indexOf(',') >= 0;
                 audioplayer.play(stationReal.url, stationReal.name, parseInt(station.hls), video);
             }

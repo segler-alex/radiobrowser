@@ -38,7 +38,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 resolve: {
                     relLink: function () {
                         return {
-                            value: "/webservice/json/countries"
+                            value: "/json/countries"
                         };
                     }
                 },
@@ -50,7 +50,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 resolve: {
                     relLink: function () {
                         return {
-                            value: "/webservice/json/languages"
+                            value: "/json/languages"
                         };
                     }
                 },
@@ -62,7 +62,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 resolve: {
                     relLink: function () {
                         return {
-                            value: "/webservice/json/tags"
+                            value: "/json/tags"
                         };
                     }
                 },
@@ -74,7 +74,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 resolve: {
                     relLink: function () {
                         return {
-                            value: "/webservice/json/codecs"
+                            value: "/json/codecs"
                         };
                     }
                 },
@@ -162,7 +162,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 resolve: {
                     relLink: function () {
                         return {
-                            value: "/webservice/json/stations/topclick/100"
+                            value: "/json/stations/topclick/100"
                         };
                     }
                 },
@@ -174,7 +174,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 resolve: {
                     relLink: function () {
                         return {
-                            value: "/webservice/json/stations/topvote/100"
+                            value: "/json/stations/topvote/100"
                         };
                     }
                 },
@@ -186,7 +186,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 resolve: {
                     relLink: function () {
                         return {
-                            value: "/webservice/json/stations/broken/100"
+                            value: "/json/stations/broken/100"
                         };
                     }
                 },
@@ -198,7 +198,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 resolve: {
                     relLink: function () {
                         return {
-                            value: "/webservice/json/stations/deleted"
+                            value: "/json/stations/deleted"
                         };
                     }
                 },
@@ -210,7 +210,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 resolve: {
                     relLink: function () {
                         return {
-                            value: "/webservice/json/stations/improvable/10"
+                            value: "/json/stations/improvable/10"
                         };
                     }
                 },
@@ -222,7 +222,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 resolve: {
                     relLink: function () {
                         return {
-                            value: "/webservice/json/stations/lastchange/100"
+                            value: "/json/stations/lastchange/100"
                         };
                     }
                 },
@@ -234,7 +234,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 resolve: {
                     relLink: function () {
                         return {
-                            value: "/webservice/json/stations/lastclick/100"
+                            value: "/json/stations/lastclick/100"
                         };
                     }
                 },
@@ -246,7 +246,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 resolve: {
                     relLink: function () {
                         return {
-                            value: "/webservice/json/stations/search"
+                            value: "/json/stations/search"
                         };
                     }
                 },
@@ -259,7 +259,7 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 resolve: {
                     relLink: function () {
                         return {
-                            value: "/webservice/json/stations/search"
+                            value: "/json/stations/search"
                         };
                     }
                 },
