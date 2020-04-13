@@ -1,15 +1,11 @@
 var gulp = require('gulp'),
-  connect = require('gulp-connect'),
-  proxy = require('http-proxy-middleware');
+  connect = require('gulp-connect');
 
 gulp.task('connect', function () {
   connect.server({
     port: 4200,
     host: "0.0.0.0",
     livereload: true,
-    middleware: function (connect, opt) {
-      return [ proxy('http://www.radio-browser.info/webservice', { changeOrigin: true }) ];
-    }
   });
 });
 
@@ -17,9 +13,6 @@ gulp.task('production', function () {
   connect.server({
     port: 4200,
     host: "0.0.0.0",
-    middleware: function (connect, opt) {
-      return [ proxy('http://www.radio-browser.info/webservice', { changeOrigin: true }) ];
-    }
   });
 });
 
@@ -40,4 +33,4 @@ gulp.task('watch', function () {
     [ 'reload' ]);
 });
 
-gulp.task('default', [ 'connect', 'watch' ]);
+gulp.task('default', gulp.series([ 'connect', 'watch' ]));
