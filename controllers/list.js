@@ -47,7 +47,7 @@ app.controller('ListController', function (radiobrowser, audioplayer, relLink, $
     }
 
     function vote(station) {
-        radiobrowser.get('/json/vote/' + station.id).then(function (data) {
+        radiobrowser.get('/json/vote/' + station.stationuuid).then(function (data) {
             if (data.data.ok === "true") {
                 station.votes = parseInt(station.votes) + 1;
             } else {
