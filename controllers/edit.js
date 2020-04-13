@@ -11,7 +11,7 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
                 vm.editStation.tags_arr = vm.editStation.tags.split(',');
                 console.log("received station:" + JSON.stringify(vm.editStation));
 
-                updateImageList(vm.editStation.favicon);
+                //updateImageList(vm.editStation.favicon);
                 updateSimiliar(vm.editStation.name);
             }
         });
@@ -55,6 +55,7 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
         });
     }
 
+    /*
     function updateImageList(url) {
         radiobrowser.post('/json/extract_images', {
             'url': url
@@ -69,6 +70,7 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
             console.log("error:" + JSON.stringify(err));
         });
     }
+    */
 
     function updateSimiliar(name) {
         radiobrowser.post('/json/stations/byname/' + name, {
@@ -211,7 +213,7 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
     vm.editStation = {};
 
     vm.open = open;
-    vm.updateImageList = updateImageList;
+    //vm.updateImageList = updateImageList;
     vm.updateSimiliar = updateSimiliar;
     vm.addTag = addTag;
     vm.removeTag = removeTag;

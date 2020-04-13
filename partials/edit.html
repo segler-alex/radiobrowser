@@ -39,8 +39,8 @@
                  ng-class="{'has-success':FormInput.StationHomepage.$valid,'has-error':!FormInput.StationHomepage.$valid}">
                 <label for="StationHomepage" class="col-sm-2 control-label">Homepage</label>
                 <div class="col-sm-10">
+                    <!--ng-change="edit.updateImageList(edit.editStation.homepage)"-->
                     <input type="text" class="form-control" id="StationHomepage" placeholder="http://.."
-                           ng-change="edit.updateImageList(edit.editStation.homepage)"
                            ng-model="edit.editStation.homepage" name="StationHomepage" required
                            ng-pattern="/^https?:\/\/.+$/" ng-disabled="edit.activeSending"
                     />
