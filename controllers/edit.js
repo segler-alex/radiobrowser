@@ -1,6 +1,6 @@
 var app = angular.module('RadioBrowserApp');
 
-app.controller('EditController', function (radiobrowser, $uibModal, $stateParams, $state) {
+app.controller('EditController', function (radiobrowser, $uibModal, $stateParams, $state, $http) {
     var vm = this;
 
     if ($stateParams.id) {
@@ -166,7 +166,7 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
     }
 
     function getCountries(term) {
-        return radiobrowser.get('http://restcountries.eu/rest/v2/name/' + encodeURIComponent(term)).then(function (response) {
+        return $http.get('http://restcountries.eu/rest/v2/name/' + encodeURIComponent(term)).then(function (response) {
             return response.data.slice(0, 5);
         });
         /*
