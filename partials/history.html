@@ -4,18 +4,16 @@
         <th width="200" style="text-align:center;vertical-align:middle;">Change Time (<a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time"
                                         target="_blank">UTC</a>)
         </th>
-        <th style="text-align:center;vertical-align:middle;">IP Address</th>
         <th style="text-align:center;vertical-align:middle;">Changes</th>
-        <th style="text-align:center;vertical-align:middle;">Actions</th>
+        <!--<th style="text-align:center;vertical-align:middle;">Actions</th>-->
         </thead>
         <tbody>
         <tr ng-repeat="change in ctrl.list">
             <td>{{change.lastchangetime}}</td>
-            <td>{{change.ip}}</td>
             <td>
                 <pre>{{change.diff}}</pre>
             </td>
-            <td></td>
+            <!--<td></td>-->
         </tr>
         </tbody>
     </table>
