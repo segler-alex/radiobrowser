@@ -1,20 +1,52 @@
 <div>
+    <h2>Stream change history</h2>
     <table class="table table-condensed table-hover">
         <thead>
-        <th width="200" style="text-align:center;vertical-align:middle;">Change Time (<a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time"
-                                        target="_blank">UTC</a>)
-        </th>
-        <th style="text-align:center;vertical-align:middle;">Changes</th>
-        <!--<th style="text-align:center;vertical-align:middle;">Actions</th>-->
+            <th width="200" class="text-center">Change Time<br />(Local browser time)</th>
+            <th class="text-center">Changes</th>
         </thead>
         <tbody>
-        <tr ng-repeat="change in ctrl.list">
-            <td>{{change.lastchangetime}}</td>
-            <td>
-                <pre>{{change.diff}}</pre>
-            </td>
-            <!--<td></td>-->
-        </tr>
+            <tr ng-repeat="change in ctrl.list_changes">
+                <td class="text-center">{{change.lastchangetime_locale}}</td>
+                <td>
+                    <pre>{{change.diff}}</pre>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Stream click history</h2>
+    A list of clicks in the last 24 hours.
+    <div style="width: 90%; height: 400px;">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <h2>Stream check history</h2>
+    A list of checks and their results. Checks are done from different servers over time.<br />
+    Streams do also send metadata which is displayed here and which may differ from the data in the radio-browser
+    database.
+    <table class="table table-condensed table-hover table-bordered">
+        <thead>
+            <th width="200" class="text-center">Check time<br />(Local browser time)</th>
+            <th class="text-center">Check-Server</th>
+            <th class="text-center">Codec</th>
+            <th class="text-center">Bitrate</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Tags</th>
+            <th class="text-center">Homepage</th>
+            <th class="text-center">Description</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="check in ctrl.list_checks" ng-class="{'bg-danger': !check.ok}">
+                <td class="text-center">{{check.timestamp_locale}}</td>
+                <td class="text-center">{{check.source}}</td>
+                <td class="text-center">{{check.codec}}</td>
+                <td class="text-center">{{check.bitrate}}</td>
+                <td class="text-center">{{check.name}}</td>
+                <td class="text-center">{{check.tags}}</td>
+                <td class="text-center">{{check.homepage}}</td>
+                <td class="text-center">{{check.description}}</td>
+            </tr>
         </tbody>
     </table>
 </div>

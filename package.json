@@ -2,12 +2,13 @@
   "name": "radiobrowser",
   "version": "1.0.0",
   "description": "website frontend with angular 1.x for [radio-browser api](https://github.com/segler-alex/radiobrowser-api-rust)",
-  "main": "app.js",
+  "private": "true",
   "dependencies": {
     "@uirouter/angularjs": "^1.0.25",
     "angular": "^1.7.9",
     "angular-ui-bootstrap": "^2.5.6",
     "bootstrap": "~3.4.1",
+    "chart.js": "^2.9.3",
     "jquery": "^3.3.1"
   },
   "devDependencies": {

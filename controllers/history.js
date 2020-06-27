@@ -3,18 +3,75 @@ var app = angular.module('RadioBrowserApp');
 app.controller('HistoryController', function (radiobrowser, $stateParams) {
     var vm = this;
 
-    vm.list = [];
+    vm.list_changes = [];
+    vm.list_clicks = [];
+    vm.list_checks = [];
 
     if ($stateParams.id) {
-        radiobrowser.get('/json/stations/changed/' + $stateParams.id).then(function (data) {
-            vm.list = data.data;
-            vm.list.sort(listSorter);
-            computeDiffs();
+        radiobrowser.get_changes($stateParams.id).then(function (data) {
+            vm.list_changes = data;
+            vm.list_changes.sort(listSorter);
+            vm.list_changes = computeDiffs(vm.list_changes);
+        });
+
+        radiobrowser.get_clicks($stateParams.id, 86400).then(function (data) {
+            vm.list_clicks = data;
+            chart.reset();
+            chart.data.datasets[0].data = clicks_to_buckets(vm.list_clicks);
+            chart.update();
+        });
+
+        radiobrowser.get_checks($stateParams.id).then(function (data) {
+            vm.list_checks = data.reverse();
         });
     }
 
+    function clicks_to_buckets(list) {
+        let buckets = [];
+        let now_unix = Date.now() / 1000;
+
+        for (var i = 0; i < 24; i++) {
+            buckets[i] = 0;
+        }
+
+        for (var item of list) {
+            var item_unix = item.clicktimestamp.getTime() / 1000;
+            var bucket = Math.floor((now_unix - item_unix) / 3600);
+            if (bucket < 24){
+                buckets[bucket] += 1;
+            }
+        }
+        return buckets.reverse();
+    }
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var labels = [];
+    for (var i = 23; i > 0; i--) {
+        labels.push("-" + i + "h");
+    }
+    labels.push("now");
+    var chart = new Chart(ctx, {
+        type: 'bar',
+
+        data: {
+            labels,
+            datasets: [{
+                label: 'Clicks in the last 24 hours',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: []
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+        }
+    });
+
+
     function listSorter(item1, item2) {
-        return new Date(item1.lastchangetime) - new Date(item2.lastchangetime);
+        return item1.lastchangetime - item2.lastchangetime;
     }
 
     var keys = ["name", "url", "homepage", "favicon", "tags", "countrycode", "country", "state", "language"];
@@ -32,9 +89,10 @@ app.controller('HistoryController', function (radiobrowser, $stateParams) {
         return JSON.stringify(diff, null, ' ');
     }
 
-    function computeDiffs() {
-        for (var i = 0; i < vm.list.length; i++) {
-            vm.list[i].diff = computeDiff(vm.list[i - 1], vm.list[i]);
+    function computeDiffs(list) {
+        for (var i = 0; i < list.length; i++) {
+            list[i].diff = computeDiff(list[i - 1], list[i]);
         }
+        return list;
     }
 });
