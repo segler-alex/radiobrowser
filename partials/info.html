@@ -1,56 +1,111 @@
 <div ng-controller="InfoController as info">
-    <p>This is a community with the aim of collecting as many internet radio and TV stations as possible. Any help is appreciated!</p>
-    <p><u>Statistics</u>
-        <br/>Station count at the moment: <b>{{info.stats.stations}}</b>
-        <br/> Station clicks last hour: <b>{{info.stats.clicks_last_hour}}</b>
-        <br/> Station clicks last day: <b>{{info.stats.clicks_last_day}}</b>
-        <br/> Distinct tags: <b>{{info.stats.tags}}</b>
-        <br/> Distinct countries: <b>{{info.stats.countries}}</b>
-        <br/> Distinct languages: <b>{{info.stats.languages}}</b>
-    </p>
-    
-    <p class="warning">
-        <!--
-        EDIT is suspended because of vandalism. ADD is still available.
-        -->
-        If you still use the api at www.radio-browser.info/webservice you should switch as soon as possible to the new one at <a href="https://api.radio-browser.info">api.radio-browser.info</a>.
-        The old one is not supported anymore and will not receive any more updates on the software side. The new one is in place and stronger than ever (multiple servers).
-        The api endpoints at www.radio-browser.info/webservice will be taken down at August 1. of 2020.
-    </p>
-    <p><u>HELP!</u><br/>
-        <!--
-        Please help by fixing stations in the tab "broken". The stations there do not work at the present time.<br/>
-        If you do not know how to do that, please have a look at the tab "improve", and add more information to the
-        stations like tags or country.<br/>-->
-        If you want to add new streams please use the link in the menu at the top of this page.<br/>
-        If you find bugs in this webpage, report them to <a href="https://github.com/segler-alex/radiobrowser">GitHub</a><br/>
-        If you find bugs in the webservice API, report them to <a
-                href="https://github.com/segler-alex/radiobrowser-api-rust">GitHub</a></p>
-    <p>
-        <u>Free for ALL!</u>
-        <br/> Everyone can use this station board in their software freely. Just have a look at the API documentation.
-        <br/> Everyone is free to use the collected data (station names, tags, links to stream, links to homepages,
-        language, country, state) in their works.
-        <br/> I give all the rights I have at the accumulated data to the public domain.
-        <br/>A daily backup of the MariaDB tables is at <a href="https://backups.radio-browser.info">backups.radio-browser.info</a>
-        and <a href="https://backups.radio-browser.info/latest.sql.gz">latest</a>.
-    </p>
-    <p>To play the stations, you need some media player software like:
-        <br/>
-    <ul>
-        <li><a href="http://www.winamp.com/">Winamp</a> (Windows, OS X)</li>
-        <li><a href="https://www.videolan.org/">VLC</a> (Windows, Linux, Android, OS X)</li>
-        <li><a href="https://www.clementine-player.org/">Clementine</a> (Windows, Linux, OS X)</li>
-        <li>many many more....</li>
-        <li>yes, maybe Windows Media Player works too :)</li>
-    </ul>
-    </p>
-    If you know an app that is using this service but not listed here, please drop me a note.
-    <br/>Thank you!
-    </p>
-    <p><u>Legal:</u>
-        <br/> I'm not in any way responsible for the entries on this webpage because this is a community-driven effort
-        (like Wikipedia for example). Nor am I responsible for the radio stations that can be found here themselves.
-    </p>
-    <p>Admin: <a href="mailto:segler_alex@web.de">Mail</a></p>
+    <div class="container">
+        <div clas="row">
+            <div class="col-md-12">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3>Alert!</h3>
+                    </div>
+                    <div class="panel-body">
+                        If you still use the api at www.radio-browser.info/webservice you should switch as soon as
+                        possible to the new
+                        one at <a href="https://api.radio-browser.info">api.radio-browser.info</a>.
+                        The old one is not supported anymore and will not receive any more updates on the software side.
+                        The new one is in place and stronger than ever (multiple servers).
+                        The api endpoints at www.radio-browser.info/webservice will be taken down at August 1. of 2020.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>What is radio-browser?</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            This is a community driven effort (like wikipedia) with the aim of collecting as many
+                            internet radio and TV stations as possible. Any help is appreciated!
+                        </p>
+                        <p>
+                        <ul>
+                            <li>Free for ALL!</li>
+                            <li>Data license: public domain, software license: GPL, server software: open source</li>
+                            <li>Open API for usage in own apps</li>
+                            <li>Everyone is free to use the collected data (station names, tags, links to stream,
+                                links to homepages, language, country, state) in their works. I give all the rights I
+                                have at the accumulated data to the public domain.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Statistics</h3>
+                    </div>
+                    <div class="panel-body">
+                        Station count at the moment: <b>{{info.stats.stations}}</b>
+                        <br /> Station clicks last hour: <b>{{info.stats.clicks_last_hour}}</b>
+                        <br /> Station clicks last day: <b>{{info.stats.clicks_last_day}}</b>
+                        <br /> Distinct tags: <b>{{info.stats.tags}}</b>
+                        <br /> Distinct countries: <b>{{info.stats.countries}}</b>
+                        <br /> Distinct languages: <b>{{info.stats.languages}}</b>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>What can radio-browser do for you?</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            <u>I want to listen to radio</u><br />
+                            Please have a look at the list of apps that use this service by clicking on "<a
+                                ui-sref="users" ng-click="setTab('users')">Apps</a>" in the
+                            header bar. You can also just use the search field on this webpage to find streams you want
+                            to listen to. Maybe you want a list of the <a ui-sref="topclick"
+                                ng-click="setTab('byclicks')">most clicked streams</a> of this service?
+                        </p>
+                        <p>
+                            <u>I want to add a stream to the database</u><br />
+                            Just click "<a ui-sref="add" ng-click="setTab('editstation')">New station</a>" and add the
+                            stream. This service is completely automatic. More information in the FAQ. Streams CANNOT be
+                            changed at the moment by users.
+                        </p>
+                        <p>
+                            <u>I am the owner of a stream</u><br />
+                            You can <a ui-sref="add" ng-click="setTab('editstation')">add your stream</a>. Streams
+                            cannot be changed at the moment but I am
+                            currently working on a possibility to
+                            automatically extract meta information from streams. For that i need streams i can test this
+                            behaviour with and therefore help from you. Please
+                            <a href="mailto:segler_alex@web.de">contact me</a> if you want to change your stream.
+                        </p>
+                        <p>
+                            <u>I am an app developer</u><br />
+                            Have a look at the API documentation at <a
+                                href="https://api.radio-browser.info">api.radio-browser.info</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Legal</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            I'm not in any way responsible for the entries on this webpage because this is a
+                            community-driven effort
+                            (like Wikipedia for example). Nor am I responsible for the radio stations that can be found
+                            here themselves.
+                        </p>
+                        <p>Admin: <a href="mailto:segler_alex@web.de">Mail</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
