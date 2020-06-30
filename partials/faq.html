@@ -1,197 +1,310 @@
-<div class="container-fluid">
-    This FAQ will grow as time goes by. Every question you ask in emails will get added here.
-    <H3>General questions</H3>
-    <dl>
-        <dt>Why can stations not be changed?</dt>
-        <dd>Because of vandalism, please see the <a href="https://github.com/segler-alex/radiobrowser-api-rust/issues/49">discussion</a> on github.</dd>
-        <dt>Is there a map of the servers?</dt>
-        <dd>Yes, at <a href="https://api.radio-browser.info/net.html">api.radio-browser.info/net.html</a></dd>
-        <dt>Are there more detailed stats of this service?</dt>
-        <dd>Yes, at <a href="https://stats.api.radio-browser.info">stats.api.radio-browser.info</a></dd>
-        <dt>May I download a backup of the database?</dt>
-        <dd>Yes, a daily backup of the MariaDB tables is placed at <a
-                href="https://backups.radio-browser.info">backups.radio-browser.info</a>
-            and <a href="https://backups.radio-browser.info/latest.sql.gz">latest</a>.
-        </dd>
-    </dl>
-    <H3>Help</H3>
-    <dl>
-        <dt>I want to help, I am a programmer</dt>
-        <dd>You can fork the <a href="https://github.com/segler-alex/radiobrowser-api-rust/fork">backend</a>
-            or <a href="https://github.com/segler-alex/radiobrowser">the frontend (this page)</a> on github.
-            I accept pull requests. You can also discuss new features on the issue board.</dd>
-        <dt>I want to help, I am a designer</dt>
-        <dd>I really appreciate any help with design of this page. I did my best, but i am really not good at design :)
-            You can go to <a href="https://github.com/segler-alex/radiobrowser">github</a> or send me a mail.
-        </dd>
-    </dl>
-    <H3>Automatic station check</H3>
-    <dl>
-        <dt>Why is my click not counted?</dt>
-        <dd>Only one click per IP address per station a day is counted. Some people click their favorite stations
-            hundreds of times every day by using the programmers API, so I had to add this restriction.
-            IP addresses that did the click are kept for this purpose for 24 hours.
-        </dd>
-        <dt>How often is every station checked?</dt>
-        <dd>Every station is checked once every 24 hours. 
-        </dd>
-        <dt>In what order are the stations checked?</dt>
-        <dd>The stations not checked for the longest time are checked first.</dd>
-        <dt>Why are some stations marked as broken even when they are not?</dt>
-        <dd>This can have multiple causes:
-            <ul>
-                <li>Legal restrictions:
-                    <br/> There may be some countries which have legal restrictions prohibiting your favorite
-                    stations from broadcasting worldwide. It has to be possible to connect to them from my server
-                    located in Germany.
-                </li>
-                <li>High Costs:
-                    <br/> Some others would allow global broadcast but let the stations pay huge amounts of money to
-                    copyright owners if they want to do that. Please talk to your station or your local political
-                    representatives to ensure the freedom of global
-                    broadcasting.
-                </li>
-                <li>Status not up to date:<br/>
-                    Sometimes streams go down for some time. If the automatic check happens to be there at this exact
-                    time, they will be marked as broken. It will take some time that this station is checked again and marked
-                    as usable.
-                </li>
-                <li>Bugs:
-                    <br/> My program has a BUG :) If you think that is the case, please drop me a note or if you are a
-                    programmer, fix it on GitHub.
-                </li>
-            </ul>
-        </dd>
-        <dt>When will stations get deleted?</dt>
-        <dd>There are two cases in which stations will get deleted automatically:
-            <ul>
-                <li>New stations that never worked will get deleted after 2 days.</li>
-                <li>Stations that worked at some point, but have not been working for at least 6 days now will get deleted.</li>
-            </ul>
-        </dd>
-    </dl>
-    <H3>Caches</H3>
-    <dl>
-        <dt>What is cached?</dt>
-        <dd>The list of tags and the list of languages are calculated from the data. They are refreshed every 60 seconds.
-        </dd>
-    </dl>
-    <H3>Project structure</H3>
-    <dl>
-        <dt>I want to use the radio-browser API in my own app/program.</dt>
-        <dd>
-            It is completely free. Free as in Beer/chocolate :)<br/>
-            Just go to <a href="https://www.radio-browser.info/webservice">www.radio-browser.info</a></li> and read the docs. It is easy and has examples.
-        </dd>
-    </dl>
-    <dl>
-        <dt>How do I get a list of second level servers?</dt>
-        <dd>
-            You have to do the following steps:
-            <ol>
-                <li>Do a DNS lookup of all.api.radio-browser.info for all IP addresses. It will always return all available second level servers.</li>
-                <li>Filter out doubles</li>
-                <li>Do a reverse lookup for all remaining IPs.</li>
-                <li>Add "https://" in front of each of them.</li>
-            </ol>
-            There are example implementations at <a href="https://api.radio-browser.info">api.radio-browser.info</a>.
-        </dd>
-    </dl>
-    <dl>
-        <dt>Do all radio-browser servers support IPv6?</dt>
-        <dd>
-            In short: YES.<br/>
-            If you have any problems, please contact me.
-        </dd>
-    </dl>
-    <dl>
-        <dt>Do all radio-browser servers support HTTP/2?</dt>
-        <dd>
-            In short: YES.<br/>
-            If you have any problems, please contact me.
-        </dd>
-    </dl>
-    <dl>
-        <dt>I want to set up my own radiobrowser API server. How do I do that?</dt>
-        <dd>
-            You have two ways:
-            <ul>
-                <li>
-                    DEPRECATED:
-                    Use the old variant which is for now in use at www.radio-browser.info:<br/>
-                    There is a README at <a href="https://github.com/segler-alex/radiobrowser-api">radiobrowser-api</a>.
-                </li>
-                <li>
-                    Use the new system at <a href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a> which
-                    powers the new second level servers. It will automatically mirror the main server because it supports federation. This
-                    is probably your easiest bet.
-                </li>
-            </ul>
-        </dd>
-    </dl>
-    <dl>
-        <dt>Does radio-browser have some kinds of federation network?</dt>
-        <dd>
-            The new API <a href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a> does have federation.<br/>
-            The old one <a href="https://github.com/segler-alex/radiobrowser-api">radiobrowser-api</a> does not.
-        </dd>
-    </dl>
-    <dl>
-        <dt>What is the future plan for www.radio-browser.info?</dt>
-        <dd>
-            <u>Current State</u><br/>
-            At the moment www.radio-browser.info/webservice is the only first level server handling most users.<br/>
-            There are some second level servers which already use the new style API and use federation to mirror the contents of the first level server.<br/>
-            For now stations are distributed from the first level server to the second level servers and NOT in the other direction.
-            That means stations added to second level servers will not get distributed and will be deleted eventually.<br/><br/>
-            <u>Future</u><br/>
-            The server at www.radio-browser.info/webservice will be shut down eventually and the current second level servers
-            will become the first level servers for other people to use and mirror.<br/>
-            Stations can be added to any one of the new first level servers and will be distributed among them.
-        </dd>
-    </dl>
-    <dl>
-        <dt>How does federation work?</dt>
-        <dd>
-            Every server keeps a station change history including all additions and changes.
-            This can be pulled from other servers as a full version or as a differential from the state they already have.
-            Each server also keeps a history of station checks, which can also be pulled in a similiar fashion.<br/><br/>
-            Some servers do checks themselves, so there are multiple sources of checks from different countries. Checks from multiple sources
-            for one station are combined into a majority vote (offline/online) state.
-        </dd>
-    </dl>
-    <dl>
-        <dt><a href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a></dt>
-        <dd>Language: RUST<br/>
-            Provide API for multiple second level servers at
-            <ul>
-                <li><a href="https://de1.api.radio-browser.info">de1.api.radio-browser.info</a></li>
-                <li><a href="https://fr1.api.radio-browser.info">fr1.api.radio-browser.info</a></li>
-                <li><a href="https://nl1.api.radio-browser.info">nl1.api.radio-browser.info</a></li>
-            </ul>
-        </dd>
-    </dl>
-    <dl>
-        <dt><a href="https://github.com/segler-alex/radiobrowser">radiobrowser</a></dt>
-        <dd>Language: HTML, Javascript, Angular 1<br/>
-            Basic web page to list, play and add stations. Communicate to radiobrowser-api through REST requests.
-        </dd>
-    </dl>
-    <dl>
-        <dt><a href="https://github.com/segler-alex/av-stream-info-rust">av-stream-check</a></dt>
-        <dd>Language: Rust<br/>
-            Type: Library<br/>
-            Repository: <a href="https://crates.io/crates/av-stream-info-rust">crates.io</a><br/>
-            Dependency: playlist-decoder<br/>
-            Library that checks audio and video streams and extracts metadata.
-        </dd>
-    </dl>
-    <dl>
-        <dt><a href="https://github.com/segler-alex/playlist-decoder-rust">playlist-decoder</a></dt>
-        <dd>Language: Rust<br/>
-            Type: Library<br/>
-            Repository: <a href="https://crates.io/crates/playlist-decoder">crates.io</a><br/>
-            Library that decodes various playlist formats (M3U,PLS,XSPF)
-        </dd>
-    </dl>
+<div>
+    <div class="text-center">
+        <h2>FAQ</h2>
+        <p>
+            This FAQ will grow as time goes by. Every question you ask in emails will get added here.
+        </p>
+    </div>
+    <div class="container">
+        <div clas="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>General questions</h3>
+                    </div>
+                    <div class="panel-body">
+                        <dl>
+                            <dt>Why can stations not be changed?</dt>
+                            <dd>Because of vandalism, please see the <a
+                                    href="https://github.com/segler-alex/radiobrowser-api-rust/issues/49">discussion</a>
+                                on
+                                github.</dd>
+                            <dt>Is there a map of the servers?</dt>
+                            <dd>Yes, at <a
+                                    href="https://api.radio-browser.info/net.html">api.radio-browser.info/net.html</a>
+                            </dd>
+                            <dt>Are there more detailed stats of this service?</dt>
+                            <dd>Yes, at <a href="https://stats.api.radio-browser.info">stats.api.radio-browser.info</a>
+                            </dd>
+                            <dt>May I download a backup of the database?</dt>
+                            <dd>Yes, a daily backup of the MariaDB tables is placed at <a
+                                    href="https://backups.radio-browser.info">backups.radio-browser.info</a>
+                                and <a href="https://backups.radio-browser.info/latest.sql.gz">latest</a>.
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>How can I help?</h3>
+                    </div>
+                    <div class="panel-body">
+                        <dl>
+                            <dt>I want to help, I am a programmer</dt>
+                            <dd>You can fork the <a
+                                    href="https://github.com/segler-alex/radiobrowser-api-rust/fork">backend</a>
+                                or <a href="https://github.com/segler-alex/radiobrowser">the frontend (this page)</a> on
+                                github.
+                                I accept pull requests. You can also discuss new features on the issue board.</dd>
+                            <dt>I want to help, I am a designer</dt>
+                            <dd>I really appreciate any help with design of this page. I did my best, but i am really
+                                not
+                                good at design :)
+                                You can go to <a href="https://github.com/segler-alex/radiobrowser">github</a> or send
+                                me a
+                                mail.
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Automatic station check</h3>
+                    </div>
+                    <div class="panel-body">
+                        <dl>
+                            <dt>Why is my click not counted?</dt>
+                            <dd>Only one click per IP address per station a day is counted. Some people click their
+                                favorite stations
+                                hundreds of times every day by using the programmers API, so I had to add this
+                                restriction.
+                                IP addresses that did the click are kept for this purpose for 24 hours.
+                            </dd>
+                            <dt>How often is every station checked?</dt>
+                            <dd>Every station is checked once every 24 hours.
+                            </dd>
+                            <dt>In what order are the stations checked?</dt>
+                            <dd>The stations not checked for the longest time are checked first.</dd>
+                            <dt>Why are some stations marked as broken even when they are not?</dt>
+                            <dd>This can have multiple causes:
+                                <ul>
+                                    <li>Legal restrictions:
+                                        <br /> There may be some countries which have legal restrictions prohibiting
+                                        your favorite
+                                        stations from broadcasting worldwide. It has to be possible to connect to them
+                                        from my server
+                                        located in Germany.
+                                    </li>
+                                    <li>High Costs:
+                                        <br /> Some others would allow global broadcast but let the stations pay huge
+                                        amounts of money to
+                                        copyright owners if they want to do that. Please talk to your station or your
+                                        local political
+                                        representatives to ensure the freedom of global
+                                        broadcasting.
+                                    </li>
+                                    <li>Status not up to date:<br />
+                                        Sometimes streams go down for some time. If the automatic check happens to be
+                                        there at this exact
+                                        time, they will be marked as broken. It will take some time that this station is
+                                        checked again and
+                                        marked
+                                        as usable.
+                                    </li>
+                                    <li>Bugs:
+                                        <br /> My program has a BUG :) If you think that is the case, please drop me a
+                                        note or if you are a
+                                        programmer, fix it on GitHub.
+                                    </li>
+                                </ul>
+                            </dd>
+                            <dt>When will stations get deleted?</dt>
+                            <dd>There are two cases in which stations will get deleted automatically:
+                                <ul>
+                                    <li>New stations that never worked will get deleted after 2 days.</li>
+                                    <li>Stations that worked at some point, but have not been working for at least 6
+                                        days now will get
+                                        deleted.</li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Caches</h3>
+                    </div>
+                    <div class="panel-body">
+                        <dl>
+                            <dt>What is cached?</dt>
+                            <dd>The list of tags and the list of languages are calculated from the data. They are
+                                refreshed every 60
+                                seconds.
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Project structure</h3>
+                    </div>
+                    <div class="panel-body">
+                        <dl>
+                            <dt>I want to use the radio-browser API in my own app/program.</dt>
+                            <dd>
+                                It is completely free. Free as in Beer/chocolate :)<br />
+                                Just go to <a
+                                    href="https://www.radio-browser.info/webservice">www.radio-browser.info</a></li> and
+                                read the
+                                docs. It is easy and has examples.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>How do I get a list of second level servers?</dt>
+                            <dd>
+                                You have to do the following steps:
+                                <ol>
+                                    <li>Do a DNS lookup of all.api.radio-browser.info for all IP addresses. It will
+                                        always return all
+                                        available second level servers.</li>
+                                    <li>Filter out doubles</li>
+                                    <li>Do a reverse lookup for all remaining IPs.</li>
+                                    <li>Add "https://" in front of each of them.</li>
+                                </ol>
+                                There are example implementations at <a
+                                    href="https://api.radio-browser.info">api.radio-browser.info</a>.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>Do all radio-browser servers support IPv6?</dt>
+                            <dd>
+                                In short: YES.<br />
+                                If you have any problems, please contact me.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>Do all radio-browser servers support HTTP/2?</dt>
+                            <dd>
+                                In short: YES.<br />
+                                If you have any problems, please contact me.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>I want to set up my own radiobrowser API server. How do I do that?</dt>
+                            <dd>
+                                You have two ways:
+                                <ul>
+                                    <li>
+                                        DEPRECATED:
+                                        Use the old variant which is for now in use at www.radio-browser.info:<br />
+                                        There is a README at <a
+                                            href="https://github.com/segler-alex/radiobrowser-api">radiobrowser-api</a>.
+                                    </li>
+                                    <li>
+                                        Use the new system at <a
+                                            href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a>
+                                        which
+                                        powers the new second level servers. It will automatically mirror the main
+                                        server because it
+                                        supports federation. This
+                                        is probably your easiest bet.
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>Does radio-browser have some kinds of federation network?</dt>
+                            <dd>
+                                The new API <a
+                                    href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a>
+                                does
+                                have federation.<br />
+                                The old one <a
+                                    href="https://github.com/segler-alex/radiobrowser-api">radiobrowser-api</a> does
+                                not.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>What is the future plan for www.radio-browser.info?</dt>
+                            <dd>
+                                <u>Current State</u><br />
+                                At the moment www.radio-browser.info/webservice is the only first level server handling
+                                most users.<br />
+                                There are some second level servers which already use the new style API and use
+                                federation to mirror the
+                                contents of the first level server.<br />
+                                For now stations are distributed from the first level server to the second level servers
+                                and NOT in the
+                                other direction.
+                                That means stations added to second level servers will not get distributed and will be
+                                deleted
+                                eventually.<br /><br />
+                                <u>Future</u><br />
+                                The server at www.radio-browser.info/webservice will be shut down eventually and the
+                                current second level
+                                servers
+                                will become the first level servers for other people to use and mirror.<br />
+                                Stations can be added to any one of the new first level servers and will be distributed
+                                among them.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>How does federation work?</dt>
+                            <dd>
+                                Every server keeps a station change history including all additions and changes.
+                                This can be pulled from other servers as a full version or as a differential from the
+                                state they already
+                                have.
+                                Each server also keeps a history of station checks, which can also be pulled in a
+                                similiar
+                                fashion.<br /><br />
+                                Some servers do checks themselves, so there are multiple sources of checks from
+                                different countries. Checks
+                                from multiple sources
+                                for one station are combined into a majority vote (offline/online) state.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><a href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a>
+                            </dt>
+                            <dd>Language: RUST<br />
+                                Provide API for multiple second level servers at
+                                <ul>
+                                    <li><a href="https://de1.api.radio-browser.info">de1.api.radio-browser.info</a></li>
+                                    <li><a href="https://fr1.api.radio-browser.info">fr1.api.radio-browser.info</a></li>
+                                    <li><a href="https://nl1.api.radio-browser.info">nl1.api.radio-browser.info</a></li>
+                                </ul>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><a href="https://github.com/segler-alex/radiobrowser">radiobrowser</a></dt>
+                            <dd>Language: HTML, Javascript, Angular 1<br />
+                                Basic web page to list, play and add stations. Communicate to radiobrowser-api through
+                                REST requests.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><a href="https://github.com/segler-alex/av-stream-info-rust">av-stream-check</a></dt>
+                            <dd>Language: Rust<br />
+                                Type: Library<br />
+                                Repository: <a href="https://crates.io/crates/av-stream-info-rust">crates.io</a><br />
+                                Dependency: playlist-decoder<br />
+                                Library that checks audio and video streams and extracts metadata.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><a href="https://github.com/segler-alex/playlist-decoder-rust">playlist-decoder</a></dt>
+                            <dd>Language: Rust<br />
+                                Type: Library<br />
+                                Repository: <a href="https://crates.io/crates/playlist-decoder">crates.io</a><br />
+                                Library that decodes various playlist formats (M3U,PLS,XSPF)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
