@@ -31,6 +31,15 @@
                             </dd>
                         </dl>
                         <dl>
+                            <dt>I want to use the radio-browser API in my own app/program.</dt>
+                            <dd>
+                                It is completely free. Free as in Beer/chocolate :)<br />
+                                Just go to <a href="https://api.radio-browser.info">api.radio-browser.info</a></li> and
+                                read the
+                                docs. It is easy and has examples.
+                            </dd>
+                        </dl>
+                        <dl>
                             <dt>May I download a backup of the database?</dt>
                             <dd>Yes, a daily backup of the MariaDB tables is placed at <a
                                     href="https://backups.radio-browser.info">backups.radio-browser.info</a>
@@ -50,8 +59,10 @@
                         There are plans to improve radio-browser even further. These are just the biggest things on my
                         mind. More are on the
                         issue pages on github and there is also the place where you can add your ideas and discuss them
-                        with others. The main goal of radio-browser was always and will always be to make it as AUTOMATIC
-                        and as SIMPLE to use and as OPEN as possible. If there is a sensible way to make it automatic then we should
+                        with others. The main goal of radio-browser was always and will always be to make it as
+                        AUTOMATIC
+                        and as SIMPLE to use and as OPEN as possible. If there is a sensible way to make it automatic
+                        then we should
                         at least think about it. With this in mind the following points should give you an idea about
                         the main direction of the project.
                         <dl>
@@ -66,7 +77,8 @@
                                         They know best what their own streams are, where they are located, what the
                                         language spoken is etc..
                                         This just extends an already existing way of providing metainformation.
-                                        Overriding database information will be an opt-in for stream owners. This is because
+                                        Overriding database information will be an opt-in for stream owners. This is
+                                        because
                                         at the moment a lot of streams do have wrong or empty metainformation fields.
                                     </li>
                                     <li>
@@ -245,26 +257,30 @@
                     </div>
                     <div class="panel-body">
                         <dl>
-                            <dt>I want to use the radio-browser API in my own app/program.</dt>
+                            <dt>Current structure</dt>
                             <dd>
-                                It is completely free. Free as in Beer/chocolate :)<br />
-                                Just go to <a href="https://api.radio-browser.info">api.radio-browser.info</a></li> and
-                                read the
-                                docs. It is easy and has examples.
+                                I keep multiple servers that use federation online. I call them first level servers.
+                                Stations can be added to any one of the first level servers and will be distributed
+                                among them. Also stream check information and click statistics is distributed among
+                                them.
                             </dd>
                         </dl>
                         <dl>
-                            <dt>How do I get a list of second level servers?</dt>
+                            <dt>How do I get a list of first level servers?</dt>
                             <dd>
                                 You have to do the following steps:
                                 <ol>
                                     <li>Do a DNS lookup of all.api.radio-browser.info for all IP addresses. It will
                                         always return all
-                                        available second level servers.</li>
+                                        available first level servers.</li>
                                     <li>Filter out doubles</li>
                                     <li>Do a reverse lookup for all remaining IPs.</li>
                                     <li>Add "https://" in front of each of them.</li>
+                                    <li>Randomize the list and choose the first one as base url. If a request fails
+                                        continue to the next server in your list.</li>
                                 </ol>
+                                This steps will ensure that the users of your app will always have a working connection
+                                to a server.
                                 There are example implementations at <a
                                     href="https://api.radio-browser.info">api.radio-browser.info</a>.
                             </dd>
@@ -300,14 +316,10 @@
                                     href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a>
                                 does have federation.<br />
                                 This means that changes on one server will automatically be pulled from all the other
-                                servers
-                                and incorporated into their data. Consistency is kept by giving each change a distinct
-                                unique
-                                ID (<a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a>)
-                                <br />
-                                I keep multiple servers that use federation online. I call them first level servers.
-                                Stations can be added to any one of the new first level servers and will be distributed
-                                among them.
+                                servers and incorporated into their data. Consistency is kept by giving each change a
+                                distinct
+                                unique ID (<a
+                                    href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a>)
                             </dd>
                         </dl>
                         <dl>
