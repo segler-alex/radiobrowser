@@ -17,19 +17,92 @@
                             <dt>Why can stations not be changed?</dt>
                             <dd>Because of vandalism, please see the <a
                                     href="https://github.com/segler-alex/radiobrowser-api-rust/issues/49">discussion</a>
-                                on
-                                github.</dd>
+                                on github.</dd>
+                        </dl>
+                        <dl>
                             <dt>Is there a map of the servers?</dt>
                             <dd>Yes, at <a
                                     href="https://api.radio-browser.info/net.html">api.radio-browser.info/net.html</a>
                             </dd>
+                        </dl>
+                        <dl>
                             <dt>Are there more detailed stats of this service?</dt>
                             <dd>Yes, at <a href="https://stats.api.radio-browser.info">stats.api.radio-browser.info</a>
                             </dd>
+                        </dl>
+                        <dl>
                             <dt>May I download a backup of the database?</dt>
                             <dd>Yes, a daily backup of the MariaDB tables is placed at <a
                                     href="https://backups.radio-browser.info">backups.radio-browser.info</a>
                                 and <a href="https://backups.radio-browser.info/latest.sql.gz">latest</a>.
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Future plans for radio-browser</h3>
+                    </div>
+                    <div class="panel-body">
+                        There are plans to improve radio-browser even further. These are just the biggest things on my
+                        mind. More are on the
+                        issue pages on github and there is also the place where you can add your ideas and discuss them
+                        with others.
+                        <dl>
+                            <dt>Short term</dt>
+                            <dd>
+                                <ul>
+                                    <li>Extract more meta information from stream (country, language, ...). A good
+                                        starting point would be <a
+                                            href="https://www.stream-meta.info/">www.stream-meta.info</a>. This should
+                                        then be used to allow
+                                        stream owners to override information in the database for their own streams.
+                                        They
+                                        know best what their own streams are, where they are located, what the language
+                                        spoken
+                                        is etc..
+                                        This just extends an already existing way of providing metainformation.
+                                    </li>
+                                    <li>
+                                        Automatically delete streams that have the same link or do have the same
+                                        resolved link to
+                                        clean up the database. Always keep the oldest one to ensure that it is not
+                                        possible
+                                        to circumvent the edit-block for streams.
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>Mid term</dt>
+                            <dd>
+                                <ul>
+                                    <li>Promote adding of more meta information to the streams out there so they can be
+                                        updated from the stream owners themselves. Document how to add metainformation
+                                        on software that stream owners use.
+                                    </li>
+                                    <li>To make this easier for them it should also be
+                                        promoted to software
+                                        projects for streaming audio and video (like icecast, shoutcast) to add more
+                                        metainformation fields (like language, country, ..).
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>Long term</dt>
+                            <dd>
+                                <ul>
+                                    <li>It should be easier to add streams to the list just by adding the webpage of the
+                                        stream. The idea is that
+                                        radio-browser should act more like a web-crawler than now by searching a given
+                                        web page for usable streams.
+                                        This would make it much easier for users who do not know what stream urls are to
+                                        add them to the database.</li>
+                                </ul>
                             </dd>
                         </dl>
                     </div>
@@ -49,6 +122,8 @@
                                 or <a href="https://github.com/segler-alex/radiobrowser">the frontend (this page)</a> on
                                 github.
                                 I accept pull requests. You can also discuss new features on the issue board.</dd>
+                        </dl>
+                        <dl>
                             <dt>I want to help, I am a designer</dt>
                             <dd>I really appreciate any help with design of this page. I did my best, but i am really
                                 not
@@ -76,11 +151,17 @@
                                 restriction.
                                 IP addresses that did the click are kept for this purpose for 24 hours.
                             </dd>
+                        </dl>
+                        <dl>
                             <dt>How often is every station checked?</dt>
                             <dd>Every station is checked once every 24 hours.
                             </dd>
+                        </dl>
+                        <dl>
                             <dt>In what order are the stations checked?</dt>
                             <dd>The stations not checked for the longest time are checked first.</dd>
+                        </dl>
+                        <dl>
                             <dt>Why are some stations marked as broken even when they are not?</dt>
                             <dd>This can have multiple causes:
                                 <ul>
@@ -114,6 +195,8 @@
                                     </li>
                                 </ul>
                             </dd>
+                        </dl>
+                        <dl>
                             <dt>When will stations get deleted?</dt>
                             <dd>There are two cases in which stations will get deleted automatically:
                                 <ul>
@@ -136,9 +219,16 @@
                     <div class="panel-body">
                         <dl>
                             <dt>What is cached?</dt>
-                            <dd>The list of tags and the list of languages are calculated from the data. They are
-                                refreshed every 60
-                                seconds.
+                            <dd>
+                                <ul>
+                                    <li>The list of tags and the list of languages are calculated from the data. They
+                                        are refreshed every 300 seconds.</li>
+                                    <li>Most generated output of the api is cached 60 seconds in its entirety. It uses
+                                        an external cache software (like <a
+                                            href="https://en.wikipedia.org/wiki/Redis">redis</a>, <a
+                                            href="https://en.wikipedia.org/wiki/Memcached">memcached</a>) for that.
+                                    </li>
+                                </ul>
                             </dd>
                         </dl>
                     </div>
@@ -155,8 +245,7 @@
                             <dt>I want to use the radio-browser API in my own app/program.</dt>
                             <dd>
                                 It is completely free. Free as in Beer/chocolate :)<br />
-                                Just go to <a
-                                    href="https://api.radio-browser.info">api.radio-browser.info</a></li> and
+                                Just go to <a href="https://api.radio-browser.info">api.radio-browser.info</a></li> and
                                 read the
                                 docs. It is easy and has examples.
                             </dd>
@@ -194,58 +283,26 @@
                         <dl>
                             <dt>I want to set up my own radiobrowser API server. How do I do that?</dt>
                             <dd>
-                                You have two ways:
-                                <ul>
-                                    <li>
-                                        DEPRECATED:
-                                        Use the old variant which is for now in use at www.radio-browser.info:<br />
-                                        There is a README at <a
-                                            href="https://github.com/segler-alex/radiobrowser-api">radiobrowser-api</a>.
-                                    </li>
-                                    <li>
-                                        Use the new system at <a
-                                            href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a>
-                                        which
-                                        powers the new second level servers. It will automatically mirror the main
-                                        server because it
-                                        supports federation. This
-                                        is probably your easiest bet.
-                                    </li>
-                                </ul>
+                                Use the git project at <a
+                                    href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a>
+                                which powers the new second level servers. It will automatically mirror the main
+                                server because it supports federation. This
+                                is probably your easiest bet.
                             </dd>
                         </dl>
                         <dl>
                             <dt>Does radio-browser have some kinds of federation network?</dt>
                             <dd>
-                                The new API <a
+                                YES, the new API <a
                                     href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a>
-                                does
-                                have federation.<br />
-                                The old one <a
-                                    href="https://github.com/segler-alex/radiobrowser-api">radiobrowser-api</a> does
-                                not.
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>What is the future plan for www.radio-browser.info?</dt>
-                            <dd>
-                                <u>Current State</u><br />
-                                At the moment www.radio-browser.info/webservice is the only first level server handling
-                                most users.<br />
-                                There are some second level servers which already use the new style API and use
-                                federation to mirror the
-                                contents of the first level server.<br />
-                                For now stations are distributed from the first level server to the second level servers
-                                and NOT in the
-                                other direction.
-                                That means stations added to second level servers will not get distributed and will be
-                                deleted
-                                eventually.<br /><br />
-                                <u>Future</u><br />
-                                The server at www.radio-browser.info/webservice will be shut down eventually and the
-                                current second level
+                                does have federation.<br />
+                                This means that changes on one server will automatically be pulled from all the other
                                 servers
-                                will become the first level servers for other people to use and mirror.<br />
+                                and incorporated into their data. Consistency is kept by giving each change a distinct
+                                unique
+                                ID (<a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a>)
+                                <br />
+                                I keep multiple servers that use federation online. I call them first level servers.
                                 Stations can be added to any one of the new first level servers and will be distributed
                                 among them.
                             </dd>
@@ -255,17 +312,24 @@
                             <dd>
                                 Every server keeps a station change history including all additions and changes.
                                 This can be pulled from other servers as a full version or as a differential from the
-                                state they already
-                                have.
+                                state they already have.
                                 Each server also keeps a history of station checks, which can also be pulled in a
-                                similiar
-                                fashion.<br /><br />
+                                similiar fashion.<br /><br />
                                 Some servers do checks themselves, so there are multiple sources of checks from
-                                different countries. Checks
-                                from multiple sources
+                                different countries. Checks from multiple sources
                                 for one station are combined into a majority vote (offline/online) state.
                             </dd>
                         </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Project components</h3>
+                    </div>
+                    <div class="panel-body">
                         <dl>
                             <dt><a href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a>
                             </dt>
