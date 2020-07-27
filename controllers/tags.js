@@ -7,8 +7,7 @@ app.controller('TagController', function (radiobrowser, relLink) {
 
     function displayTags() {
         radiobrowser.post(relLink.value, {
-            "order": "stationcount",
-            "reverse": true,
+            "order": "value",
         }).then(function (data) {
             vm.tagList = data.data;
             vm.tagListVeryPopular = [];

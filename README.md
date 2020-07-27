@@ -1,6 +1,6 @@
 # radiobrowser
 
-website frontend with angular 1.x for [radio-browser api](https://github.com/segler-alex/radiobrowser-api)
+Website frontend with Angular 1.x for [radio-browser API](https://github.com/segler-alex/radiobrowser-api-rust)
 
 ## Installation
 
@@ -10,7 +10,7 @@ website frontend with angular 1.x for [radio-browser api](https://github.com/seg
 
 ## Running / Development
 
-Please note: API calls are proxied to **production environment** at <http://www.radio-browser.info/webservice>!
+Please note: API calls are proxied to **production environment** at <https://api.radio-browser.info/>!
 
 - `gulp` or `npm run dev`
 - Visit your app at <http://localhost:4200/>
