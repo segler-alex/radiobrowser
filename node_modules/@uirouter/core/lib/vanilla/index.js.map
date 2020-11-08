@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "index.js",
+  "sourceRoot": "",
+  "sources": [
+    "@uirouter/core/vanilla/index.ts"
+  ],
+  "names": [],
+  "mappings": ";;;;;;;;;;;;AAAA;;;;GAIG;AACH,8CAA4B;AAE5B,sCAAoB;AACpB,6CAA2B;AAE3B,wDAAsC;AACtC,wDAAsC;AACtC,0DAAwC;AACxC,6DAA2C;AAE3C,yDAAuC;AACvC,0DAAwC;AAExC,0CAAwB;AACxB,4CAA0B",
+  "sourcesContent": [
+    "/**\n * Naive, pure JS implementation of core ui-router services\n *\n * @packageDocumentation\n */\nexport * from './interface';\n\nexport * from './q';\nexport * from './injector';\n\nexport * from './baseLocationService';\nexport * from './hashLocationService';\nexport * from './memoryLocationService';\nexport * from './pushStateLocationService';\n\nexport * from './memoryLocationConfig';\nexport * from './browserLocationConfig';\n\nexport * from './utils';\nexport * from './plugins';\n"
+  ]
+}

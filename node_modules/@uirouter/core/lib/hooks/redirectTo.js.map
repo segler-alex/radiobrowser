@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "redirectTo.js",
+  "sourceRoot": "",
+  "sources": [
+    "@uirouter/core/hooks/redirectTo.ts"
+  ],
+  "names": [],
+  "mappings": ";;;AAAA,mDAA4D;AAE5D,uDAAkD;AAClD,oDAAmD;AAInD;;;;;;GAMG;AACH,IAAM,cAAc,GAAqB,UAAC,KAAiB;IACzD,IAAM,QAAQ,GAAG,KAAK,CAAC,EAAE,EAAE,CAAC,UAAU,CAAC;IACvC,IAAI,CAAC,QAAQ;QAAE,OAAO;IAEtB,IAAM,MAAM,GAAG,KAAK,CAAC,MAAM,CAAC,YAAY,CAAC;IAEzC,SAAS,YAAY,CAAC,MAAW;QAC/B,IAAI,CAAC,MAAM;YAAE,OAAO;QACpB,IAAI,MAAM,YAAY,yBAAW;YAAE,OAAO,MAAM,CAAC;QACjD,IAAI,qBAAQ,CAAC,MAAM,CAAC;YAAE,OAAO,MAAM,CAAC,MAAM,CAAM,MAAM,EAAE,KAAK,CAAC,MAAM,EAAE,EAAE,KAAK,CAAC,OAAO,EAAE,CAAC,CAAC;QACzF,IAAI,MAAM,CAAC,OAAO,CAAC,IAAI,MAAM,CAAC,QAAQ,CAAC;YACrC,OAAO,MAAM,CAAC,MAAM,CAAC,MAAM,CAAC,OAAO,CAAC,IAAI,KAAK,CAAC,EAAE,EAAE,EAAE,MAAM,CAAC,QAAQ,CAAC,IAAI,KAAK,CAAC,MAAM,EAAE,EAAE,KAAK,CAAC,OAAO,EAAE,CAAC,CAAC;IAC7G,CAAC;IAED,IAAI,uBAAU,CAAC,QAAQ,CAAC,EAAE;QACxB,OAAO,uBAAQ,CAAC,EAAE,CAAC,IAAI,CAAC,QAAQ,CAAC,KAAK,CAAC,CAAC,CAAC,IAAI,CAAC,YAAY,CAAC,CAAC;KAC7D;IACD,OAAO,YAAY,CAAC,QAAQ,CAAC,CAAC;AAChC,CAAC,CAAC;AAEW,QAAA,sBAAsB,GAAG,UAAC,iBAAoC;IACzE,OAAA,iBAAiB,CAAC,OAAO,CAAC,EAAE,EAAE,EAAE,UAAC,KAAK,IAAK,OAAA,CAAC,CAAC,KAAK,CAAC,UAAU,EAAlB,CAAkB,EAAE,EAAE,cAAc,CAAC;AAAhF,CAAgF,CAAC",
+  "sourcesContent": [
+    "import { isString, isFunction } from '../common/predicates';\nimport { Transition } from '../transition/transition';\nimport { services } from '../common/coreservices';\nimport { TargetState } from '../state/targetState';\nimport { TransitionService } from '../transition/transitionService';\nimport { TransitionHookFn } from '../transition/interface';\n\n/**\n * A [[TransitionHookFn]] that redirects to a different state or params\n *\n * Registered using `transitionService.onStart({ to: (state) => !!state.redirectTo }, redirectHook);`\n *\n * See [[StateDeclaration.redirectTo]]\n */\nconst redirectToHook: TransitionHookFn = (trans: Transition) => {\n  const redirect = trans.to().redirectTo;\n  if (!redirect) return;\n\n  const $state = trans.router.stateService;\n\n  function handleResult(result: any) {\n    if (!result) return;\n    if (result instanceof TargetState) return result;\n    if (isString(result)) return $state.target(<any>result, trans.params(), trans.options());\n    if (result['state'] || result['params'])\n      return $state.target(result['state'] || trans.to(), result['params'] || trans.params(), trans.options());\n  }\n\n  if (isFunction(redirect)) {\n    return services.$q.when(redirect(trans)).then(handleResult);\n  }\n  return handleResult(redirect);\n};\n\nexport const registerRedirectToHook = (transitionService: TransitionService) =>\n  transitionService.onStart({ to: (state) => !!state.redirectTo }, redirectToHook);\n"
+  ]
+}

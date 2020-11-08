@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "invalidTransition.js",
+  "sourceRoot": "",
+  "sources": [
+    "@uirouter/core/hooks/invalidTransition.ts"
+  ],
+  "names": [],
+  "mappings": ";;;AAGA;;;;;;GAMG;AACH,SAAS,qBAAqB,CAAC,KAAiB;IAC9C,IAAI,CAAC,KAAK,CAAC,KAAK,EAAE,EAAE;QAClB,MAAM,IAAI,KAAK,CAAC,KAAK,CAAC,KAAK,EAAE,CAAC,QAAQ,EAAE,CAAC,CAAC;KAC3C;AACH,CAAC;AAEY,QAAA,6BAA6B,GAAG,UAAC,iBAAoC;IAChF,OAAA,iBAAiB,CAAC,QAAQ,CAAC,EAAE,EAAE,qBAAqB,EAAE,EAAE,QAAQ,EAAE,CAAC,KAAK,EAAE,CAAC;AAA3E,CAA2E,CAAC",
+  "sourcesContent": [
+    "import { TransitionService } from '../transition/transitionService';\nimport { Transition } from '../transition/transition';\n\n/**\n * A [[TransitionHookFn]] that rejects the Transition if it is invalid\n *\n * This hook is invoked at the end of the onBefore phase.\n * If the transition is invalid (for example, param values do not validate)\n * then the transition is rejected.\n */\nfunction invalidTransitionHook(trans: Transition) {\n  if (!trans.valid()) {\n    throw new Error(trans.error().toString());\n  }\n}\n\nexport const registerInvalidTransitionHook = (transitionService: TransitionService) =>\n  transitionService.onBefore({}, invalidTransitionHook, { priority: -10000 });\n"
+  ]
+}

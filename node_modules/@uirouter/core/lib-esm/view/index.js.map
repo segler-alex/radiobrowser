@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "index.js",
+  "sourceRoot": "",
+  "sources": [
+    "@uirouter/core/view/index.ts"
+  ],
+  "names": [],
+  "mappings": "AAAA,cAAc,aAAa,CAAC;AAC5B,cAAc,QAAQ,CAAC",
+  "sourcesContent": [
+    "export * from './interface';\nexport * from './view';\n"
+  ]
+}

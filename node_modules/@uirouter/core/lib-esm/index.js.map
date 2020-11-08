@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "index.js",
+  "sourceRoot": "",
+  "sources": [
+    "@uirouter/core/index.ts"
+  ],
+  "names": [],
+  "mappings": "AAAA,cAAc,gBAAgB,CAAC;AAC/B,cAAc,gBAAgB,CAAC;AAC/B,cAAc,cAAc,CAAC;AAC7B,cAAc,iBAAiB,CAAC;AAChC,cAAc,eAAe,CAAC;AAC9B,cAAc,oBAAoB,CAAC;AACnC,cAAc,aAAa,CAAC;AAC5B,cAAc,cAAc,CAAC;AAC7B,cAAc,WAAW,CAAC;AAE1B,cAAc,UAAU,CAAC;AACzB,cAAc,WAAW,CAAC;AAC1B,cAAc,aAAa,CAAC",
+  "sourcesContent": [
+    "export * from './common/index';\nexport * from './params/index';\nexport * from './path/index';\nexport * from './resolve/index';\nexport * from './state/index';\nexport * from './transition/index';\nexport * from './url/index';\nexport * from './view/index';\nexport * from './globals';\n\nexport * from './router';\nexport * from './vanilla';\nexport * from './interface';\n"
+  ]
+}

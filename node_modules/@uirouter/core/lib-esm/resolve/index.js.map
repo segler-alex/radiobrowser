@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "index.js",
+  "sourceRoot": "",
+  "sources": [
+    "@uirouter/core/resolve/index.ts"
+  ],
+  "names": [],
+  "mappings": "AAAA,cAAc,aAAa,CAAC;AAC5B,cAAc,cAAc,CAAC;AAC7B,cAAc,kBAAkB,CAAC",
+  "sourcesContent": [
+    "export * from './interface';\nexport * from './resolvable';\nexport * from './resolveContext';\n"
+  ]
+}

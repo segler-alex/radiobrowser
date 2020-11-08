@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "transitionEventType.js",
+  "sourceRoot": "",
+  "sources": [
+    "@uirouter/core/transition/transitionEventType.ts"
+  ],
+  "names": [],
+  "mappings": "AACA,OAAO,EAAqC,cAAc,EAAE,MAAM,kBAAkB,CAAC;AACrF;;;GAGG;AACH;IACE,wCAAwC;IACxC,6BACS,IAAY,EACZ,SAA8B,EAC9B,SAAiB,EACjB,iBAA2B,EAC3B,WAA4B,EAC5B,gBAAiE,EACjE,eAA8D,EAC9D,WAA4B;QAH5B,4BAAA,EAAA,mBAA4B;QAC5B,iCAAA,EAAA,mBAAqC,cAAc,CAAC,aAAa;QACjE,gCAAA,EAAA,kBAAmC,cAAc,CAAC,YAAY;QAC9D,4BAAA,EAAA,mBAA4B;QAP5B,SAAI,GAAJ,IAAI,CAAQ;QACZ,cAAS,GAAT,SAAS,CAAqB;QAC9B,cAAS,GAAT,SAAS,CAAQ;QACjB,sBAAiB,GAAjB,iBAAiB,CAAU;QAC3B,gBAAW,GAAX,WAAW,CAAiB;QAC5B,qBAAgB,GAAhB,gBAAgB,CAAiD;QACjE,oBAAe,GAAf,eAAe,CAA+C;QAC9D,gBAAW,GAAX,WAAW,CAAiB;IAClC,CAAC;IACN,0BAAC;AAAD,CAAC,AAZD,IAYC",
+  "sourcesContent": [
+    "import { TransitionHookPhase, PathType } from './interface';\nimport { GetErrorHandler, GetResultHandler, TransitionHook } from './transitionHook';\n/**\n * This class defines a type of hook, such as `onBefore` or `onEnter`.\n * Plugins can define custom hook types, such as sticky states does for `onInactive`.\n */\nexport class TransitionEventType {\n  /* tslint:disable:no-inferrable-types */\n  constructor(\n    public name: string,\n    public hookPhase: TransitionHookPhase,\n    public hookOrder: number,\n    public criteriaMatchPath: PathType,\n    public reverseSort: boolean = false,\n    public getResultHandler: GetResultHandler = TransitionHook.HANDLE_RESULT,\n    public getErrorHandler: GetErrorHandler = TransitionHook.REJECT_ERROR,\n    public synchronous: boolean = false\n  ) {}\n}\n"
+  ]
+}

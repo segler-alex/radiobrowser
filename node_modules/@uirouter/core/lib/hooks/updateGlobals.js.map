@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "updateGlobals.js",
+  "sourceRoot": "",
+  "sources": [
+    "@uirouter/core/hooks/updateGlobals.ts"
+  ],
+  "names": [],
+  "mappings": ";;;AACA,2CAAwC;AAGxC;;;;;;;;;;;GAWG;AACH,IAAM,iBAAiB,GAAG,UAAC,KAAiB;IAC1C,IAAM,OAAO,GAAG,KAAK,CAAC,MAAM,CAAC,OAAO,CAAC;IAErC,IAAM,oBAAoB,GAAG;QAC3B,OAAO,CAAC,qBAAqB,CAAC,OAAO,CAAC,KAAK,CAAC,CAAC;QAC7C,OAAO,CAAC,QAAQ,GAAG,KAAK,CAAC,GAAG,EAAE,CAAC;QAC/B,OAAO,CAAC,OAAO,GAAG,OAAO,CAAC,QAAQ,CAAC,IAAI,CAAC;QAExC,aAAI,CAAC,KAAK,CAAC,MAAM,EAAE,EAAE,OAAO,CAAC,MAAM,CAAC,CAAC;IACvC,CAAC,CAAC;IAEF,IAAM,sBAAsB,GAAG;QAC7B,wFAAwF;QACxF,IAAI,OAAO,CAAC,UAAU,KAAK,KAAK;YAAE,OAAO,CAAC,UAAU,GAAG,IAAI,CAAC;IAC9D,CAAC,CAAC;IAEF,KAAK,CAAC,SAAS,CAAC,EAAE,EAAE,oBAAoB,EAAE,EAAE,QAAQ,EAAE,KAAK,EAAE,CAAC,CAAC;IAC/D,KAAK,CAAC,OAAO,CAAC,IAAI,CAAC,sBAAsB,EAAE,sBAAsB,CAAC,CAAC;AACrE,CAAC,CAAC;AAEW,QAAA,yBAAyB,GAAG,UAAC,iBAAoC;IAC5E,OAAA,iBAAiB,CAAC,QAAQ,CAAC,EAAE,EAAE,iBAAiB,CAAC;AAAjD,CAAiD,CAAC",
+  "sourcesContent": [
+    "import { Transition } from '../transition/transition';\nimport { copy } from '../common/common';\nimport { TransitionService } from '../transition/transitionService';\n\n/**\n * A [[TransitionHookFn]] which updates global UI-Router state\n *\n * Registered using `transitionService.onBefore({}, updateGlobalState);`\n *\n * Before a [[Transition]] starts, updates the global value of \"the current transition\" ([[Globals.transition]]).\n * After a successful [[Transition]], updates the global values of \"the current state\"\n * ([[Globals.current]] and [[Globals.$current]]) and \"the current param values\" ([[Globals.params]]).\n *\n * See also the deprecated properties:\n * [[StateService.transition]], [[StateService.current]], [[StateService.params]]\n */\nconst updateGlobalState = (trans: Transition) => {\n  const globals = trans.router.globals;\n\n  const transitionSuccessful = () => {\n    globals.successfulTransitions.enqueue(trans);\n    globals.$current = trans.$to();\n    globals.current = globals.$current.self;\n\n    copy(trans.params(), globals.params);\n  };\n\n  const clearCurrentTransition = () => {\n    // Do not clear globals.transition if a different transition has started in the meantime\n    if (globals.transition === trans) globals.transition = null;\n  };\n\n  trans.onSuccess({}, transitionSuccessful, { priority: 10000 });\n  trans.promise.then(clearCurrentTransition, clearCurrentTransition);\n};\n\nexport const registerUpdateGlobalState = (transitionService: TransitionService) =>\n  transitionService.onCreate({}, updateGlobalState);\n"
+  ]
+}

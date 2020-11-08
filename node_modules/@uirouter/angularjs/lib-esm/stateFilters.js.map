@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "stateFilters.js",
+  "sourceRoot": "",
+  "sources": [
+    "@uirouter/angularjs/stateFilters.ts"
+  ],
+  "names": [],
+  "mappings": "AAAA,6BAA6B,CAAC,MAAM;AAEpC,OAAO,EAAE,EAAE,IAAI,OAAO,EAAE,MAAM,WAAW,CAAC;AAG1C;;;;;;;;;GASG;AACH,cAAc,CAAC,OAAO,GAAG,CAAC,QAAQ,CAAC,CAAC;AACpC,SAAS,cAAc,CAAC,MAAoB;IAC1C,IAAM,QAAQ,GAAQ,UAAU,KAAkB,EAAE,MAAW,EAAE,OAAoC;QACnG,OAAO,MAAM,CAAC,EAAE,CAAC,KAAK,EAAE,MAAM,EAAE,OAAO,CAAC,CAAC;IAC3C,CAAC,CAAC;IACF,QAAQ,CAAC,SAAS,GAAG,IAAI,CAAC;IAC1B,OAAO,QAAQ,CAAC;AAClB,CAAC;AAED;;;;;;;;;GASG;AACH,sBAAsB,CAAC,OAAO,GAAG,CAAC,QAAQ,CAAC,CAAC;AAC5C,SAAS,sBAAsB,CAAC,MAAoB;IAClD,IAAM,cAAc,GAAQ,UAAU,KAAkB,EAAE,MAAW,EAAE,OAAmC;QACxG,OAAO,MAAM,CAAC,QAAQ,CAAC,KAAK,EAAE,MAAM,EAAE,OAAO,CAAC,CAAC;IACjD,CAAC,CAAC;IACF,cAAc,CAAC,SAAS,GAAG,IAAI,CAAC;IAChC,OAAO,cAAc,CAAC;AACxB,CAAC;AAED,OAAO,CAAC,MAAM,CAAC,iBAAiB,CAAC,CAAC,MAAM,CAAC,SAAS,EAAE,cAAc,CAAC,CAAC,MAAM,CAAC,iBAAiB,EAAE,sBAAsB,CAAC,CAAC;AAEtH,OAAO,EAAE,cAAc,EAAE,sBAAsB,EAAE,CAAC",
+  "sourcesContent": [
+    "/** @publicapi @module ng1 */ /** */\n\nimport { ng as angular } from './angular';\nimport { Obj, StateService, StateOrName } from '@uirouter/core';\n\n/**\n * `isState` Filter: truthy if the current state is the parameter\n *\n * Translates to [[StateService.is]] `$state.is(\"stateName\")`.\n *\n * #### Example:\n * ```html\n * <div ng-if=\"'stateName' | isState\">show if state is 'stateName'</div>\n * ```\n */\n$IsStateFilter.$inject = ['$state'];\nfunction $IsStateFilter($state: StateService) {\n  const isFilter: any = function (state: StateOrName, params: Obj, options?: { relative?: StateOrName }) {\n    return $state.is(state, params, options);\n  };\n  isFilter.$stateful = true;\n  return isFilter;\n}\n\n/**\n * `includedByState` Filter: truthy if the current state includes the parameter\n *\n * Translates to [[StateService.includes]]` $state.is(\"fullOrPartialStateName\")`.\n *\n * #### Example:\n * ```html\n * <div ng-if=\"'fullOrPartialStateName' | includedByState\">show if state includes 'fullOrPartialStateName'</div>\n * ```\n */\n$IncludedByStateFilter.$inject = ['$state'];\nfunction $IncludedByStateFilter($state: StateService) {\n  const includesFilter: any = function (state: StateOrName, params: Obj, options: { relative?: StateOrName }) {\n    return $state.includes(state, params, options);\n  };\n  includesFilter.$stateful = true;\n  return includesFilter;\n}\n\nangular.module('ui.router.state').filter('isState', $IsStateFilter).filter('includedByState', $IncludedByStateFilter);\n\nexport { $IsStateFilter, $IncludedByStateFilter };\n"
+  ]
+}

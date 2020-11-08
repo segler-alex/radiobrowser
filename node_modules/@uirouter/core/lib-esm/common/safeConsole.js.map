@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "safeConsole.js",
+  "sourceRoot": "",
+  "sources": [
+    "@uirouter/core/common/safeConsole.ts"
+  ],
+  "names": [],
+  "mappings": "AAAA;;;GAGG;AACH,+BAA+B;AAC/B,OAAO,EAAE,IAAI,EAAE,MAAM,UAAU,CAAC;AAEhC,IAAM,eAAe,GAAG,EAAE,GAAG,EAAE,IAAI,EAAE,KAAK,EAAE,IAAI,EAAE,KAAK,EAAE,IAAI,EAAE,CAAC;AAEhE,SAAS,UAAU,CAAC,OAAO;IACzB,IAAM,KAAK,GAAG,UAAC,EAAY,IAAK,OAAA,QAAQ,CAAC,SAAS,CAAC,IAAI,CAAC,IAAI,CAAC,EAAE,EAAE,OAAO,CAAC,EAAzC,CAAyC,CAAC;IAC1E,OAAO;QACL,GAAG,EAAE,KAAK,CAAC,OAAO,CAAC,GAAG,CAAC;QACvB,KAAK,EAAE,KAAK,CAAC,OAAO,CAAC,GAAG,CAAC;QACzB,KAAK,EAAE,KAAK,CAAC,OAAO,CAAC,GAAG,CAAC;KAC1B,CAAC;AACJ,CAAC;AAED,SAAS,eAAe,CAAC,OAAO;IAC9B,IAAM,GAAG,GAAG,OAAO,CAAC,GAAG,CAAC,IAAI,CAAC,OAAO,CAAC,CAAC;IACtC,IAAM,KAAK,GAAG,OAAO,CAAC,KAAK,CAAC,CAAC,CAAC,OAAO,CAAC,KAAK,CAAC,IAAI,CAAC,OAAO,CAAC,CAAC,CAAC,CAAC,GAAG,CAAC;IAChE,IAAM,KAAK,GAAG,OAAO,CAAC,KAAK,CAAC,CAAC,CAAC,OAAO,CAAC,KAAK,CAAC,IAAI,CAAC,OAAO,CAAC,CAAC,CAAC,CAAC,GAAG,CAAC;IAChE,OAAO,EAAE,GAAG,KAAA,EAAE,KAAK,OAAA,EAAE,KAAK,OAAA,EAAE,CAAC;AAC/B,CAAC;AAED,SAAS,cAAc;IACrB,aAAa;IACb,IAAM,KAAK,GAAG,OAAO,QAAQ,KAAK,WAAW,IAAI,QAAQ,CAAC,YAAY,IAAI,QAAQ,CAAC,YAAY,KAAK,CAAC,CAAC;IACtG,IAAI,KAAK,EAAE;QACT,OAAO,MAAM,IAAI,MAAM,CAAC,OAAO,CAAC,CAAC,CAAC,UAAU,CAAC,MAAM,CAAC,OAAO,CAAC,CAAC,CAAC,CAAC,eAAe,CAAC;KAChF;SAAM,IAAI,CAAC,OAAO,CAAC,KAAK,IAAI,CAAC,OAAO,CAAC,KAAK,EAAE;QAC3C,OAAO,eAAe,CAAC,OAAO,CAAC,CAAC;KACjC;SAAM;QACL,OAAO,OAAO,CAAC;KAChB;AACH,CAAC;AAED,MAAM,CAAC,IAAM,WAAW,GAAG,cAAc,EAAE,CAAC",
+  "sourcesContent": [
+    "/**\n * workaround for missing console object in IE9 when dev tools haven't been opened o_O\n * @packageDocumentation\n */\n/* tslint:disable:no-console */\nimport { noop } from './common';\n\nconst noopConsoleStub = { log: noop, error: noop, table: noop };\n\nfunction ie9Console(console) {\n  const bound = (fn: Function) => Function.prototype.bind.call(fn, console);\n  return {\n    log: bound(console.log),\n    error: bound(console.log),\n    table: bound(console.log),\n  };\n}\n\nfunction fallbackConsole(console) {\n  const log = console.log.bind(console);\n  const error = console.error ? console.error.bind(console) : log;\n  const table = console.table ? console.table.bind(console) : log;\n  return { log, error, table };\n}\n\nfunction getSafeConsole() {\n  // @ts-ignore\n  const isIE9 = typeof document !== 'undefined' && document.documentMode && document.documentMode === 9;\n  if (isIE9) {\n    return window && window.console ? ie9Console(window.console) : noopConsoleStub;\n  } else if (!console.table || !console.error) {\n    return fallbackConsole(console);\n  } else {\n    return console;\n  }\n}\n\nexport const safeConsole = getSafeConsole();\n"
+  ]
+}

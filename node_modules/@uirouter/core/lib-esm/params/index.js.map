@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "index.js",
+  "sourceRoot": "",
+  "sources": [
+    "@uirouter/core/params/index.ts"
+  ],
+  "names": [],
+  "mappings": "AAAA;;;;;;GAMG;AACH,cAAc,aAAa,CAAC;AAC5B,cAAc,SAAS,CAAC;AACxB,cAAc,cAAc,CAAC;AAC7B,cAAc,eAAe,CAAC;AAC9B,cAAc,aAAa,CAAC",
+  "sourcesContent": [
+    "/**\n * This module contains code for State Parameters.\n *\n * See [[ParamDeclaration]]\n *\n * @packageDocumentation @preferred\n */\nexport * from './interface';\nexport * from './param';\nexport * from './paramTypes';\nexport * from './stateParams';\nexport * from './paramType';\n"
+  ]
+}

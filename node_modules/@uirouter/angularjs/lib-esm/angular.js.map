@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "angular.js",
+  "sourceRoot": "",
+  "sources": [
+    "@uirouter/angularjs/angular.ts"
+  ],
+  "names": [],
+  "mappings": "AAAA,6BAA6B,CAAC,MAAM;AACpC,OAAO,KAAK,cAAc,MAAM,SAAS,CAAC;AAE1C,cAAc,CAAC,IAAM,cAAc,GAAG,OAAO,CAAC;AAC9C,cAAc,CAAC,MAAM,CAAC,IAAM,EAAE,GAAG,cAAc,IAAI,cAAc,CAAC,MAAM,CAAC,CAAC,CAAC,cAAc,CAAC,CAAC,CAAC,cAAc,CAAC",
+  "sourcesContent": [
+    "/** @publicapi @module ng1 */ /** */\nimport * as ng_from_import from 'angular';\n/** @hidden */ declare let angular;\n/** @hidden */ const ng_from_global = angular;\n/** @hidden */ export const ng = ng_from_import && ng_from_import.module ? ng_from_import : ng_from_global;\n"
+  ]
+}

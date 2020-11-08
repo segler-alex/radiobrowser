@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "queue.js",
+  "sourceRoot": "",
+  "sources": [
+    "@uirouter/core/common/queue.ts"
+  ],
+  "names": [],
+  "mappings": "AAAA,OAAO,EAAE,MAAM,EAAE,MAAM,UAAU,CAAC;AAElC;IAIE,eAAoB,MAAgB,EAAU,MAAqB;QAA/C,uBAAA,EAAA,WAAgB;QAAU,uBAAA,EAAA,aAAqB;QAA/C,WAAM,GAAN,MAAM,CAAU;QAAU,WAAM,GAAN,MAAM,CAAe;QAH3D,oBAAe,GAA0B,EAAE,CAAC;QAC7C,YAAO,GAAG,MAAM,CAAC,IAAI,CAAC,eAAe,CAAC,CAAC;IAEwB,CAAC;IAEvE,uBAAO,GAAP,UAAQ,IAAO;QACb,IAAM,KAAK,GAAG,IAAI,CAAC,MAAM,CAAC;QAC1B,KAAK,CAAC,IAAI,CAAC,IAAI,CAAC,CAAC;QACjB,IAAI,IAAI,CAAC,MAAM,IAAI,KAAK,CAAC,MAAM,GAAG,IAAI,CAAC,MAAM;YAAE,IAAI,CAAC,KAAK,EAAE,CAAC;QAC5D,OAAO,IAAI,CAAC;IACd,CAAC;IAED,qBAAK,GAAL;QACE,IAAM,IAAI,GAAM,IAAI,CAAC,MAAM,CAAC,KAAK,EAAE,CAAC;QACpC,IAAI,CAAC,eAAe,CAAC,OAAO,CAAC,UAAC,EAAE,IAAK,OAAA,EAAE,CAAC,IAAI,CAAC,EAAR,CAAQ,CAAC,CAAC;QAC/C,OAAO,IAAI,CAAC;IACd,CAAC;IAED,uBAAO,GAAP;QACE,IAAI,IAAI,CAAC,IAAI,EAAE;YAAE,OAAO,IAAI,CAAC,MAAM,CAAC,MAAM,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;IACtD,CAAC;IAED,qBAAK,GAAL;QACE,IAAM,OAAO,GAAG,IAAI,CAAC,MAAM,CAAC;QAC5B,IAAI,CAAC,MAAM,GAAG,EAAE,CAAC;QACjB,OAAO,OAAO,CAAC;IACjB,CAAC;IAED,oBAAI,GAAJ;QACE,OAAO,IAAI,CAAC,MAAM,CAAC,MAAM,CAAC;IAC5B,CAAC;IAED,sBAAM,GAAN,UAAO,IAAO;QACZ,IAAM,GAAG,GAAG,IAAI,CAAC,MAAM,CAAC,OAAO,CAAC,IAAI,CAAC,CAAC;QACtC,OAAO,GAAG,GAAG,CAAC,CAAC,IAAI,IAAI,CAAC,MAAM,CAAC,MAAM,CAAC,GAAG,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;IACnD,CAAC;IAED,wBAAQ,GAAR;QACE,OAAO,IAAI,CAAC,MAAM,CAAC,IAAI,CAAC,MAAM,CAAC,MAAM,GAAG,CAAC,CAAC,CAAC;IAC7C,CAAC;IAED,wBAAQ,GAAR;QACE,IAAI,IAAI,CAAC,IAAI,EAAE;YAAE,OAAO,IAAI,CAAC,MAAM,CAAC,CAAC,CAAC,CAAC;IACzC,CAAC;IACH,YAAC;AAAD,CAAC,AA7CD,IA6CC",
+  "sourcesContent": [
+    "import { pushTo } from './common';\n\nexport class Queue<T> {\n  private _evictListeners: ((item: T) => void)[] = [];\n  public onEvict = pushTo(this._evictListeners);\n\n  constructor(private _items: T[] = [], private _limit: number = null) {}\n\n  enqueue(item: T) {\n    const items = this._items;\n    items.push(item);\n    if (this._limit && items.length > this._limit) this.evict();\n    return item;\n  }\n\n  evict(): T {\n    const item: T = this._items.shift();\n    this._evictListeners.forEach((fn) => fn(item));\n    return item;\n  }\n\n  dequeue(): T {\n    if (this.size()) return this._items.splice(0, 1)[0];\n  }\n\n  clear(): Array<T> {\n    const current = this._items;\n    this._items = [];\n    return current;\n  }\n\n  size(): number {\n    return this._items.length;\n  }\n\n  remove(item: T) {\n    const idx = this._items.indexOf(item);\n    return idx > -1 && this._items.splice(idx, 1)[0];\n  }\n\n  peekTail(): T {\n    return this._items[this._items.length - 1];\n  }\n\n  peekHead(): T {\n    if (this.size()) return this._items[0];\n  }\n}\n"
+  ]
+}
