@@ -1,0 +1,12 @@
+pages:
+  image: node:12
+  stage: deploy
+  script:
+    - npm ci
+    - mkdir public
+    - mv app.js index.html controllers css gui partials services templates node_modules public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
