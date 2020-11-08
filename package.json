@@ -4,7 +4,7 @@
   "description": "website frontend with angular 1.x for [radio-browser api](https://github.com/segler-alex/radiobrowser-api-rust)",
   "private": "true",
   "dependencies": {
-    "@uirouter/angularjs": "1.0.26",
+    "@uirouter/angularjs": "1.0.28",
     "angular": "1.8.0",
     "angular-ui-bootstrap": "2.5.6",
     "bootstrap": "3.4.1",
