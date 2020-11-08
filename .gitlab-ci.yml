@@ -1,6 +1,8 @@
 pages:
   image: node:12
   stage: deploy
+  variables:
+    NODE_ENV: production
   script:
     - npm ci
     - mkdir public
