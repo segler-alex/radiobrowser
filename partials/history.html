@@ -34,7 +34,9 @@
             <th class="text-center">Name</th>
             <th class="text-center">Tags</th>
             <th class="text-center">Homepage</th>
+            <th class="text-center">CountryCode</th>
             <th class="text-center">Description</th>
+            <th class="text-center">OverrideMetaData</th>
         </thead>
         <tbody>
             <tr ng-repeat="check in ctrl.list_checks" ng-class="{'bg-danger': !check.ok}">
@@ -45,7 +47,12 @@
                 <td class="text-center">{{check.name}}</td>
                 <td class="text-center">{{check.tags}}</td>
                 <td class="text-center">{{check.homepage}}</td>
+                <td class="text-center">{{check.countrycode}}</td>
                 <td class="text-center">{{check.description}}</td>
+                <td class="text-center">
+                    <span class="glyphicon glyphicon-ok" ng-if="check.metainfo_overrides_database=='1'"></span>
+                    <span class="glyphicon glyphicon-remove" ng-if="check.metainfo_overrides_database!='1'"></span>
+                </td>
             </tr>
         </tbody>
     </table>
