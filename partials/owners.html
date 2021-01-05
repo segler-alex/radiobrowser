@@ -69,5 +69,30 @@
                     </table>
                 </div>
             </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Example: Icecast2 config</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Full documentation at <a href="https://icecast.org/docs/icecast-2.4.1/config-file.html#mountsettings">icecast.org</a>
+                        </p>
+                        <pre>
+&lt;mount type=&quot;normal&quot;&gt;
+    &lt;mount-name&gt;/teststream&lt;/mount-name&gt;
+
+    &lt;http-headers&gt;
+        &lt;header name=&quot;icy-index-metadata&quot; value=&quot;1&quot; /&gt;
+        &lt;header name=&quot;icy-logo&quot; value=&quot;https://example.com/besticon.png&quot; /&gt;
+        &lt;header name=&quot;icy-country-code&quot; value=&quot;at&quot; /&gt;
+        &lt;header name=&quot;icy-main-stream-url&quot; value=&quot;http://example.com:8000/teststream&quot; /&gt;
+    &lt;/http-headers&gt;
+&lt;/mount&gt;
+                        </pre>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
