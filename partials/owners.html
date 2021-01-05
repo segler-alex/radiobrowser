@@ -1,0 +1,68 @@
+<div>
+    <div class="container">
+        <div clas="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>You are owner of a stream</h3>
+                    </div>
+                    <div class="panel-body">
+                        Stream information in this database can only be changed from the owner of the stream. To make
+                        sure you are the owner, you have to add special HTTP-headers to your stream. (HLS streams are
+                        currently not supported)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Main header</h3>
+                    </div>
+                    <div class="panel-body">
+                        By default the default http-headers a stream has are only used to extract bitrate and online
+                        information. To
+                        enable overriding other information too (name, genre/tags, country,...) you have to set a
+                        special header
+                        "<a
+                            href="https://www.stream-meta.info/version_2_headers.html#icy-index-metadata-number">icy-index-metadata</a>"
+                        to the value "1".
+                        <br /><br />
+                        This will then force radio-browser.info to use the transmitted "name", "genre", "homepage" that
+                        your
+                        stream <a href="https://www.stream-meta.info/version_1.html">transmits</a>. These fields should
+                        already be easily changeable by any audio streaming software.
+                        <br /><br />
+                        From now on every change you make on your stream will automatically be picked up after 24 hours
+                        by radio-browser.info.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Other supported headers</h3>
+                    </div>
+                    <table class="table">
+                        <tr>
+                            <td>
+                                <pre>icy-main-stream-url</pre>
+                            </td>
+                            <td>override the main stream url</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre>icy-country-code</pre>
+                            </td>
+                            <td>override the country code<br />e.g.: AT</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre>icy-logo</pre>
+                            </td>
+                            <td>override the logo/favicon url<br />e.g.: http://example.com/besticon.png</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

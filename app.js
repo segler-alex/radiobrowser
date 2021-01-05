@@ -15,6 +15,10 @@ angular.module('RadioBrowserApp', ["ui.router", "ui.bootstrap"])
                 url: "/users",
                 templateUrl: "partials/users.html"
             })
+            .state('owners', {
+                url: "/owners",
+                templateUrl: "partials/owners.html"
+            })
             .state('api', {
                 url: "/api",
                 templateUrl: "partials/api.html"
