@@ -136,6 +136,7 @@ app.controller('ListController', function (radiobrowser, audioplayer, relLink, $
     vm.playlistPLS = SERVER + relLinkCorrected.replace(/json/, 'pls');
     vm.playlistM3U = SERVER + relLinkCorrected.replace(/json/, 'm3u');
     vm.playlistXSPF = SERVER + relLinkCorrected.replace(/json/, 'xspf');
+    vm.playlistCSV = SERVER + relLinkCorrected.replace(/json/, 'csv');
 
     displayList();
 });
