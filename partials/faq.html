@@ -53,6 +53,340 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
+                        <h3>How can I help?</h3>
+                    </div>
+                    <div class="panel-body">
+                        <dl>
+                            <dt>I want to help, I am a programmer</dt>
+                            <dd>You can fork the <a
+                                    href="https://github.com/segler-alex/radiobrowser-api-rust/fork">backend</a>
+                                or <a href="https://github.com/segler-alex/radiobrowser">the frontend (this page)</a> on
+                                GitHub.
+                                I accept pull requests. You can also discuss new features on the issue board.</dd>
+                        </dl>
+                        <dl>
+                            <dt>I want to help, I am a designer</dt>
+                            <dd>I really appreciate any help with design of this page. I did my best, but i am really
+                                not
+                                good at design :)
+                                You can go to <a href="https://github.com/segler-alex/radiobrowser">GitHub</a> or send
+                                me a
+                                mail.
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Automatic station check</h3>
+                    </div>
+                    <div class="panel-body">
+                        <dl>
+                            <dt>Why is my click not counted?</dt>
+                            <dd>Only one click per IP address per station a day is counted. Some people click their
+                                favorite stations
+                                hundreds of times every day by using the programmers API, so I had to add this
+                                restriction.
+                                IP addresses that did the click are kept for this purpose for 24 hours.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>How often is every station checked?</dt>
+                            <dd>Every station is checked once every 24 hours.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>In what order are the stations checked?</dt>
+                            <dd>The stations not checked for the longest time are checked first.</dd>
+                        </dl>
+                        <dl>
+                            <dt>Why are some stations marked as broken even when they are not?</dt>
+                            <dd>This can have multiple causes:
+                                <ul>
+                                    <li>Legal restrictions:
+                                        <br /> There may be some countries which have legal restrictions prohibiting
+                                        your favorite
+                                        stations from broadcasting worldwide. It has to be possible to connect to them
+                                        from my server
+                                        located in Germany.
+                                    </li>
+                                    <li>High Costs:
+                                        <br /> Some others would allow global broadcast but let the stations pay huge
+                                        amounts of money to
+                                        copyright owners if they want to do that. Please talk to your station or your
+                                        local political
+                                        representatives to ensure the freedom of global
+                                        broadcasting.
+                                    </li>
+                                    <li>Status not up to date:<br />
+                                        Sometimes streams go down for some time. If the automatic check happens to be
+                                        there at this exact
+                                        time, they will be marked as broken. It will take some time that this station is
+                                        checked again and
+                                        marked
+                                        as usable.
+                                    </li>
+                                    <li>Bugs:
+                                        <br /> My program has a BUG :) If you think that is the case, please drop me a
+                                        note or if you are a
+                                        programmer, fix it on GitHub.
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>When will stations get deleted?</dt>
+                            <dd>There are two cases in which stations will get deleted automatically:
+                                <ul>
+                                    <li>New stations that never worked will get deleted after 2 days.</li>
+                                    <li>Stations that worked at some point, but have not been working for at least 6
+                                        days now will get
+                                        deleted.</li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Caches</h3>
+                    </div>
+                    <div class="panel-body">
+                        <dl>
+                            <dt>What is cached?</dt>
+                            <dd>
+                                <ul>
+                                    <li>The list of tags and the list of languages are calculated from the data. They
+                                        are refreshed every 300 seconds.</li>
+                                    <li>Most generated output of the api is cached 60 seconds in its entirety. It uses
+                                        an external cache software (like <a
+                                            href="https://en.wikipedia.org/wiki/Redis">redis</a>, <a
+                                            href="https://en.wikipedia.org/wiki/Memcached">memcached</a>) for that.
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Project structure</h3>
+                    </div>
+                    <div class="panel-body">
+                        <dl>
+                            <dt>Current structure</dt>
+                            <dd>
+                                I keep multiple servers that use federation online. I call them first level servers.
+                                Stations can be added to any one of the first level servers and will be distributed
+                                among them. Also stream check information and click statistics is distributed among
+                                them.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>How do I get a list of first level servers?</dt>
+                            <dd>
+                                You have to do the following steps:
+                                <ol>
+                                    <li>Do a DNS lookup of all.api.radio-browser.info for all IP addresses. It will
+                                        always return all
+                                        available first level servers.</li>
+                                    <li>Filter out doubles</li>
+                                    <li>Do a reverse lookup for all remaining IPs.</li>
+                                    <li>Add "https://" in front of each of them.</li>
+                                    <li>Randomize the list and choose the first one as base url. If a request fails
+                                        continue to the next server in your list.</li>
+                                </ol>
+                                This steps will ensure that the users of your app will always have a working connection
+                                to a server.
+                                There are example implementations at <a
+                                    href="https://api.radio-browser.info">api.radio-browser.info</a>.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>Do all radio-browser servers support IPv6?</dt>
+                            <dd>
+                                In short: YES.<br />
+                                If you have any problems, please contact me.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>Do all radio-browser servers support HTTP/2?</dt>
+                            <dd>
+                                In short: YES.<br />
+                                If you have any problems, please contact me.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>I want to set up my own radiobrowser API server. How do I do that?</dt>
+                            <dd>
+                                Use the git project at <a
+                                    href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a>
+                                which powers the new first level servers. It will automatically mirror the main
+                                servers because it supports federation. This is probably your easiest bet.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>Does radio-browser have some kinds of federation network?</dt>
+                            <dd>
+                                YES, the new API <a
+                                    href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a>
+                                does have federation.<br />
+                                This means that changes on one server will automatically be pulled from all the other
+                                servers and incorporated into their data. Consistency is kept by giving each change a
+                                distinct
+                                unique ID (<a
+                                    href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a>)
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>How does federation work?</dt>
+                            <dd>
+                                Every server keeps a station change history including all additions and changes.
+                                This can be pulled from other servers as a full version or as a differential from the
+                                state they already have.
+                                Each server also keeps a history of station checks, which can also be pulled in a
+                                similiar fashion.<br /><br />
+                                Some servers do checks themselves, so there are multiple sources of checks from
+                                different countries. Checks from multiple sources
+                                for one station are combined into a majority vote (offline/online) state.
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Project components</h3>
+                    </div>
+                    <div class="panel-body">
+                        <dl>
+                            <dt><a href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a>
+                            </dt>
+                            <dd>Language: RUST<br />
+                                Provide API for multiple first level servers at
+                                <ul>
+                                    <li><a href="https://de1.api.radio-browser.info">de1.api.radio-browser.info</a></li>
+                                    <li><a href="https://fr1.api.radio-browser.info">fr1.api.radio-browser.info</a></li>
+                                    <li><a href="https://nl1.api.radio-browser.info">nl1.api.radio-browser.info</a></li>
+                                </ul>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><a href="https://github.com/segler-alex/radiobrowser">radiobrowser</a></dt>
+                            <dd>Language: HTML, Javascript, Angular 1<br />
+                                Basic web page to list, play and add stations. Communicate to radiobrowser-api through
+                                REST requests.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><a href="https://github.com/segler-alex/av-stream-info-rust">av-stream-check</a></dt>
+                            <dd>Language: Rust<br />
+                                Type: Library<br />
+                                Repository: <a href="https://crates.io/crates/av-stream-info-rust">crates.io</a><br />
+                                Dependency: playlist-decoder<br />
+                                Library that checks audio and video streams and extracts metadata.
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><a href="https://github.com/segler-alex/playlist-decoder-rust">playlist-decoder</a></dt>
+                            <dd>Language: Rust<br />
+                                Type: Library<br />
+                                Repository: <a href="https://crates.io/crates/playlist-decoder">crates.io</a><br />
+                                Library that decodes various playlist formats (M3U,PLS,XSPF)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Future plans for radio-browser</h3>
+                    </div>
+                    <div class="panel-body">
+                        There are plans to improve radio-browser even further. These are just the biggest things on my
+                        mind. More are on the
+                        issue pages on GitHub and there is also the place where you can add your ideas and discuss them
+                        with others. The main goal of radio-browser was always and will always be to make it as
+                        AUTOMATIC
+                        and as SIMPLE to use and as OPEN as possible. If there is a sensible way to make it automatic
+                        then we should
+                        at least think about it. With this in mind the following points should give you an idea about
+                        the main direction of the project.
+                        <dl>
+                            <dt>Short term</dt>
+                            <dd>
+                                <ul>
+                                    <li>Extract more meta information from stream (country, language, ...). A good
+                                        starting point would be <a
+                                            href="https://www.stream-meta.info/">www.stream-meta.info</a>. This should
+                                        then be used to allow
+                                        stream owners to override information in the database for their own streams.
+                                        They know best what their own streams are, where they are located, what the
+                                        language spoken is etc..
+                                        This just extends an already existing way of providing metainformation.
+                                        Overriding database information will be an opt-in for stream owners. This is
+                                        because
+                                        at the moment a lot of streams do have wrong or empty metainformation fields.
+                                    </li>
+                                    <li>
+                                        Automatically delete streams that have the same link or do have the same
+                                        resolved link to
+                                        clean up the database. Always keep the oldest one to ensure that it is not
+                                        possible
+                                        to circumvent the edit-block for streams.
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>Mid term</dt>
+                            <dd>
+                                <ul>
+                                    <li>Promote adding of more meta information to the streams out there so they can be
+                                        updated from the stream owners themselves. Document how to add metainformation
+                                        on software that stream owners use.
+                                    </li>
+                                    <li>To make this easier for them it should also be
+                                        promoted to software
+                                        projects for streaming audio and video (like icecast, shoutcast) to add more
+                                        metainformation fields (like language, country, ..).
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>Long term</dt>
+                            <dd>
+                                <ul>
+                                    <li>It should be easier to add streams to the list just by adding the webpage of the
+                                        stream. The idea is that
+                                        radio-browser should act more like a web-crawler than now by searching a given
+                                        web page for usable streams.
+                                        This would make it much easier for users who do not know what stream urls are to
+                                        add them to the database.</li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
                         <h3>History</h3>
                     </div>
                     <div class="panel-body">
@@ -404,340 +738,6 @@
                                     "search engine optimization", but at least it would be an open crawler, with open
                                     algorithms.
                                 </p>
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3>Future plans for radio-browser</h3>
-                    </div>
-                    <div class="panel-body">
-                        There are plans to improve radio-browser even further. These are just the biggest things on my
-                        mind. More are on the
-                        issue pages on GitHub and there is also the place where you can add your ideas and discuss them
-                        with others. The main goal of radio-browser was always and will always be to make it as
-                        AUTOMATIC
-                        and as SIMPLE to use and as OPEN as possible. If there is a sensible way to make it automatic
-                        then we should
-                        at least think about it. With this in mind the following points should give you an idea about
-                        the main direction of the project.
-                        <dl>
-                            <dt>Short term</dt>
-                            <dd>
-                                <ul>
-                                    <li>Extract more meta information from stream (country, language, ...). A good
-                                        starting point would be <a
-                                            href="https://www.stream-meta.info/">www.stream-meta.info</a>. This should
-                                        then be used to allow
-                                        stream owners to override information in the database for their own streams.
-                                        They know best what their own streams are, where they are located, what the
-                                        language spoken is etc..
-                                        This just extends an already existing way of providing metainformation.
-                                        Overriding database information will be an opt-in for stream owners. This is
-                                        because
-                                        at the moment a lot of streams do have wrong or empty metainformation fields.
-                                    </li>
-                                    <li>
-                                        Automatically delete streams that have the same link or do have the same
-                                        resolved link to
-                                        clean up the database. Always keep the oldest one to ensure that it is not
-                                        possible
-                                        to circumvent the edit-block for streams.
-                                    </li>
-                                </ul>
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>Mid term</dt>
-                            <dd>
-                                <ul>
-                                    <li>Promote adding of more meta information to the streams out there so they can be
-                                        updated from the stream owners themselves. Document how to add metainformation
-                                        on software that stream owners use.
-                                    </li>
-                                    <li>To make this easier for them it should also be
-                                        promoted to software
-                                        projects for streaming audio and video (like icecast, shoutcast) to add more
-                                        metainformation fields (like language, country, ..).
-                                    </li>
-                                </ul>
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>Long term</dt>
-                            <dd>
-                                <ul>
-                                    <li>It should be easier to add streams to the list just by adding the webpage of the
-                                        stream. The idea is that
-                                        radio-browser should act more like a web-crawler than now by searching a given
-                                        web page for usable streams.
-                                        This would make it much easier for users who do not know what stream urls are to
-                                        add them to the database.</li>
-                                </ul>
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3>How can I help?</h3>
-                    </div>
-                    <div class="panel-body">
-                        <dl>
-                            <dt>I want to help, I am a programmer</dt>
-                            <dd>You can fork the <a
-                                    href="https://github.com/segler-alex/radiobrowser-api-rust/fork">backend</a>
-                                or <a href="https://github.com/segler-alex/radiobrowser">the frontend (this page)</a> on
-                                GitHub.
-                                I accept pull requests. You can also discuss new features on the issue board.</dd>
-                        </dl>
-                        <dl>
-                            <dt>I want to help, I am a designer</dt>
-                            <dd>I really appreciate any help with design of this page. I did my best, but i am really
-                                not
-                                good at design :)
-                                You can go to <a href="https://github.com/segler-alex/radiobrowser">GitHub</a> or send
-                                me a
-                                mail.
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3>Automatic station check</h3>
-                    </div>
-                    <div class="panel-body">
-                        <dl>
-                            <dt>Why is my click not counted?</dt>
-                            <dd>Only one click per IP address per station a day is counted. Some people click their
-                                favorite stations
-                                hundreds of times every day by using the programmers API, so I had to add this
-                                restriction.
-                                IP addresses that did the click are kept for this purpose for 24 hours.
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>How often is every station checked?</dt>
-                            <dd>Every station is checked once every 24 hours.
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>In what order are the stations checked?</dt>
-                            <dd>The stations not checked for the longest time are checked first.</dd>
-                        </dl>
-                        <dl>
-                            <dt>Why are some stations marked as broken even when they are not?</dt>
-                            <dd>This can have multiple causes:
-                                <ul>
-                                    <li>Legal restrictions:
-                                        <br /> There may be some countries which have legal restrictions prohibiting
-                                        your favorite
-                                        stations from broadcasting worldwide. It has to be possible to connect to them
-                                        from my server
-                                        located in Germany.
-                                    </li>
-                                    <li>High Costs:
-                                        <br /> Some others would allow global broadcast but let the stations pay huge
-                                        amounts of money to
-                                        copyright owners if they want to do that. Please talk to your station or your
-                                        local political
-                                        representatives to ensure the freedom of global
-                                        broadcasting.
-                                    </li>
-                                    <li>Status not up to date:<br />
-                                        Sometimes streams go down for some time. If the automatic check happens to be
-                                        there at this exact
-                                        time, they will be marked as broken. It will take some time that this station is
-                                        checked again and
-                                        marked
-                                        as usable.
-                                    </li>
-                                    <li>Bugs:
-                                        <br /> My program has a BUG :) If you think that is the case, please drop me a
-                                        note or if you are a
-                                        programmer, fix it on GitHub.
-                                    </li>
-                                </ul>
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>When will stations get deleted?</dt>
-                            <dd>There are two cases in which stations will get deleted automatically:
-                                <ul>
-                                    <li>New stations that never worked will get deleted after 2 days.</li>
-                                    <li>Stations that worked at some point, but have not been working for at least 6
-                                        days now will get
-                                        deleted.</li>
-                                </ul>
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3>Caches</h3>
-                    </div>
-                    <div class="panel-body">
-                        <dl>
-                            <dt>What is cached?</dt>
-                            <dd>
-                                <ul>
-                                    <li>The list of tags and the list of languages are calculated from the data. They
-                                        are refreshed every 300 seconds.</li>
-                                    <li>Most generated output of the api is cached 60 seconds in its entirety. It uses
-                                        an external cache software (like <a
-                                            href="https://en.wikipedia.org/wiki/Redis">redis</a>, <a
-                                            href="https://en.wikipedia.org/wiki/Memcached">memcached</a>) for that.
-                                    </li>
-                                </ul>
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3>Project structure</h3>
-                    </div>
-                    <div class="panel-body">
-                        <dl>
-                            <dt>Current structure</dt>
-                            <dd>
-                                I keep multiple servers that use federation online. I call them first level servers.
-                                Stations can be added to any one of the first level servers and will be distributed
-                                among them. Also stream check information and click statistics is distributed among
-                                them.
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>How do I get a list of first level servers?</dt>
-                            <dd>
-                                You have to do the following steps:
-                                <ol>
-                                    <li>Do a DNS lookup of all.api.radio-browser.info for all IP addresses. It will
-                                        always return all
-                                        available first level servers.</li>
-                                    <li>Filter out doubles</li>
-                                    <li>Do a reverse lookup for all remaining IPs.</li>
-                                    <li>Add "https://" in front of each of them.</li>
-                                    <li>Randomize the list and choose the first one as base url. If a request fails
-                                        continue to the next server in your list.</li>
-                                </ol>
-                                This steps will ensure that the users of your app will always have a working connection
-                                to a server.
-                                There are example implementations at <a
-                                    href="https://api.radio-browser.info">api.radio-browser.info</a>.
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>Do all radio-browser servers support IPv6?</dt>
-                            <dd>
-                                In short: YES.<br />
-                                If you have any problems, please contact me.
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>Do all radio-browser servers support HTTP/2?</dt>
-                            <dd>
-                                In short: YES.<br />
-                                If you have any problems, please contact me.
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>I want to set up my own radiobrowser API server. How do I do that?</dt>
-                            <dd>
-                                Use the git project at <a
-                                    href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a>
-                                which powers the new first level servers. It will automatically mirror the main
-                                servers because it supports federation. This is probably your easiest bet.
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>Does radio-browser have some kinds of federation network?</dt>
-                            <dd>
-                                YES, the new API <a
-                                    href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a>
-                                does have federation.<br />
-                                This means that changes on one server will automatically be pulled from all the other
-                                servers and incorporated into their data. Consistency is kept by giving each change a
-                                distinct
-                                unique ID (<a
-                                    href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a>)
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>How does federation work?</dt>
-                            <dd>
-                                Every server keeps a station change history including all additions and changes.
-                                This can be pulled from other servers as a full version or as a differential from the
-                                state they already have.
-                                Each server also keeps a history of station checks, which can also be pulled in a
-                                similiar fashion.<br /><br />
-                                Some servers do checks themselves, so there are multiple sources of checks from
-                                different countries. Checks from multiple sources
-                                for one station are combined into a majority vote (offline/online) state.
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3>Project components</h3>
-                    </div>
-                    <div class="panel-body">
-                        <dl>
-                            <dt><a href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a>
-                            </dt>
-                            <dd>Language: RUST<br />
-                                Provide API for multiple first level servers at
-                                <ul>
-                                    <li><a href="https://de1.api.radio-browser.info">de1.api.radio-browser.info</a></li>
-                                    <li><a href="https://fr1.api.radio-browser.info">fr1.api.radio-browser.info</a></li>
-                                    <li><a href="https://nl1.api.radio-browser.info">nl1.api.radio-browser.info</a></li>
-                                </ul>
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt><a href="https://github.com/segler-alex/radiobrowser">radiobrowser</a></dt>
-                            <dd>Language: HTML, Javascript, Angular 1<br />
-                                Basic web page to list, play and add stations. Communicate to radiobrowser-api through
-                                REST requests.
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt><a href="https://github.com/segler-alex/av-stream-info-rust">av-stream-check</a></dt>
-                            <dd>Language: Rust<br />
-                                Type: Library<br />
-                                Repository: <a href="https://crates.io/crates/av-stream-info-rust">crates.io</a><br />
-                                Dependency: playlist-decoder<br />
-                                Library that checks audio and video streams and extracts metadata.
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt><a href="https://github.com/segler-alex/playlist-decoder-rust">playlist-decoder</a></dt>
-                            <dd>Language: Rust<br />
-                                Type: Library<br />
-                                Repository: <a href="https://crates.io/crates/playlist-decoder">crates.io</a><br />
-                                Library that decodes various playlist formats (M3U,PLS,XSPF)
                             </dd>
                         </dl>
                     </div>
