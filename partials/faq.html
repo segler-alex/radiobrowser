@@ -53,6 +53,366 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
+                        <h3>History</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            A little history of radio-browser for the overly interested reader ;) One day I browsed
+                            through
+                            the still open tickets of the frontend github projects and somebody wished for this. This
+                            made
+                            me think about the past and I think I am now at this age .. :)
+                        </p>
+                        <p>
+                            Some dates may be not completely accurate, but I do not remember things by date so I had to
+                            search through the repositories. I may have started sooner on some projects but commited
+                            them to
+                            github only later. I gave a link to the source, if there is one.
+                        </p>
+                        <dl>
+                            <dt>First steps - <a
+                                    href="https://www.programmierecke.net/programmed/rhythmbox-icecast.html">rhythmbox-icecast</a>
+                                (Aug. 2009 - Sep. 2009)</dt>
+                            <dd>
+                                <p>
+                                    The history of radio-browser.info goes back to my university days and it was a very
+                                    different project at that time.
+                                    I always liked listening to online radio while programming and studiing while using
+                                    linux. There were some players for
+                                    radio in linux. <a href="http://www.nongnu.org/streamtuner/">StreamTuner</a> was an
+                                    interesting tool, but it did not have the stations I wanted to listen to.
+                                    I also disliked it to be a separate program, which
+                                    made the user need to import the stream in her/his favourite music player, which was
+                                    rhythmbox at the time for me.
+                                </p>
+                                <p>
+                                    I thought it should be simple to augment rhythmbox with a plugin and I knew the <a
+                                        href="http://dir.xiph.org/">icecast directory</a> as a first simple start. It
+                                    was xml based
+                                    so I tried to write a plugin for rhythmbox myself that would allow basic searching
+                                    and playing of streams from icecast.
+                                    Why the first version on my homepage was 2.0 I was actually not able to remember :)
+                                    But I assume there was an attempt before which version 2.0 broke
+                                    compatibility to.
+                                </p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>More sources - <a
+                                    href="https://www.programmierecke.net/programmed/rhythmbox-radio-browser.html">rhythmbox-radio-browser</a>,
+                                <a href="https://github.com/segler-alex/rhythmbox-radio-browser">Github</a> (Sep. 2009 -
+                                Jun. 2011)
+                            </dt>
+                            <dd>
+                                <p>
+                                    Not short after starting rhythmbox-icecast I found that having only one source of
+                                    streaming data is not really cool. There were a lot of sources out
+                                    there and I tried to add more of them. So I decided to change the name to
+                                    <i>rhythmbox-radio-browser</i> and added the shoutcast directory as a source to the
+                                    plugin.
+                                </p>
+                                <p>The thing I was missing was to have a central list of my favourite streams that I
+                                    could not find in icecast or shoutcast directories. They just did not have streams
+                                    of real over the air
+                                    stations from my local area. There were streams on their respective websites but I
+                                    did not always want to first
+                                    search stations in the searching machine of my choice, find a stream on their
+                                    website, and press play.
+                                    It would be much nicer to just have a list of streams in a single place to search
+                                    and switch streams much easier and faster.
+                                    So I created an xml file with a list of my favourite streams and put it on my own
+                                    webservice, so also other people could
+                                    benefit from it. The plugin would then download this xml file as a third source of
+                                    information.
+                                </p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>Community support - (Nov. 2009)</dt>
+                            <dd>
+                                <p>
+                                    Arround version 1.8 I think (I actually had to look it up in the history :) ) I put
+                                    my knowledge of PHP together and finally found a free PHP
+                                    service online. At least I think it was free, I did not have a credit card at the
+                                    time to make internet payments, and as a student money was always short.
+                                    It was <a href="http://bplaced.net">bplaced.net</a> if anybody can remember and it
+                                    was good enough to have a very basic webservice running that generated
+                                    xml that the rhythmbox plugin could ingest.
+                                </p>
+                                <p>
+                                    I do not have sources from that time, at least I did not find any on github. The
+                                    <a
+                                        href="https://github.com/segler-alex/radiobrowser-api/commit/1cc2a7292cea8a57fd89dd4f838a4f867df7eaa9">first
+                                        commit</a> of the PHP backend goes back to Mar. 2016. Maybe I did not keep the
+                                    sources of that time
+                                    because they were not much to look at ;)
+                                </p>
+                                <p>
+                                    For hosting I moved to <a href="https://all-inkl.com/">all-inkl.com</a> after some
+                                    time, I am not sure when anymore. It was always key to stay as cheap
+                                    as possible, something like start and forget was the idea. Searching cheap
+                                    alternatives I did regularly which brought me to <a
+                                        href="https://netcup.de">netcup.de</a> and I am still a happy customer.
+                                    (I did not get any money for this links, it was just interesting to think back)
+                                </p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>More apps are what the world needs - <a
+                                    href="https://github.com/segler-alex/RadioDroid">Radiodroid</a> (Mar. 2015)</dt>
+                            <dd>
+                                <p>
+                                    The good thing about having an API is that you can use it in a lot of different
+                                    places and something I liked to have
+                                    was using the API inside the daily path to work or in the subway at night before
+                                    sleep in bed (or even while sleeping :) ). And as with a lot of programming
+                                    projects, it was about learning something
+                                    new, how to create a simple app. I just really like programming :)
+                                </p>
+                                <p>
+                                    I do not know when it happened but the good thing about having a public facing
+                                    project like an app is, that
+                                    a lot of people get to know you and are even willing to fill in some programming
+                                    hours. So there are now some
+                                    regular helpers that took the main load of maintaining radiodroid away from my
+                                    shoulders and I could focus on the
+                                    backend side again. Thank you a lot <a
+                                        href="https://github.com/segler-alex/RadioDroid/graphs/contributors">guys</a>!
+                                </p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>APIs are the future - <a
+                                    href="https://github.com/segler-alex/radiobrowser-api">radiobrowser-api</a> (Dec.
+                                2015 - Jul. 2020)</dt>
+                            <dd>
+                                <p>
+                                    The initial PHP based website was now online for some years and it was still not
+                                    really open. Not because I wanted it private
+                                    but because I never planned for it to get this big. It was a really cool feeling
+                                    when I first saw that people really added streams to it
+                                    via the webpage. It was one of those very old school kind of php pages, that do
+                                    everything in one php file, doing changes to the database and showing the poorly
+                                    styled outcome to
+                                    the user. Styling stuff was never my strong side, and I think it still shows ;)
+                                    Practically no one knew that it even existed, I never did advertise
+                                    it. I just put it out there, and some people found the rhythmbox plugin and used it.
+                                    The API was also not documented so I was quite surprised when looking through the
+                                    webserver logs
+                                    I found that other people used the API. So somebody found it usefull enough to look
+                                    at the code of the plugin, try to understand it and then use it in their own
+                                    project. There the idea was born: I need to create a real API and more importantly
+                                    DOCUMENT it :)
+                                </p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>Automatic librarian - <a
+                                    href="https://github.com/segler-alex/radiobrowser-api/commit/c24144dd3b9a3ab5127bfa66feab1b7b2677015a">commit</a>
+                                (May 2016)</dt>
+                            <dd>
+                                <p>
+                                    The database grew steadily but many streams did not work anymore when trying to play
+                                    them. Endpoints change and keeping up with it is a task only a few people wanted to
+                                    do. The database got more crowded with unusable entries und less every day. I
+                                    thought we live in the computer age, and still we are checking streams our selves.
+                                    This needs to change.
+                                </p>
+                                <p>
+                                    When looking at a internet stream you can see a few extra headers most of the time.
+                                    They are added by the streaming software and date back to the big era of shoutcast.
+                                    They set the standard, but they did never say it is one. You can read some basic
+                                    things from them:
+                                    i am an audio stream, this is my bitrate and name and some other stuff. Why not use
+                                    them to find out if on the endpoint in the database there is still somebody
+                                    listening for connections? Extracting some metainformation for display to the api
+                                    user would then be just a nice byproduct. Of course not every stream did support
+                                    this, but for most it was a good way and after going through a lot of edge cases I
+                                    enabled the cronjob on the server,
+                                    and all broken streams got deleted, without any user intervention. Now the database
+                                    was usable again.
+                                </p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>Learning a new language - <a
+                                    href="https://github.com/segler-alex/radiobrowser-api-rust">radiobrowser-api-rust</a>
+                                (Jan. 2018)</dt>
+                            <dd>
+                                <p>While I never had a huge love for PHP, the backend implementation in php worked quite
+                                    good for a long time. It did not have a big need
+                                    for maintenance and it was cheap in expenses but I always felt there are better
+                                    solutions for APIs. Rust, a systems level programming language, is maybe not
+                                    something people would see as the optimal platform for creating a web api, but the
+                                    more I read about it and its positive attributes the more I wanted to use it for a
+                                    project. Finally I laid the plan
+                                    to use Node.JS to rest (pun intended) and started working on a basic
+                                    reimplementation of radiobrowser-api.
+                                </p>
+                                <p>
+                                    It took quite a while until I had most features ready and even then I did only
+                                    deploy it as a second level server
+                                    to the main server which still ran the PHP backend. I needed at least pull support
+                                    for the older API
+                                    so that every change anybody made on the main server did automatically replicate to
+                                    the new deployment. At the time quite a few projects already used radio-browser.info
+                                    as their backend, so I wanted to keep
+                                    most endpoints the same to make migration easier later.
+                                    The plan to run the new software at a different DNS name (*.api.radio-browser.info)
+                                    had 3 reasons:
+                                <ol>
+                                    <li>I wanted to make different endpoints for every country as soon as federation
+                                        would work</li>
+                                    <li>Spliting the website from the webservice to 2 different DNS names was something
+                                        I was thinking about for some time already. I should have done this sooner, when
+                                        I started creating the second PHP backend which had a defined API.</li>
+                                    <li>That way I could keep the old backend online while already testing the new one.
+                                    </li>
+                                </ol>
+                                </p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>Why can't we have nice things? - <a
+                                    href="https://github.com/segler-alex/radiobrowser-api/commit/2dc4723075396604b5d3d0b4a70f7bfe687063e4">commit</a>
+                                (Apr. 2018)</dt>
+                            <dd>
+                                <p>
+                                    A few hard days did lay behind me at that time. A lot of streams that had the
+                                    highest vote count had been edited and their content
+                                    had been changed in a way that their names were filled with hate against germany and
+                                    german people. A lot of people tried to help, and in the end I had to disable
+                                    editing and to revert to an older database snapshot. (Good thing to have daily
+                                    backups) But what happened?
+                                </p>
+                                <p>
+                                    One day I did find some streams had been changed. Their names were full of hate and
+                                    some things were even legally problematic. Maybe I even got late to the party, this
+                                    was going on for some days already. But other people had undone most damage already.
+                                    I also started fixing streams manually. This continued on for some days. More and
+                                    more people were annoyed because of this damage to the database. At some point a
+                                    huge chunk of data got destroyed at once. It seemed a single attacker created a
+                                    script to change streams in bulk. This made it even harder to fix streams for a
+                                    relatively small number of people to fix streams again and again, when it is so easy
+                                    to destroy the work of many hours in a few seconds.
+                                </p>
+                                <p>
+                                    People tried even to reach out to the attacker by changing stream names to messages,
+                                    so that the attacker may eventually read them. I was not involved in this, but in
+                                    the end a friendly guy on the internet wrote me an email with the full story. They
+                                    basically managed to open an anonymous chat channel to this guy and asked him about
+                                    his motivations. He talked so the email stated a lot about stations with wrong
+                                    information he did not like in radio-browser. (I know, strange isn't it? he
+                                    complains about wrong information, but he does not help but break things even more.)
+                                    Then he started talking more and more about a stream database he built and which did
+                                    have more correct information. He also hinted at beeing willing to sell it. (now we
+                                    are
+                                    getting somewhere here, was this his real intention?)
+                                    They could not convince him to stop destroying the database further, so when I read
+                                    this mail I felt this was a point where something needed to be changed for
+                                    radio-browser to be able to stay alive. And that fast!
+                                </p>
+                                <p>
+                                    I disabled all editing and deleting endpoints of the api as a first step. A good
+                                    thing I had started creating daily backups for radio-browser quite a while ago. I
+                                    wrote some fixing scripts and could undo the damage in faster way. But I decided
+                                    that edit would stay disabled until I have a good solution for this.
+                                </p>
+                                <p>
+                                    Having an easy API makes it not only easy for good people to contribute, but also
+                                    for others ;(
+                                </p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>Highly available - somewhere arround <a
+                                    href="https://github.com/segler-alex/radiobrowser-api-rust/releases/tag/0.6.0">0.6.0</a>
+                                (Jan. 2020)</dt>
+                            <dd>
+                                <p>From the beginning I wanted to harden radiobrowser-api-rust against future load, make
+                                    it ready for more and more people. But it took quite a while until
+                                    I had a syncing mechanism that I did not hate. Syncing is still not perfect and
+                                    there is are a few lines where I still not have a good solution yet, but for me
+                                    syncing meant federation.
+                                    I never did want to own the full stack and run the only servers. The
+                                    idea was that
+                                    everyone could start and run radio-browser backend on her/his infrastructure. This
+                                    makes it much more resistant to internet problems.
+                                </p>
+                                <p>
+                                    A downside to this all can still be felt today, there is no loadbalancer. A client
+                                    has to find a suitable
+                                    server itsself by looking at the dns. I liked the idea because dns is so bare bones
+                                    that I could trust it
+                                    at least to next atomic war and maybe even boyond. This of course makes
+                                    implementation of clients harder,
+                                    there is no single endpoint you call. There is an endpoint
+                                    all.api.radio-browser.info which has IPs of all servers
+                                    but it does not work for SSL. I use <a
+                                        href="https://letsencrypt.org/">letsencrypt</a>, which makes the deployment of a
+                                    single
+                                    server easy but there is no good and automatic solution if you want to give multiple
+                                    servers the same dns name.
+                                </p>
+                                <p>
+                                    But for me it was always about creating a good solution that will last, so I see
+                                    radio-browser still in its infancy age.
+                                    All this principles and freedoms are now enshrined on the main api documentation
+                                    site <a href="https://api.radio-browser.info/">api.radio-browser.info</a>
+                                </p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>Being change that you crave - <a
+                                    href="https://github.com/segler-alex/radiobrowser/commit/2f3dff9b7a6b1b640c854219426141b62583304c">commit</a>
+                                (Jan. 2021)</dt>
+                            <dd>
+                                <p>
+                                    This was a task that was long in the making, but finally I reached the goal: Making
+                                    it possible for stream owners to <a
+                                        href="https://www.radio-browser.info/#!/owners">change their own database
+                                        entries</a>. But how did I get here?
+                                </p>
+                                <p>
+                                    I was never happy with disabling and later removing edit functionality completely
+                                    but I did not have a better idea. Some people suggested
+                                    creating logins, but getting through the hassle of user logins.. I really did not
+                                    like that idea, also I thought it does not solve anything.
+                                    Having a login does not make you a good person and I still wanted to keep the
+                                    registering process if any open to all. No there had to be a better solution. Maybe
+                                    there is an automatic way of doing things. Is
+                                    there anyone in the equation who has the correct meta information for the stream and
+                                    maybe also has an incentive to provide it?
+                                    Then I thought that I already extract metainformation from the streams. Could I
+                                    maybe extend that principle? The idea starting growing over time and I started by
+                                    extending the (not really) existing standard which a lot of streams already
+                                    implement. The result can be seen on <a
+                                        href="https://www.stream-meta.info/">www.stream-meta.info</a>.
+                                    Implementing it in the backend was almost easy then.
+                                </p>
+                                <p>
+                                    I see a future where all streams do provide more metainformation and radio-browser
+                                    gets more the role of a web-crawler. Just searching the web for streams and adding
+                                    them to the database. It would index metainformation like the logo, language or
+                                    geolocation of the stream. Stream owners
+                                    would actually want to feed it complete information to make it easier to find their
+                                    stream. People could point the crawler to new undiscovered places
+                                    and even other people could then begin to build crawlers that may be better than
+                                    radio-browser. But at that point radio-browser would have made the internet more
+                                    open, more self descriptive and this would be far more important.
+                                    Yeah I know there also would be a downside, the same there is with other crawlers:
+                                    "search engine optimization", but at least it would be an open crawler, with open
+                                    algorithms.
+                                </p>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
                         <h3>Future plans for radio-browser</h3>
                     </div>
                     <div class="panel-body">
