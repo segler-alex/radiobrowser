@@ -51,6 +51,15 @@ angular.module('RadioBrowserApp').factory('radiobrowser', ['$http', function rad
         });
     }
 
+    function get_station(uuid) {
+        return get('/json/stations/byuuid/' + uuid).then(function (data) {
+            if (data.data.length === 1){
+                return data.data[0];
+            }
+            return null;
+        });
+    }
+
     function get_changes(uuid) {
         return get('/json/stations/changed/' + uuid).then(function (data) {
             var list_changes = data.data;
@@ -98,5 +107,6 @@ angular.module('RadioBrowserApp').factory('radiobrowser', ['$http', function rad
         get_clicks,
         get_checks,
         get_check_steps,
+        get_station,
     };
 }]);

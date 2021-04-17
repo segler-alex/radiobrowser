@@ -3,6 +3,29 @@ var app = angular.module('RadioBrowserApp');
 app.controller('EditController', function (radiobrowser, $uibModal, $stateParams, $state, $http) {
     var vm = this;
 
+    var mymap = L.map('mapid', {}).setView([51.505, -0.09], 2);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png ', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 18,
+        tileSize: 256,
+    }).addTo(mymap);
+
+    var marker = null;
+
+    function onMapClick(e) {
+        clearmarker();
+        marker = L.marker(e.latlng).addTo(mymap);
+    }
+
+    function clearmarker(){
+        if (marker){
+            mymap.removeLayer(marker);
+            marker = null;
+        }
+    }
+    
+    mymap.on('click', onMapClick);
+
     if ($stateParams.id) {
         console.log("edit station:" + $stateParams.id);
         radiobrowser.get('/json/stations/byid/' + $stateParams.id).then(function (data) {
@@ -131,7 +154,6 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
 
     function sendStation() {
         if (vm.editStation !== null) {
-            vm.activeSending = true;
             console.log("---" + vm.editStation.id);
             vm.editStation.tags = "";
             if (vm.editStation.tags_arr) {
@@ -144,6 +166,16 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
                 vm.editStation.countrycode = vm.editStation.country.alpha2Code;
                 vm.editStation.country = vm.editStation.country.name;
             }
+            if (marker){
+                if (!confirm("Are you sure about the location of the stream?")){
+                    alert("Saving was canceled! Please remove the Lat/Long if you are unsure.");
+                    return;
+                }
+                var latlng = marker.getLatLng();
+                vm.editStation.geo_lat = ""+latlng.lat;
+                vm.editStation.geo_long = ""+latlng.lng;
+            }
+            vm.activeSending = true;
             if (undefined === vm.editStation.id) {
                 url = '/json/add';
             } else {
@@ -226,4 +258,6 @@ app.controller('EditController', function (radiobrowser, $uibModal, $stateParams
     vm.getStates = getStates;
     vm.getLanguages = getLanguages;
     vm.getTags = getTags;
+
+    vm.clearmarker = clearmarker;
 });

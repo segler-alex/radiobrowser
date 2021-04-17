@@ -147,12 +147,29 @@
                     <span class="help-block"><font color="red">Please press ENTER or click <span class="glyphicon glyphicon-ok" style="color:green"></span> after every single tag to add it!</font></span>
                 </div>
             </div>
+
             <button class="btn btn-default" ng-click="edit.sendStation()"
                     ng-disabled="edit.activeSending || !FormInput.$valid">Save
             </button>
             <button class="btn btn-default" ng-click="edit.deleteStation(edit.editStation.stationuuid)"
                     ng-disabled="edit.activeSending" ng-show="edit.editStation.id">Delete
             </button>
+
+            <div class="form-group">
+                <label for="StationCountryCode" class="col-sm-2 control-label">Lat/Long</label>
+                <div class="col-sm-10">
+                    <p>
+                        Exact location of the stream source. This will make it possible for users to find a stream on a map.
+                    </p>
+                    <p>
+                        Please set the pin <b>only if you know</b> where the stream is located. If you were just testing, please click "Clear Lat/Long" before you press "save".
+                    </p>
+                    <p>
+                        <button ng-click="edit.clearmarker()">Clear Lat/Long</button>
+                    </p>
+                    <div id="mapid"></div>
+                </div>
+            </div>
         </form>
     </div>
     <div style="float:left;width:600px;margin-left:50px" ng-show="edit.similiarStations.length > 0">

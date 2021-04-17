@@ -1,4 +1,5 @@
 <div>
+    <H1>{{ ctrl.station.name || "Loading.."}}</H1>
     <h2>Stream change history</h2>
     <table class="table table-condensed table-hover">
         <thead>
@@ -14,6 +15,21 @@
             </tr>
         </tbody>
     </table>
+
+    <h2>Stream location</h2>
+    <p>
+        Shows where the stream is located.
+    </p>
+    <p class="p" ng-show="!ctrl.map_exact">
+        The stream does not have exact coordinates. So the location information
+        is not exact and only uses the countrycode "{{ ctrl.station.countrycode }}" to
+        show you the approximate location of the country. 
+        Country locations are provided by <a href="https://restcountries.eu/">restcountries.eu</a>.
+    </p>
+    <p class="p" ng-show="ctrl.map_exact">
+        The stream does provide exact coordinates.
+    </p>
+    <div id="mapid_show"></div>
 
     <h2>Stream click history</h2>
     A list of clicks in the last 24 hours.

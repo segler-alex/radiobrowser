@@ -3,6 +3,13 @@ body {
     background: #DBE1E8;
 }
 
+.p {
+    width:500px;
+}
+
+#mapid { height: 400px; width: 400px; }
+#mapid_show { height: 400px; width: 700px; }
+
 .header_sub {
     text-decoration: underline;
     font-style: italic;

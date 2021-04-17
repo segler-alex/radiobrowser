@@ -1,13 +1,60 @@
 var app = angular.module('RadioBrowserApp');
 
-app.controller('HistoryController', function (radiobrowser, $stateParams) {
+app.controller('HistoryController', function (radiobrowser, $stateParams, $http) {
     var vm = this;
 
     vm.list_changes = [];
     vm.list_clicks = [];
     vm.list_checks = [];
+    vm.station = null;
+    vm.map_exact = false;
+
+    var marker = null;
+    var mymap = null;
+
+    function show_map(latlng, exact){
+        if (!mymap){
+            vm.map_exact = exact;
+            var bounds = L.latLngBounds(latlng, latlng);
+            var zoom = 10;
+            if (!exact){
+                zoom = 5;
+            }
+            mymap = L.map('mapid_show', {
+                dragging: false,
+                maxBounds: bounds,
+            }).setView(latlng, zoom);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png ', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 18,
+                tileSize: 256,
+            }).addTo(mymap);
+            if (exact){
+                marker = L.marker(latlng).addTo(mymap);
+            }
+        }
+    }
 
     if ($stateParams.id) {
+        radiobrowser.get_station($stateParams.id).then(function (data) {
+            vm.station = data;
+
+            if (vm.station && vm.station.geo_lat && vm.station.geo_long){
+                var latlng = L.latLng(vm.station.geo_lat, vm.station.geo_long);
+                show_map(latlng, true);
+                return null;
+            }else{
+                console.log("no exact information available");
+                return $http.get('https://restcountries.eu/rest/v2/alpha/' + vm.station.countrycode);
+            }
+        }).then(function (countryinfo){
+            if (countryinfo && countryinfo.data){
+                console.log("got country info",countryinfo.data.latlng);
+                var latlng = L.latLng(countryinfo.data.latlng);
+                show_map(latlng, false);
+            }
+        });
+
         radiobrowser.get_changes($stateParams.id).then(function (data) {
             vm.list_changes = data;
             vm.list_changes.sort(listSorter);
