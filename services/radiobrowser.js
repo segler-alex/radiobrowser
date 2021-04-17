@@ -1,5 +1,11 @@
 angular.module('RadioBrowserApp').factory('radiobrowser', ['$http', function radiobrowser($http) {
     var SERVER = "https://de1.api.radio-browser.info";
+    var SERVERs = [
+        "de1.api.radio-browser.info",
+        "nl1.api.radio-browser.info",
+        "fr1.api.radio-browser.info",
+    ];
+    var PROTOCOL = "https";
     //var SERVER = "http://localhost:8080";
 
     function getStats() {
@@ -12,6 +18,37 @@ angular.module('RadioBrowserApp').factory('radiobrowser', ['$http', function rad
 
     function get(relLink) {
         return $http.get(SERVER + relLink);
+    }
+
+    function build_check_step_tree(list, parent) {
+        let result = [];
+        for (var i = 0; i < list.length; i++) {
+            var item = list[i];
+            if (item.parent_stepuuid === parent) {
+                result.push(item);
+                item.children = build_check_step_tree(list, item.stepuuid);
+            }
+        }
+        return result;
+    }
+
+    function get_all_servers(relLink) {
+        var jobs = [];
+        for (var i = 0; i < SERVERs.length; i++) {
+            var servername = "" + SERVERs[i];
+            let job = $http.get(PROTOCOL + "://" + servername + relLink);
+            jobs.push(job);
+        }
+        return Promise.all(jobs).then(function (results) {
+            var list = [];
+            for (var i = 0; i < SERVERs.length; i++) {
+                list.push({
+                    servername: SERVERs[i],
+                    result: build_check_step_tree(results[i].data, null),
+                });
+            }
+            return list;
+        });
     }
 
     function get_changes(uuid) {
@@ -47,6 +84,12 @@ angular.module('RadioBrowserApp').factory('radiobrowser', ['$http', function rad
         });
     }
 
+    function get_check_steps(uuid) {
+        return get_all_servers('/json/checksteps?uuids=' + uuid).then(function (results) {
+            return results;
+        });
+    }
+
     return {
         'getStats': getStats,
         'get': get,
@@ -54,5 +97,6 @@ angular.module('RadioBrowserApp').factory('radiobrowser', ['$http', function rad
         get_changes,
         get_clicks,
         get_checks,
+        get_check_steps,
     };
 }]);
