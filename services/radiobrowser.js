@@ -1,4 +1,4 @@
-angular.module('RadioBrowserApp').factory('radiobrowser', ['$http', function radiobrowser($http) {
+angular.module('RadioBrowserApp').factory('radiobrowser', ['$http','$q', function radiobrowser($http,$q) {
     var SERVER = "https://de1.api.radio-browser.info";
     var SERVERs = [
         "de1.api.radio-browser.info",
@@ -39,12 +39,13 @@ angular.module('RadioBrowserApp').factory('radiobrowser', ['$http', function rad
             let job = $http.get(PROTOCOL + "://" + servername + relLink);
             jobs.push(job);
         }
-        return Promise.all(jobs).then(function (results) {
+        return $q.all(jobs).then(function (results) {
             var list = [];
             for (var i = 0; i < SERVERs.length; i++) {
                 list.push({
                     servername: SERVERs[i],
-                    result: build_check_step_tree(results[i].data, null),
+                    //result: build_check_step_tree(results[i].data, null),
+                    result: results[i].data,
                 });
             }
             return list;

@@ -6,6 +6,7 @@ app.controller('HistoryController', function (radiobrowser, $stateParams, $http)
     vm.list_changes = [];
     vm.list_clicks = [];
     vm.list_checks = [];
+    vm.list_check_steps = null;//[{servername:"unknown"}];
     vm.station = null;
     vm.map_exact = false;
 
@@ -71,7 +72,52 @@ app.controller('HistoryController', function (radiobrowser, $stateParams, $http)
         radiobrowser.get_checks($stateParams.id).then(function (data) {
             vm.list_checks = data.reverse();
         });
+
+        radiobrowser.get_check_steps($stateParams.id).then(function (data) {
+            vm.list_check_steps = data;
+            console.log("data",data);
+        });
+
+        /*
+        Promise.all([job_checks, job_steps]).then(function (results) {
+            var list_checks = results[0].reverse();
+            var list_check_steps = results[1];
+
+            var list_all_steps = [];
+            for (var i = 0; i < list_check_steps.length; i++) {
+                list_all_steps = list_all_steps.concat(list_check_steps[i].result);
+            }
+            for (var i = 0; i < list_checks.length; i++) {
+                var check = list_checks[i];
+                for (var j = 0; j < list_all_steps.length; j++) {
+                    var step = list_all_steps[j];
+                    if (check.checkuuid === step.checkuuid) {
+                        check.steps = [step];
+                        break;
+                    }
+                }
+            }
+            console.log(JSON.stringify(list_checks, null, " "));
+
+            vm.list_checks.splice(0,0,list_checks);
+            
+        });
+        */
     }
+
+    /*
+    function get_steps_by_check_id(checkuuid) {
+        for (var i = 0; i < vm.list_check_steps.length; i++) {
+            for (var j = 0; j < vm.list_check_steps[i].result.length; j++) {
+                if (vm.list_check_steps[i].result[j].checkuuid === checkuuid) {
+                    console.log("found by id:" + checkuuid);
+                    return vm.list_check_steps[i].result;
+                }
+            }
+        }
+        return [];
+    }
+    */
 
     function clicks_to_buckets(list) {
         let buckets = [];
@@ -84,7 +130,7 @@ app.controller('HistoryController', function (radiobrowser, $stateParams, $http)
         for (var item of list) {
             var item_unix = item.clicktimestamp.getTime() / 1000;
             var bucket = Math.floor((now_unix - item_unix) / 3600);
-            if (bucket < 24){
+            if (bucket < 24) {
                 buckets[bucket] += 1;
             }
         }
@@ -142,4 +188,6 @@ app.controller('HistoryController', function (radiobrowser, $stateParams, $http)
         }
         return list;
     }
+
+    //vm.get_steps_by_check_id = get_steps_by_check_id;
 });

@@ -39,10 +39,11 @@
                 <span class="btn btn-xs btn-info" ng-show="station.bitrate > 0">{{station.bitrate}} kbps</span>
                 <a href="https://en.wikipedia.org/wiki/HTTP_Live_Streaming" target="_blank" class="btn btn-xs btn-info"
                    ng-show="station.hls==='1'">HLS</a>
-                <span class="btn btn-xs btn-danger" ng-show="station.lastcheckok===0">BROKEN</span>
+                <span class="btn btn-xs btn-danger" ng-show="station.lastcheckok===0"
+                    ui-sref="history({'id': station.stationuuid,'#':'check_steps'})">BROKEN</span>
                 <span class="btn btn-xs btn-warning" ng-show="!station.lastchecktime_iso8601">CHECKING..</span>
                 <span class="btn btn-xs btn-warning" ng-show="station.ssl_error===1">SSL BROKEN</span>
-                <button class="btn btn-link btn-xs" ui-sref="history({'id': station.stationuuid})">
+                <button class="btn btn-link btn-xs" ui-sref="history({'id': station.stationuuid,'#': 'location'})">
                     <span class="btn btn-xs btn-success" ng-show="!(!station.geo_lat)">GEO</span>
                 </button>
             </td>

@@ -1,5 +1,6 @@
 <div>
     <H1>{{ ctrl.station.name || "Loading.."}}</H1>
+
     <h2>Stream change history</h2>
     <table class="table table-condensed table-hover">
         <thead>
@@ -16,7 +17,7 @@
         </tbody>
     </table>
 
-    <h2>Stream location</h2>
+    <h2 id="location">Stream location</h2>
     <p>
         Shows where the stream is located.
     </p>
@@ -72,4 +73,46 @@
             </tr>
         </tbody>
     </table>
+
+    <h2>Stream check steps</h2>
+    <p class="p">
+        A list of all steps that were done to check if the link is a real functioning streaming link.
+    </p>
+    <div ng-hide="ctrl.list_check_steps">Loading..</div>
+    <div ng-show="ctrl.list_check_steps">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th width="200">Servername</th>
+                    <th>Check steps</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="server in ctrl.list_check_steps">
+                    <td>{{server.servername}}</td>
+                    <td>
+                        <table ng-show="server.result.length > 0" class="table table-condensed table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="200">Check Time</th>
+                                    <th>Url</th>
+                                    <th>Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="step in server.result">
+                                    <td>{{step.creation_iso8601 | date:'short' }}</td>
+                                    <td>{{step.url}}</td>
+                                    <td ng-show="step.urltype">{{step.urltype}}</td>
+                                    <td ng-show="!step.urltype" ng-class="{'bg-danger': step.error}">{{step.error}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span ng-show="server.result.length === 0">Checking..</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h2 id="check_steps">.</h2>
 </div>
