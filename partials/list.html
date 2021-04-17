@@ -41,6 +41,7 @@
                    ng-show="station.hls==='1'">HLS</a>
                 <span class="btn btn-xs btn-danger" ng-show="station.lastcheckok===0">BROKEN</span>
                 <span class="btn btn-xs btn-warning" ng-show="!station.lastchecktime_iso8601">CHECKING..</span>
+                <span class="btn btn-xs btn-warning" ng-show="station.ssl_error===1">SSL BROKEN</span>
             </td>
             <td>
                 <a class="btn btn-xs btn-info tagbutton" ui-sref="bytag({'tag': value})"
