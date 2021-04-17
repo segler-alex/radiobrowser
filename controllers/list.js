@@ -70,20 +70,6 @@ app.controller('ListController', function (radiobrowser, audioplayer, relLink, $
         });
     }
 
-    function revertStation(stationid, changeid) {
-        console.log("revertStation:" + stationid + "  " + changeid);
-        radiobrowser.get('/json/revert/' + stationid + '/' + changeid).then(function (data) {
-            $state.go('lastchange');
-            if (data.data.ok === "true") {
-                alert("undelete ok");
-            } else {
-                alert("could not undelete station:" + data.data.message);
-            }
-        }, function (err) {
-            console.log("error:" + err);
-        });
-    }
-
     function play(station) {
         // decode playlist
         radiobrowser.get("/json/url/" + station.stationuuid).then(function (data) {
@@ -124,7 +110,6 @@ app.controller('ListController', function (radiobrowser, audioplayer, relLink, $
     vm.bigCurrentPage = 1;
     vm.bigTotalItems = 0;
 
-    vm.revertStation = revertStation;
     vm.vote = vote;
     vm.play = play;
     vm.changeItemsPerPage = changeItemsPerPage;

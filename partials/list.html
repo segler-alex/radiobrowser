@@ -75,11 +75,6 @@
                 <button class="btn btn-link btn-xs" ui-sref="history({'id': station.stationuuid})"><span
                         class="glyphicon glyphicon glyphicon-step-backward" aria-label="History"/></button>
             </td>
-            <td ng-show="tab==='deleted'">
-                <button class="btn btn-link btn-xs" ng-click="list.revertStation(station.id, station.changeid)">
-                    Undelete
-                </button>
-            </td>
         </tr>
         </tbody>
     </table>
